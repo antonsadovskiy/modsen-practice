@@ -1,0 +1,75 @@
+@import './fonts.css';
+
+:root {
+    /*Font family*/
+    --font-family-dm-sans: 'DM Sans';
+
+    /* Font size */
+    --font-size-8: 8px;
+    --font-size-10: 10px;
+    --font-size-12: 12px;
+    --font-size-13: 13px;
+    --font-size-14: 14px;
+    --font-size-15: 15px;
+    --font-size-16: 16px;
+    --font-size-18: 18px;
+    --font-size-20: 20px;
+    --font-size-22: 22px;
+    --font-size-24: 24px;
+    --font-size-26: 26px;
+    --font-size-28: 28px;
+    --font-size-33: 33px;
+    --font-size-40: 40px;
+
+    /* Line height */
+    --line-height-10: 10px;
+    --line-height-12: 12px;
+    --line-height-13: 13px;
+    --line-height-14: 14px;
+    --line-height-16: 16px;
+    --line-height-18: 18px;
+    --line-height-20: 20px;
+    --line-height-21: 21px;
+    --line-height-22: 22px;
+    --line-height-23: 23px;
+    --line-height-24: 24px;
+    --line-height-26: 26px;
+    --line-height-27: 27px;
+    --line-height-28: 28px;
+    --line-height-31: 31px;
+    --line-height-35: 35px;
+    --line-height-38: 38px;
+    --line-height-43: 43px;
+    --line-height-52: 52px;
+
+    /* Font weight */
+    --font-weight-100: 100;
+    --font-weight-200: 200;
+    --font-weight-300: 300;
+    --font-weight-400: 400;
+    --font-weight-500: 500;
+    --font-weight-600: 600;
+    --font-weight-700: 700;
+    --font-weight-800: 800;
+    --font-weight-900: 900;
+
+    /* Headings */
+    --h1: var(--font-weight-500) var(--font-size-33) / var(--line-height-43)
+    var(--font-family-dm-sans);
+    --h2: var(--font-weight-400) var(--font-size-26) / var(--line-height-35)
+    var(--font-family-dm-sans);
+    --h3: var(--font-weight-400) var(--font-size-20) / var(--line-height-26)
+    var(--font-family-dm-sans);
+    --h4: var(--font-weight-500) var(--font-size-20) / var(--line-height-20)
+    var(--font-family-dm-sans);
+    --h5: var(--font-weight-400) var(--font-size-16) / var(--line-height-27)
+    var(--font-family-dm-sans);
+
+    /* Body */
+    --body-large: var(--font-weight-700) var(--font-size-16) /
+    var(--line-height-21) var(--font-family-dm-sans);
+    --body-medium: var(--font-weight-400) var(--font-size-14) /
+    var(--line-height-22) var(--font-family-dm-sans);
+    --body-small: var(--font-weight-400) var(--font-size-12) /
+    var(--line-height-20) var(--font-family-dm-sans);
+}

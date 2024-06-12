@@ -14,8 +14,6 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
     "plugin:promise/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -23,17 +21,26 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "prettier"
   ],
   "ignorePatterns": [
     "public/*"
   ],
   "rules": {
     "import/no-default-export": "warn",
-    "no-duplicate-imports": ["error", { "includeExports": true }],
+    "no-duplicate-imports": [
+      "error",
+      {
+        "includeExports": true
+      }
+    ],
     "no-template-curly-in-string": "error",
     "block-scoped-var": "error",
-    "curly": ["error", "all"],
+    "curly": [
+      "error",
+      "all"
+    ],
     "eqeqeq": "error",
     "no-alert": "warn",
     "no-labels": "error",
@@ -47,14 +54,26 @@
     "no-self-compare": "error",
     "no-sequences": "error",
     "no-throw-literal": "error",
-    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true
+      }
+    ],
     "no-useless-call": "error",
     "no-useless-concat": "error",
     "no-useless-return": "error",
     "prefer-promise-reject-errors": "error",
     "no-undefined": "off",
-    "array-bracket-newline": ["error", "consistent"],
-    "comma-dangle": ["error", "always-multiline"],
+    "array-bracket-newline": [
+      "error",
+      "consistent"
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
     "comma-style": "error",
     "eol-last": "error",
     "key-spacing": "error",
@@ -69,7 +88,10 @@
     "no-unneeded-ternary": "error",
     "no-whitespace-before-property": "error",
     "object-curly-newline": "error",
-    "object-curly-spacing": ["error", "always"],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
     "semi-spacing": "error",
     "space-before-blocks": "error",
     "space-before-function-paren": [
@@ -84,24 +106,55 @@
     "space-infix-ops": "error",
     "space-unary-ops": "error",
     "switch-colon-spacing": "error",
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
     // "arrow-parens": ["error", "as-needed"],
     "arrow-spacing": "error",
-    "generator-star-spacing": ["error", "after"],
+    "generator-star-spacing": [
+      "error",
+      "after"
+    ],
     "no-useless-computed-key": "error",
     "no-useless-rename": "error",
-    "object-shorthand": ["error", "always"],
+    "object-shorthand": [
+      "error",
+      "always"
+    ],
     "prefer-arrow-callback": "warn",
     "prefer-destructuring": "off",
-    "rest-spread-spacing": ["error", "never"],
+    "rest-spread-spacing": [
+      "error",
+      "never"
+    ],
     "template-curly-spacing": "error",
-    "promise/prefer-await-to-then": "warn",
     "promise/always-return": "off",
-    "@typescript-eslint/member-delimiter-style": ["error", { "multiline": { "delimiter": "semi" } }],
-    "@typescript-eslint/member-ordering": "off", // иначе ругается на flow экшны mobx
-    "@typescript-eslint/brace-style": ["error", "1tbs"],
-    "@typescript-eslint/quotes": ["error", "single", { "avoidEscape": true }],
-    "@typescript-eslint/func-call-spacing": ["error", "never"],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "semi"
+        }
+      }
+    ],
+    "@typescript-eslint/member-ordering": "off",
+    // иначе ругается на flow экшны mobx
+    "@typescript-eslint/brace-style": [
+      "error",
+      "1tbs"
+    ],
+    "@typescript-eslint/quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "@typescript-eslint/func-call-spacing": [
+      "error",
+      "never"
+    ],
     "@typescript-eslint/no-useless-constructor": "error",
     "@typescript-eslint/prefer-for-of": "warn",
     "@typescript-eslint/no-unnecessary-type-arguments": "warn",
@@ -111,14 +164,24 @@
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/interface-name-prefix": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_$" }],
-    "@typescript-eslint/no-floating-promises": ["off", { "ignoreVoid": true, "ignoreIIFE": true }],
+    "@typescript-eslint/no-floating-promises": [
+      "off",
+      {
+        "ignoreVoid": true,
+        "ignoreIIFE": true
+      }
+    ],
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-return": "off",
-    "@typescript-eslint/restrict-template-expressions": ["error", {"allowAny": true}],
+    "@typescript-eslint/restrict-template-expressions": [
+      "error",
+      {
+        "allowAny": true
+      }
+    ],
     "@typescript-eslint/unbound-method": "warn",
     "sonarjs/cognitive-complexity": "off",
     "sonarjs/no-duplicate-string": "off",
