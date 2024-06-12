@@ -26,3 +26,17 @@ export const Wrapper = styled.div`
     }
   }
 `;
+
+export const ViewAllLink = styled.div`
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: var(--font-family-dm-sans);
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-20);
+  font-weight: var(--font-weight-700);
+  color: ${({ theme }) => theme.color.accent};
+
+  &:hover {
+    color: ${({ theme }) => theme.color.black};
+  }
+`;

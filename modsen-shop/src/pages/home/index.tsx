@@ -1,23 +1,31 @@
 import { CatalogCard } from '../../components/catalog-card';
-import { Wrapper } from './styled';
-import { useEffect, useState } from 'react';
+import { ViewAllLink, Wrapper } from './styled';
+import { useCallback, useEffect, useState } from 'react';
 import { Api } from '../../api/api';
 import { ProductType } from '../../api/types';
 import { Skeleton } from '../../components/skeleton';
+import { useNavigate } from 'react-router-dom';
+import { routes } from '../../constants/routes';
 
 export const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const [latestProducts, setLatestProducts] = useState<ProductType[]>([]);
+
+  const viewAllHandler = useCallback(() => {
+    navigate(routes.shop);
+  }, [navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const data = await Api.getProducts();
+        const data = await Api.getProducts({ limit: 6 });
 
         if (data) {
-          setLatestProducts(data.splice(0, 6));
+          setLatestProducts(data);
         }
       } catch (e) {
         console.error(e);
@@ -33,7 +41,7 @@ export const HomePage = () => {
       <div className={'latest'}>
         <div className={'titleContainer'}>
           <div className={'label'}>Shop The Latest</div>
-          <div className={'viewAll'}>View All</div>
+          <ViewAllLink onClick={viewAllHandler}>View All</ViewAllLink>
         </div>
         <div className={'list'}>
           {isLoading

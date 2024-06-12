@@ -10,3 +10,8 @@ export type ProductType = {
     count: number;
   };
 };
+
+export type GetProductsRequestType = {
+  limit?: number;
+  sortBy?: 'desc' | 'asc';
+};

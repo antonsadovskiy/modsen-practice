@@ -31,4 +31,21 @@ export const Button = styled.button<{
     }
     return theme.color.white;
   }};
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme, $variant }) => {
+      if ($variant === 'primary') {
+        return theme.color.white;
+      }
+      return theme.color.black;
+    }};
+    color: ${({ theme, $variant }) => {
+      if ($variant === 'primary') {
+        return theme.color.black;
+      }
+      return theme.color.white;
+    }};
+  }
 `;
