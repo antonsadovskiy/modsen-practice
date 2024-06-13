@@ -1,19 +1,12 @@
 import styled, { ThemeProvider } from "styled-components";
 import { Footer } from "./components/footer";
 import { Header } from "./components/header";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { theme } from "./assets/styles/theme";
-import { Outlet, useNavigate } from "react-router-dom";
-import { routes } from "./constants/routes";
+import { Outlet } from "react-router-dom";
 
 export function App() {
   const [currentTheme] = useState<"light" | "dark">("light");
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate(routes.home);
-  }, []);
 
   return (
     <ThemeProvider theme={theme[currentTheme]}>

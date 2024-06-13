@@ -23,6 +23,10 @@ export const Wrapper = styled.div`
     align-items: center;
     justify-content: space-between;
 
+    .logo {
+      cursor: pointer;
+    }
+
     .actions {
       display: flex;
       align-items: center;
