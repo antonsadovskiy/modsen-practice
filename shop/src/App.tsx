@@ -10,6 +10,7 @@ export function App() {
   const [currentTheme] = useState<"light" | "dark">("light");
 
   const navigate = useNavigate();
+
   useEffect(() => {
     navigate(routes.home);
   }, []);
