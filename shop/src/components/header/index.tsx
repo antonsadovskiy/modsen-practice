@@ -23,7 +23,7 @@ export const Header = () => {
           height={32}
         />
         <div className={"actions"}>
-          <div className={"link"}>Shop</div>
+          <div className={"link"}>Shop Test</div>
           <SearchSVG />
           <ShoppingCardSVG />
         </div>

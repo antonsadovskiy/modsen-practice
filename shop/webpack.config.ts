@@ -2,6 +2,8 @@ import path from "path";
 import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
+import ReactRefreshTypeScript from "react-refresh-typescript";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 
@@ -32,6 +34,7 @@ export default (env: EnvVariable) => {
           filename: "css/[name].[contenthash:8].css",
           chunkFilename: "css/[name].[contenthash:8].css",
         }),
+      isDev && new ReactRefreshWebpackPlugin(),
     ].filter(Boolean),
     module: {
       rules: [
@@ -48,7 +51,17 @@ export default (env: EnvVariable) => {
         },
         {
           test: /\.tsx?$/,
-          use: "ts-loader",
+          use: [
+            {
+              loader: "ts-loader",
+              options: {
+                transpileOnly: true,
+                getCustomTransformers: () => ({
+                  before: [isDev && ReactRefreshTypeScript()].filter(Boolean),
+                }),
+              },
+            },
+          ],
           exclude: /node_modules/,
         },
         {
@@ -73,6 +86,7 @@ export default (env: EnvVariable) => {
           port: env.port ?? 3000,
           open: true,
           historyApiFallback: true,
+          hot: true,
         }
       : undefined,
   };
