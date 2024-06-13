@@ -1,18 +1,16 @@
 import { Wrapper } from "./styled";
-import { Link } from "react-router-dom";
-// import { ReactComponent as LogoSVG } from './../../assets/svg/logo.svg';
-// import { ReactComponent as SearchSVG } from './../../assets/svg/search.svg';
-// import { ReactComponent as ShoppingCardSVG } from './../../assets/svg/shopping-cart.svg';
+import LogoSVG from "@/assets/svg/logo.svg";
+import SearchSVG from "@/assets/svg/search.svg";
+import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
 
 export const Header = () => (
   <Wrapper>
     <div className={"headerContent"}>
-      <Link to={"/404"}>404</Link>
-      {/*<LogoSVG />*/}
+      <LogoSVG width={290} height={32} />
       <div className={"actions"}>
         <div className={"link"}>Shop</div>
-        {/*<SearchSVG />*/}
-        {/*<ShoppingCardSVG />*/}
+        <SearchSVG />
+        <ShoppingCardSVG />
       </div>
     </div>
     <div className={"line"} />
