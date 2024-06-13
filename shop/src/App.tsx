@@ -22,7 +22,7 @@ export function App() {
 }
 
 const Container = styled.div`
-  min-height: calc(100vh - 64px - 90px);
+  min-height: 100vh;
   max-width: 1248px;
   margin: 0 auto;
   display: flex;

@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import { NotFoundPage } from "./pages/not-found";
 import { HomePage } from "@/pages/home";
+import { ShopPage } from "@/pages/shop";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route path={"/"} element={<Navigate to={"/home"} />} />
       <Route path={"*"} element={<NotFoundPage />} />
       <Route path={"/home"} element={<HomePage />} />
+      <Route path={"/shop"} element={<ShopPage />} />
     </Route>,
   ),
 );

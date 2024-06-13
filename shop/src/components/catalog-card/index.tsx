@@ -27,7 +27,7 @@ export const CatalogCard = ({
   }, [navigate, id]);
 
   return (
-    <Wrapper onClick={onClickHandler}>
+    <Wrapper $width={width} onClick={onClickHandler}>
       <div className={"imageContainer"}>
         <img src={imageSrc} alt={title} height={height} width={width} />
       </div>

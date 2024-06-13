@@ -11,6 +11,8 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+
     .title {
       margin-bottom: 24px;
       font: var(--h1);

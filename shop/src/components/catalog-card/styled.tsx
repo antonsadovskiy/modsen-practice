@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $width: string }>`
   cursor: pointer;
-  width: 377px;
+  width: ${({ $width }) => `${$width}px`}};
 
   .imageContainer {
     img {
