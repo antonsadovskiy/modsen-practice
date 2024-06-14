@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div<{ $width: string }>`
+export const CatalogCardWrapper = styled.div<{ $width: string }>`
   cursor: pointer;
-  width: ${({ $width }) => `${$width}px`}};
+  width: ${({ $width }) => `${$width}px`};
 
   .imageContainer {
     img {

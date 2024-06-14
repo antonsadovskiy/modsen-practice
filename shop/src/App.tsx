@@ -9,26 +9,33 @@ export function App() {
   const [currentTheme] = useState<"light" | "dark">("light");
 
   return (
+    // @ts-ignore
     <ThemeProvider theme={theme[currentTheme]}>
-      <Container>
-        <div className={"content"}>
-          <Header />
-          <Outlet />
-        </div>
-        <Footer />
-      </Container>
+      <Wrapper>
+        <MaxWidthContainer>
+          <div className={"content"}>
+            <Header />
+            <Outlet />
+          </div>
+          <Footer />
+        </MaxWidthContainer>
+      </Wrapper>
     </ThemeProvider>
   );
 }
 
-const Container = styled.div`
+const Wrapper = styled.div`
+  background-color: ${({ theme }) => theme.color.white};
+`;
+
+const MaxWidthContainer = styled.div`
   min-height: 100vh;
   max-width: 1248px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 250px;
+  //gap: 250px;
 
   .content {
     display: flex;

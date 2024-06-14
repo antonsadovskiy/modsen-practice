@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 40px;
+  margin-bottom: 250px;
 
   .label {
     font: var(--h1);

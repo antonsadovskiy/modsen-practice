@@ -1,4 +1,4 @@
-import { Wrapper } from "./styled";
+import { CatalogCardWrapper } from "./styled";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import { routes } from "@/constants/routes";
@@ -27,12 +27,12 @@ export const CatalogCard = ({
   }, [navigate, id]);
 
   return (
-    <Wrapper $width={width} onClick={onClickHandler}>
+    <CatalogCardWrapper $width={width} onClick={onClickHandler}>
       <div className={"imageContainer"}>
         <img src={imageSrc} alt={title} height={height} width={width} />
       </div>
       <div className={"title"}>{title}</div>
       <div className={"price"}>$ {price}</div>
-    </Wrapper>
+    </CatalogCardWrapper>
   );
 };

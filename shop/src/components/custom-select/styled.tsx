@@ -1,9 +1,13 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $disabled: boolean }>`
+  pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
+
   position: relative;
   border-radius: 4px;
   border: ${({ theme }) => `1px solid ${theme.color.gray}`};
+
+  opacity: ${({ $disabled }) => ($disabled ? "0.5" : "1")};
 
   .select {
     margin-top: 2px;

@@ -1,15 +1,16 @@
 import styled from "styled-components";
-import { ComponentProps } from "react";
 
-export const Input = styled.input<{ $type: ComponentProps<"input">["type"] }>`
+export const Input = styled.input<{
+  $isWithEndIcon: boolean;
+}>`
   font-weight: var(--font-weight-400);
   font-size: var(--font-size-12);
   line-height: var(--line-height-16);
   font-family: var(--font-family-dm-sans);
   color: ${({ theme }) => `${theme.color.black}`};
   width: 100%;
-  padding: ${({ $type }) => {
-    if ($type === "search") {
+  padding: ${({ $isWithEndIcon }) => {
+    if ($isWithEndIcon) {
       return `8px 20px 8px 0`;
     }
     return `8px 0 8px 0`;
@@ -34,8 +35,13 @@ export const Wrapper = styled.div<{ $isFullWidth: boolean }>`
   align-items: center;
 
   .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     right: 0;
-    bottom: 8px;
+  }
+  .clickable {
+    cursor: pointer;
   }
 `;

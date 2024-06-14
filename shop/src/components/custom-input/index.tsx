@@ -1,22 +1,31 @@
-import { ComponentProps } from "react";
+import { ComponentProps, ReactNode } from "react";
 import { Input, Wrapper } from "./styled";
-import SearchSVG from "@/assets/svg/search.svg";
 
 type CustomInputPropsType = {
   isFullWidth?: boolean;
   value: string | number;
   placeholder?: string;
+  endIcon?: ReactNode;
+  onIconClick?: () => void;
 } & ComponentProps<"input">;
 
 //TODO: добавить валидацию
 
 export const CustomInput = ({
-  type,
   isFullWidth = true,
+  endIcon,
+  onIconClick,
   ...rest
 }: CustomInputPropsType) => (
   <Wrapper $isFullWidth={isFullWidth}>
-    <Input $type={type} {...rest} />
-    {type === "search" && <SearchSVG className={"icon"} />}
+    <Input $isWithEndIcon={!!endIcon} {...rest} />
+    {endIcon && (
+      <div
+        className={onIconClick ? "icon clickable" : "icon"}
+        onClick={onIconClick}
+      >
+        {endIcon}
+      </div>
+    )}
   </Wrapper>
 );

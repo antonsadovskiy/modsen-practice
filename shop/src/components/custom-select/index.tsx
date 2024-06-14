@@ -14,6 +14,7 @@ type CustomSelectPropsType = {
   options: OptionType[];
   placeholder?: string;
   onChange?: (selected: OptionType) => void;
+  disabled?: boolean;
 };
 
 export const CustomSelect = ({
@@ -21,6 +22,7 @@ export const CustomSelect = ({
   selected,
   onChange,
   placeholder,
+  disabled = false,
 }: CustomSelectPropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -43,7 +45,7 @@ export const CustomSelect = ({
   }, []);
 
   return (
-    <Wrapper ref={ref}>
+    <Wrapper ref={ref} $disabled={disabled}>
       <div className={"placeholder"} onClick={handlePlaceHolderClick}>
         {selected?.title ?? placeholder}
         <div className={`${isOpen ? "arrow rotate" : "arrow"}`}>
