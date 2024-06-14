@@ -1,4 +1,4 @@
-import { Wrapper } from "./styled";
+import { NoData, Wrapper } from "./styled";
 import { CustomInput } from "@/components/custom-input";
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { Api } from "@/api/api";
@@ -10,6 +10,7 @@ import { CustomButton } from "@/components/custom-button";
 import { CustomSlider } from "@/components/custom-slider";
 import SearchSVG from "@/assets/svg/search.svg";
 import { Skeleton } from "@/components/skeleton";
+import { findMinAndMaxPrice } from "@/utils/findMinAndMaxPrice";
 
 export const ShopPage = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -20,8 +21,9 @@ export const ShopPage = () => {
   const [categories, setCategories] = useState<string[]>([]);
 
   const [price, setPrice] = useState<number[]>([0, 100]);
-  /*eslint-disable-next-line*/
-  const [committedPrice, setCommittedPrice] = useState<number[]>([0, 0]);
+  const [committedPrice, setCommittedPrice] = useState<number[] | undefined>();
+
+  const [minAndMaxPrice, setMinAndMaxPrice] = useState<number[]>([0, 100]);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,9 +39,28 @@ export const ShopPage = () => {
     [categories],
   );
 
+  const filteredCatalog = useMemo(
+    () =>
+      catalog
+        .filter((item) =>
+          committedPrice === undefined
+            ? item
+            : item.price >= committedPrice[0] &&
+              item.price <= committedPrice[1],
+        )
+        .filter((item) =>
+          item.title.toLowerCase().includes(searchValue.toLowerCase()),
+        ),
+    [catalog, committedPrice, searchValue],
+  );
+
   const fetchCatalog = useCallback(async () => {
     try {
       const data = await Api.getProducts();
+      const prices = findMinAndMaxPrice(data);
+
+      setMinAndMaxPrice(prices);
+      setPrice(prices);
       setCatalog(data);
     } catch (e) {
       console.error(e);
@@ -76,7 +97,9 @@ export const ShopPage = () => {
     setSearchValue("");
     setSortValue(undefined);
     setCategoryValue(undefined);
-  }, []);
+    setPrice(minAndMaxPrice);
+    setCommittedPrice(minAndMaxPrice);
+  }, [minAndMaxPrice]);
 
   const onValueChangeHandler = useCallback((value: number[]) => {
     setPrice(value);
@@ -119,7 +142,9 @@ export const ShopPage = () => {
           </div>
           <div className={"sliderContainer"}>
             <CustomSlider
-              defaultValue={[0, 100]}
+              min={minAndMaxPrice[0]}
+              max={minAndMaxPrice[1]}
+              defaultValue={price}
               value={price}
               onValueChange={onValueChangeHandler}
               onValueCommit={onValueCommitHandler}
@@ -133,21 +158,25 @@ export const ShopPage = () => {
           </CustomButton>
         </div>
         <div className={"catalog"}>
-          {isLoading
-            ? Array.from({ length: 6 }).map((_, index) => (
-                <Skeleton key={index} width={300} height={390} />
-              ))
-            : catalog.map((item) => (
-                <CatalogCard
-                  imageSrc={item.image}
-                  key={item.id}
-                  width={"300"}
-                  height={"300"}
-                  id={item.id}
-                  title={item.title}
-                  price={item.price}
-                />
-              ))}
+          {isLoading &&
+            Array.from({ length: 6 }).map((_, index) => (
+              <Skeleton key={index} width={300} height={390} />
+            ))}
+          {!isLoading && filteredCatalog.length > 0 ? (
+            filteredCatalog.map((item) => (
+              <CatalogCard
+                imageSrc={item.image}
+                key={item.id}
+                width={"300"}
+                height={"300"}
+                id={item.id}
+                title={item.title}
+                price={item.price}
+              />
+            ))
+          ) : (
+            <NoData>No products with these filters were found</NoData>
+          )}
         </div>
       </div>
     </Wrapper>

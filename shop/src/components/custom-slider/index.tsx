@@ -6,6 +6,8 @@ type CustomSliderPropsType = {
   defaultValue?: number[];
   onValueCommit?: (value: number[]) => void;
   onValueChange?: (value: number[]) => void;
+  min?: number;
+  max?: number;
 };
 
 export const CustomSlider = ({
@@ -13,11 +15,15 @@ export const CustomSlider = ({
   onValueChange,
   defaultValue,
   value,
+  min,
+  max,
 }: CustomSliderPropsType) => (
   <Wrapper>
     <Slider.Root
       className="sliderRoot"
       value={value}
+      min={min}
+      max={max}
       defaultValue={defaultValue}
       onValueCommit={onValueCommit}
       onValueChange={onValueChange}

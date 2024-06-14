@@ -49,3 +49,10 @@ export const Wrapper = styled.div`
     }
   }
 `;
+
+export const NoData = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font: var(--h4);
+`;
