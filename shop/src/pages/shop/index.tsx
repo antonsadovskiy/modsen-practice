@@ -104,17 +104,17 @@ export const ShopPage = () => {
           />
           <div className={"selects"}>
             <CustomSelect
-              placeholder={"Sort by"}
-              selected={sortValue}
-              options={sortOptions}
-              onChange={(value) => onChangeSelectValue(value, "sort")}
-            />
-            <CustomSelect
               placeholder={"Shop by"}
               selected={categoryValue}
               options={mappedCategories}
               disabled={mappedCategories.length === 0}
               onChange={(value) => onChangeSelectValue(value, "category")}
+            />
+            <CustomSelect
+              placeholder={"Sort by"}
+              selected={sortValue}
+              options={sortOptions}
+              onChange={(value) => onChangeSelectValue(value, "sort")}
             />
           </div>
           <div className={"sliderContainer"}>
