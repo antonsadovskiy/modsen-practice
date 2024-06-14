@@ -6,6 +6,7 @@ export const Button = styled.button<{
   $isFullWidth: boolean;
   $variant: ButtonVariant;
 }>`
+  text-align: center;
   cursor: pointer;
   font: var(--body-large);
   padding: 16px 49px;
@@ -40,6 +41,25 @@ export const Button = styled.button<{
         return theme.color.white;
       }
       return theme.color.black;
+    }};
+    color: ${({ theme, $variant }) => {
+      if ($variant === "primary") {
+        return theme.color.black;
+      }
+      return theme.color.white;
+    }};
+    box-shadow: ${({ theme, $variant }) => {
+      if ($variant === "primary") {
+        return `0 0 0 1px ${theme.color.black}`;
+      }
+    }};
+  }
+  &:active {
+    background-color: ${({ theme, $variant }) => {
+      if ($variant === "primary") {
+        return theme.color.darkGray;
+      }
+      return theme.color.darkGray;
     }};
     color: ${({ theme, $variant }) => {
       if ($variant === "primary") {

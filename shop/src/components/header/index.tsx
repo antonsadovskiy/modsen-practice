@@ -5,16 +5,20 @@ import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { routes } from "@/constants/routes";
-import { CustomInput } from "@/components/custom-input";
+import { CustomSwitch } from "@/components/custom-switch";
 
 export const Header = () => {
+  const [currentTheme, setCurrentTheme] = useState<"light" | "dark">("light");
+
   const navigate = useNavigate();
 
   const goHomePageHandler = useCallback(() => {
     navigate(routes.home);
   }, [navigate]);
 
-  const [value, setValue] = useState("");
+  const onCheckedChangeHandler = useCallback((checked: boolean) => {
+    setCurrentTheme(checked ? "dark" : "light");
+  }, []);
 
   return (
     <Wrapper>
@@ -25,15 +29,13 @@ export const Header = () => {
           width={290}
           height={32}
         />
-        <CustomInput
-          isFullWidth={false}
-          type={"search"}
-          placeholder={"Email"}
-          value={value}
-          onChange={(e) => setValue(e.currentTarget.value)}
-        />
         <div className={"actions"}>
-          <div className={"link"}>Shop Test</div>
+          <div className={"link"}>Shop</div>
+          <CustomSwitch
+            checked={currentTheme !== "light"}
+            defaultChecked={currentTheme !== "light"}
+            onCheckedChange={onCheckedChangeHandler}
+          />
           <SearchSVG />
           <ShoppingCardSVG />
         </div>

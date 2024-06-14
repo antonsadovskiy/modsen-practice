@@ -9,6 +9,8 @@
     "start": "webpack serve --env port=3000 --env mode=development"
   },
   "dependencies": {
+    "@radix-ui/react-slider": "^1.1.2",
+    "@radix-ui/react-switch": "^1.0.3",
     "@reduxjs/toolkit": "^2.2.5",
     "@svgr/webpack": "^8.1.0",
     "@types/react-router-dom": "^5.3.3",

@@ -29,6 +29,7 @@ export const Wrapper = styled.div`
     .actions {
       display: flex;
       align-items: center;
+      gap: 40px;
 
       .link {
         font: var(--h5);

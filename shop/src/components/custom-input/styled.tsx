@@ -14,7 +14,7 @@ export const Input = styled.input<{ $type: ComponentProps<"input">["type"] }>`
     }
     return `8px 0 8px 0`;
   }};
-  box-shadow: ${({ theme }) => ` 0 1px 0 0 ${theme.color.gray}`};
+  border-bottom: ${({ theme }) => `1px solid ${theme.color.gray}`};
 
   ::placeholder {
     color: ${({ theme }) => `${theme.color.darkGray}`};
