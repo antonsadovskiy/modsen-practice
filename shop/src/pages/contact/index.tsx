@@ -19,6 +19,7 @@ export const ContactUsPage = () => {
   const [isSending, setIsSending] = useState(false);
 
   const onSubmit: SubmitHandler<ContactUsType> = useCallback(async (data) => {
+    console.log("submit");
     setIsSending(true);
     try {
       await emailjs.send(
