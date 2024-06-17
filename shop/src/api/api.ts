@@ -11,6 +11,14 @@ export class Api {
       console.error(e);
     }
   }
+  static async getProductById(id: string) {
+    try {
+      const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+      return (await res.json()) as ProductType;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   static async getAllCategories() {
     try {

@@ -23,7 +23,6 @@ export function App() {
     </ThemeProvider>
   );
 }
-
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.color.white};
 `;
@@ -35,7 +34,6 @@ const MaxWidthContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  //gap: 250px;
 
   .content {
     display: flex;
