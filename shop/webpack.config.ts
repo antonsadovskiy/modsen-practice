@@ -23,6 +23,7 @@ export default (env: EnvVariable) => {
     output: {
       path: path.resolve(__dirname, "build"),
       filename: "[name].[contenthash].js",
+      publicPath: "/",
       clean: true,
     },
     plugins: [
@@ -81,14 +82,12 @@ export default (env: EnvVariable) => {
       },
     },
     devtool: isDev && "inline-source-map",
-    devServer: isDev
-      ? {
-          port: env.port ?? 3000,
-          open: true,
-          historyApiFallback: true,
-          hot: true,
-        }
-      : undefined,
+    devServer: {
+      port: env.port ?? 3000,
+      open: true,
+      historyApiFallback: true,
+      hot: true,
+    },
   };
 
   return config;
