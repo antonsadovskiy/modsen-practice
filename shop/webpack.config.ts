@@ -28,10 +28,10 @@ export default (env: EnvVariable) => {
       clean: true,
     },
     plugins: [
-      isDev &&
-        new Dotenv({
-          systemvars: true,
-        }),
+      new Dotenv({
+        path: path.resolve(__dirname, "./.env"),
+        systemvars: true,
+      }),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "public", "index.html"),
       }),
