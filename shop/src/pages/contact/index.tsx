@@ -1,10 +1,11 @@
 import { FormInput, Wrapper } from "@/pages/contact/styled";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { CustomButton } from "@/components/custom-button";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { contactUsSchema, ContactUsType } from "@/types/schemas";
 import { CustomTextarea } from "@/components/custom-textarea";
+import emailjs from "@emailjs/browser";
 
 export const ContactUsPage = () => {
   const {
@@ -15,12 +16,25 @@ export const ContactUsPage = () => {
     resolver: yupResolver(contactUsSchema),
   });
 
-  const onSubmit: SubmitHandler<ContactUsType> = useCallback(
-    (data: ContactUsType) => {
-      console.log(data);
-    },
-    [],
-  );
+  const [isSending, setIsSending] = useState(false);
+
+  const onSubmit: SubmitHandler<ContactUsType> = useCallback(async (data) => {
+    setIsSending(true);
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
+        process.env.REACT_APP_CONTACT_US_TEMPLATE_ID,
+        {
+          recipient: data.email,
+          ...data,
+        },
+      );
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsSending(false);
+    }
+  }, []);
 
   return (
     <Wrapper>
@@ -97,7 +111,9 @@ export const ContactUsPage = () => {
           )}
         />
         <div className={"buttonContainer"}>
-          <CustomButton type={"submit"}>Send</CustomButton>
+          <CustomButton isLoading={isSending} type={"submit"}>
+            Send
+          </CustomButton>
         </div>
       </form>
     </Wrapper>

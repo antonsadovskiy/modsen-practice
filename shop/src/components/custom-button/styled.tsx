@@ -11,6 +11,9 @@ export const Button = styled.button<{
   font: var(--body-large);
   padding: 16px 49px;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
   box-shadow: ${({ theme, $variant }) => {
     if ($variant === "primary") {

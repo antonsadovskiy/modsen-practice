@@ -15,10 +15,7 @@ import { CircleLoader } from "@/components/circle-loader";
 export const Footer = () => {
   const [isSending, setIsSending] = useState(false);
 
-  useEffect(
-    () => emailjs.init(process.env.REACT_APP_GET_NEWS_LETTER_PUBLIC_KEY),
-    [],
-  );
+  useEffect(() => emailjs.init(process.env.REACT_APP_EMAIL_JS_PUBLIC_KEY), []);
 
   const navigate = useNavigate();
 
@@ -35,7 +32,7 @@ export const Footer = () => {
     setIsSending(true);
     try {
       await emailjs.send(
-        process.env.REACT_APP_GET_NEWS_LETTER_SERVICE_ID,
+        process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
         process.env.REACT_APP_GET_NEWS_LETTER_TEMPLATE_ID,
         {
           recipient: email,
