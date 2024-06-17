@@ -28,13 +28,7 @@ export const Footer = () => {
     [],
   );
 
-  console.log(process.env.REACT_APP_EMAIL_JS_PUBLIC_KEY);
-  console.log(process.env.REACT_APP_EMAIL_JS_SERVICE_ID);
-  console.log(process.env.REACT_APP_GET_NEWS_LETTER_TEMPLATE_ID);
-  console.log(process.env.REACT_APP_CONTACT_US_TEMPLATE_ID);
-
   const onSendHandler = useCallback(async () => {
-    console.log("submit");
     setIsSending(true);
     try {
       await emailjs.send(
