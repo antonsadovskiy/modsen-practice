@@ -20,4 +20,15 @@ export class Api {
       console.error(e);
     }
   }
+
+  static async getProductsByCategory(category: string) {
+    try {
+      const res = await fetch(
+        `https://fakestoreapi.com/products/category/${category}`,
+      );
+      return (await res.json()) as ProductType[];
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

@@ -11,6 +11,9 @@ import { CustomSlider } from "@/components/custom-slider";
 import SearchSVG from "@/assets/svg/search.svg";
 import { Skeleton } from "@/components/skeleton";
 import { findMinAndMaxPrice } from "@/utils/findMinAndMaxPrice";
+import { useDebounce } from "@/hooks/useDebounce";
+
+type SortType = "asc" | "desc";
 
 export const ShopPage = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -22,10 +25,15 @@ export const ShopPage = () => {
 
   const [price, setPrice] = useState<number[]>([0, 100]);
   const [committedPrice, setCommittedPrice] = useState<number[] | undefined>();
-
   const [minAndMaxPrice, setMinAndMaxPrice] = useState<number[]>([0, 100]);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [filterType, setFilterType] = useState<
+    "sort" | "category" | undefined
+  >();
+
+  const [isLoadingCatalog, setIsLoadingCatalog] = useState(false);
+
+  const debouncedSearchValue = useDebounce(searchValue, 500);
 
   const onChangeSearchValue = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,46 +57,64 @@ export const ShopPage = () => {
               item.price <= committedPrice[1],
         )
         .filter((item) =>
-          item.title.toLowerCase().includes(searchValue.toLowerCase()),
+          item.title.toLowerCase().includes(debouncedSearchValue.toLowerCase()),
         ),
-    [catalog, committedPrice, searchValue],
+    [catalog, committedPrice, debouncedSearchValue],
   );
 
-  const fetchCatalog = useCallback(async () => {
-    try {
-      const data = await Api.getProducts();
-      const prices = findMinAndMaxPrice(data);
+  const setData = useCallback((data: ProductType[]) => {
+    const prices = findMinAndMaxPrice(data);
 
-      setMinAndMaxPrice(prices);
-      setPrice(prices);
-      setCatalog(data);
+    setCatalog(data);
+    setMinAndMaxPrice(prices);
+    setPrice(prices);
+  }, []);
+
+  const fetchCatalog = useCallback(async () => {
+    setIsLoadingCatalog(true);
+    try {
+      if (filterType === "sort") {
+        const data = await Api.getProducts({
+          sortBy: sortValue.value as SortType,
+        });
+        setData(data);
+        return;
+      }
+      if (filterType === "category") {
+        const data = await Api.getProductsByCategory(categoryValue.value);
+        setData(data);
+        return;
+      }
+
+      const data = await Api.getProducts();
+      setData(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoadingCatalog(false);
+    }
+  }, [categoryValue, filterType, setData, sortValue]);
+
+  const fetchCategories = useCallback(async () => {
+    try {
+      const categories = await Api.getAllCategories();
+      setCategories(categories);
     } catch (e) {
       console.error(e);
     }
   }, []);
 
-  const fetchData = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const promise = Promise.all([fetchCatalog(), Api.getAllCategories()]);
-
-      const [, categories] = await promise;
-
-      setCategories(categories);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [fetchCatalog]);
-
   const onChangeSelectValue = useCallback(
     (value: OptionType, type: "category" | "sort") => {
+      setFilterType(type);
+
       if (type === "category") {
         setCategoryValue(value);
+        setSortValue(undefined);
         return;
       }
       setSortValue(value);
+      setCategoryValue(undefined);
     },
     [],
   );
@@ -99,6 +125,7 @@ export const ShopPage = () => {
     setCategoryValue(undefined);
     setPrice(minAndMaxPrice);
     setCommittedPrice(minAndMaxPrice);
+    setFilterType(undefined);
   }, [minAndMaxPrice]);
 
   const onValueChangeHandler = useCallback((value: number[]) => {
@@ -110,7 +137,12 @@ export const ShopPage = () => {
   }, []);
 
   useEffect(() => {
-    fetchData();
+    fetchCatalog();
+  }, [sortValue, categoryValue]);
+
+  useEffect(() => {
+    fetchCatalog();
+    fetchCategories();
   }, []);
 
   return (
@@ -150,7 +182,8 @@ export const ShopPage = () => {
               onValueCommit={onValueCommitHandler}
             />
             <div className={"price"}>
-              Price: ${`${price[0]}`} - ${`${price[1]}`}
+              Price:{" "}
+              {isLoadingCatalog ? "Loading..." : `$${price[0]} - $${price[1]}`}
             </div>
           </div>
           <CustomButton onClick={onClearFiltersHandler} variant={"secondary"}>
@@ -158,11 +191,11 @@ export const ShopPage = () => {
           </CustomButton>
         </div>
         <div className={"catalog"}>
-          {isLoading &&
+          {isLoadingCatalog &&
             Array.from({ length: 6 }).map((_, index) => (
               <Skeleton key={index} width={300} height={390} />
             ))}
-          {!isLoading && filteredCatalog.length > 0 ? (
+          {!isLoadingCatalog && filteredCatalog.length > 0 ? (
             filteredCatalog.map((item) => (
               <CatalogCard
                 imageSrc={item.image}
