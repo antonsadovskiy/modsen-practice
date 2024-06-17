@@ -3,6 +3,7 @@ import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
+import Dotenv from "dotenv-webpack";
 import ReactRefreshTypeScript from "react-refresh-typescript";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
@@ -27,6 +28,7 @@ export default (env: EnvVariable) => {
       clean: true,
     },
     plugins: [
+      new Dotenv(),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "public", "index.html"),
       }),

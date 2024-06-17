@@ -3,29 +3,32 @@ import { Input, Wrapper } from "./styled";
 
 type CustomInputPropsType = {
   isFullWidth?: boolean;
-  value: string | number;
+  value?: string | number;
   placeholder?: string;
   endIcon?: ReactNode;
   onIconClick?: () => void;
+  error?: string;
 } & ComponentProps<"input">;
-
-//TODO: добавить валидацию
 
 export const CustomInput = ({
   isFullWidth = true,
   endIcon,
   onIconClick,
+  disabled = false,
+  error,
   ...rest
 }: CustomInputPropsType) => (
-  <Wrapper $isFullWidth={isFullWidth}>
-    <Input $isWithEndIcon={!!endIcon} {...rest} />
+  <Wrapper $isFullWidth={isFullWidth} $disabled={disabled}>
+    <Input $isWithEndIcon={!!endIcon} disabled={disabled} {...rest} />
+    {error && <div className={"error"}>{error}</div>}
     {endIcon && (
-      <div
+      <button
+        disabled={disabled}
         className={onIconClick ? "icon clickable" : "icon"}
         onClick={onIconClick}
       >
         {endIcon}
-      </div>
+      </button>
     )}
   </Wrapper>
 );

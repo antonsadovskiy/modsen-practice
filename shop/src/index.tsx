@@ -13,6 +13,8 @@ import { NotFoundPage } from "./pages/not-found";
 import { HomePage } from "@/pages/home";
 import { ShopPage } from "@/pages/shop";
 import { ProductPage } from "@/pages/product";
+import { ContactUsPage } from "@/pages/contact";
+import { routes } from "@/constants/routes";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -21,9 +23,10 @@ const router = createBrowserRouter(
     <Route path={"/"} element={<App />}>
       <Route path={"/"} element={<Navigate to={"/home"} />} />
       <Route path={"*"} element={<NotFoundPage />} />
-      <Route path={"/home"} element={<HomePage />} />
-      <Route path={"/shop"} element={<ShopPage />} />
-      <Route path={"/product/:id"} element={<ProductPage />} />
+      <Route path={routes.home} element={<HomePage />} />
+      <Route path={routes.shop} element={<ShopPage />} />
+      <Route path={routes.contact} element={<ContactUsPage />} />
+      <Route path={`${routes.product}/:id`} element={<ProductPage />} />
     </Route>,
   ),
 );

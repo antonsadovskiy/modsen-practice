@@ -5,12 +5,21 @@ import {
   Wrapper,
 } from "./styled";
 import { socialMedias } from "@/constants/socials";
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import ArrowRightSVG from "@/assets/svg/arrow-right.svg";
 import { footerLinks } from "@/constants/footer-links";
 import { useNavigate } from "react-router-dom";
+import emailjs from "@emailjs/browser";
+import { CircleLoader } from "@/components/circle-loader";
 
 export const Footer = () => {
+  const [isSending, setIsSending] = useState(false);
+
+  useEffect(
+    () => emailjs.init(process.env.REACT_APP_GET_NEWS_LETTER_PUBLIC_KEY),
+    [],
+  );
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>("");
@@ -22,9 +31,23 @@ export const Footer = () => {
     [],
   );
 
-  const onSendHandler = useCallback(() => {
-    console.log(email);
-    setEmail("");
+  const onSendHandler = useCallback(async () => {
+    setIsSending(true);
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_GET_NEWS_LETTER_SERVICE_ID,
+        process.env.REACT_APP_GET_NEWS_LETTER_TEMPLATE_ID,
+        {
+          recipient: email,
+        },
+      );
+
+      setEmail("");
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsSending(false);
+    }
   }, [email]);
 
   const onLinkClickHandler = useCallback(
@@ -50,11 +73,12 @@ export const Footer = () => {
         </div>
         <div className={"inputContainer"}>
           <FooterInput
-            placeholder={"Give an email, get the newsletter."}
+            placeholder={"Give an email, get the news letter."}
             value={email}
+            disabled={isSending}
             onChange={onChangeEmailHandler}
             onIconClick={onSendHandler}
-            endIcon={<ArrowRightSVG />}
+            endIcon={isSending ? <CircleLoader /> : <ArrowRightSVG />}
           />
         </div>
       </div>

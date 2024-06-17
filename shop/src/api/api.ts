@@ -4,7 +4,7 @@ export class Api {
   static async getProducts(data?: GetProductsRequestType) {
     try {
       const res = await fetch(
-        `https://fakestoreapi.com/products?limit=${data?.limit}&sortBy=${data?.sortBy}`,
+        `https://fakestoreapi.com/products?limit=${data?.limit}&sort=${data?.sortBy}`,
       );
       return (await res.json()) as ProductType[];
     } catch (e) {

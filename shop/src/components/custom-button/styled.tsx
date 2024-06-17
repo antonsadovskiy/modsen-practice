@@ -57,7 +57,7 @@ export const Button = styled.button<{
   &:active {
     background-color: ${({ theme, $variant }) => {
       if ($variant === "primary") {
-        return theme.color.darkGray;
+        return theme.color.lightGray;
       }
       return theme.color.darkGray;
     }};
