@@ -11,12 +11,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   gap: 17px;
 
-  .line {
-    height: 1px;
-    width: 100%;
-    background-color: black;
-  }
-
   .headerContent {
     display: flex;
     align-items: center;
@@ -36,4 +30,10 @@ export const Wrapper = styled.div`
       }
     }
   }
+`;
+
+export const BorderBottomLine = styled.div`
+  height: 1px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.color.gray};
 `;

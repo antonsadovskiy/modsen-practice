@@ -6,6 +6,8 @@ import { ProductType } from "@/api/types";
 import { Skeleton } from "@/components/skeleton";
 import { useNavigate } from "react-router-dom";
 import { routes } from "@/constants/routes";
+import { CustomSwiper } from "@/components/custom-swiper";
+import { homeSwiperImages } from "@/constants/home-swiper-images";
 
 export const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +41,9 @@ export const HomePage = () => {
   return (
     <Wrapper>
       <div className={"latest"}>
+        <div className={"swiperContainer"}>
+          <CustomSwiper images={homeSwiperImages} />
+        </div>
         <div className={"titleContainer"}>
           <div className={"label"}>Shop The Latest</div>
           <ViewAllLink onClick={viewAllHandler}>View All</ViewAllLink>

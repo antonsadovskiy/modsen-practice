@@ -1,4 +1,4 @@
-import { Wrapper } from "./styled";
+import { BorderBottomLine, Wrapper } from "./styled";
 import LogoSVG from "@/assets/svg/logo.svg";
 import SearchSVG from "@/assets/svg/search.svg";
 import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
@@ -47,7 +47,7 @@ export const Header = () => {
           <ShoppingCardSVG />
         </div>
       </div>
-      <div className={"line"} />
+      <BorderBottomLine />
     </Wrapper>
   );
 };
