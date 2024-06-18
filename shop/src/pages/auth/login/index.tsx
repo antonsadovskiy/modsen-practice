@@ -10,6 +10,7 @@ import OpenedEyeSVG from "@/assets/svg/opened-eye.svg";
 import ClosedEyeSVG from "@/assets/svg/closed-eye.svg";
 import { useAppDispatch } from "@/store/hooks";
 import { appActions } from "@/store/slices/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export const LoginPage = () => {
   const {
@@ -29,14 +30,34 @@ export const LoginPage = () => {
 
   const dispatch = useAppDispatch();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<LoginType> = useCallback(
-    (data) => {
-      console.log(data);
-      dispatch(appActions.setIsLoggedIn());
-      navigate(routes.home);
-      reset();
+    async (data) => {
+      const auth = getAuth();
+      setIsLoading(true);
+      try {
+        const userData = await signInWithEmailAndPassword(
+          auth,
+          data.email,
+          data.password,
+        );
+        dispatch(appActions.setIsLoggedIn());
+        dispatch(
+          appActions.setUser({
+            email: userData.user.email,
+            id: userData.user.uid,
+          }),
+        );
+        navigate(routes.home);
+        reset();
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsLoading(false);
+      }
     },
     [dispatch, navigate, reset],
   );
@@ -88,7 +109,7 @@ export const LoginPage = () => {
           </S.Link>
         </S.InputsWithLink>
         <S.ButtonContainer>
-          <CustomButton fullWidth type={"submit"}>
+          <CustomButton isLoading={isLoading} fullWidth type={"submit"}>
             Login
           </CustomButton>
         </S.ButtonContainer>

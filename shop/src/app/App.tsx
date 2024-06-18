@@ -3,23 +3,49 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { theme } from "@/assets/styles/theme";
 import { Outlet, ScrollRestoration } from "react-router-dom";
-import { useAppSelector } from "@/store/hooks";
-import { selectorAppTheme, selectorIsLoggedIn } from "@/store/slices/app";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  appActions,
+  selectorAppTheme,
+  selectorIsAppInitialized,
+  selectorIsLoggedIn,
+} from "@/store/slices/app";
+import { useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export function App() {
   const appTheme = useAppSelector(selectorAppTheme);
-  const IsLoggedIn = useAppSelector(selectorIsLoggedIn);
+  const isLoggedIn = useAppSelector(selectorIsLoggedIn);
+  const isAppInitialized = useAppSelector(selectorIsAppInitialized);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const fetchData = () => {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          dispatch(appActions.setIsLoggedIn());
+          dispatch(appActions.setUser({ email: user.email, id: user.uid }));
+        }
+        dispatch(appActions.setIsAppInitialized());
+      });
+    };
+
+    fetchData();
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={theme[appTheme]}>
       <Wrapper>
-        {IsLoggedIn && <Header />}
+        {isLoggedIn && <Header />}
         <MaxWidthContainer>
           <Content>
-            <Outlet />
+            {isAppInitialized && <Outlet />}
+            {!isAppInitialized && "Loading..."}
             <ScrollRestoration />
           </Content>
-          {IsLoggedIn && <Footer />}
+          {isLoggedIn && <Footer />}
         </MaxWidthContainer>
       </Wrapper>
     </ThemeProvider>

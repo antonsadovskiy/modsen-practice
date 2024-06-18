@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { routes } from "@/constants/routes";
 import OpenedEyeSVG from "@/assets/svg/opened-eye.svg";
 import ClosedEyeSVG from "@/assets/svg/closed-eye.svg";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 export const RegistrationPage = () => {
   const {
@@ -26,14 +27,25 @@ export const RegistrationPage = () => {
 
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit: SubmitHandler<RegistrationType> = useCallback(
-    (data) => {
-      console.log(data);
-      navigate(routes.login);
-      reset();
+    async (data) => {
+      const auth = getAuth();
+      setIsLoading(true);
+
+      try {
+        await createUserWithEmailAndPassword(auth, data.email, data.password);
+        reset();
+        navigate(routes.login);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsLoading(false);
+      }
     },
     [navigate, reset],
   );
@@ -93,7 +105,7 @@ export const RegistrationPage = () => {
                   onIconClick={() =>
                     setShowConfirmPassword(!showConfirmPassword)
                   }
-                  type={showPassword ? "text" : "password"}
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder={"Confirm password"}
                   {...field}
                   error={
@@ -108,7 +120,7 @@ export const RegistrationPage = () => {
           </S.Link>
         </S.InputsWithLink>
         <S.ButtonContainer>
-          <CustomButton fullWidth type={"submit"}>
+          <CustomButton isLoading={isLoading} fullWidth type={"submit"}>
             Register
           </CustomButton>
         </S.ButtonContainer>

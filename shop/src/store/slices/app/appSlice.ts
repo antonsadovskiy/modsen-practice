@@ -2,9 +2,26 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type ThemeType = "light" | "dark";
 
-const initialState = {
-  theme: "light" as ThemeType,
+type UserType = {
+  email?: string;
+  id?: string;
+};
+
+type InitialStateType = {
+  theme: ThemeType;
+  isAppInitialized: boolean;
+  isLoggedIn: boolean;
+  user: UserType;
+};
+
+const initialState: InitialStateType = {
+  theme: "light",
   isLoggedIn: false,
+  isAppInitialized: false,
+  user: {
+    id: undefined,
+    email: undefined,
+  },
 };
 
 const slice = createSlice({
@@ -21,6 +38,19 @@ const slice = createSlice({
     },
     setIsLoggedIn: (state) => {
       state.isLoggedIn = true;
+    },
+    setIsAppInitialized: (state) => {
+      state.isAppInitialized = true;
+    },
+    setUser: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        email: string;
+      }>,
+    ) => {
+      state.user.id = action.payload.id;
+      state.user.email = action.payload.email;
     },
   },
 });
