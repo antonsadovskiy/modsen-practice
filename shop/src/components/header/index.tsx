@@ -2,13 +2,17 @@ import { Wrapper } from "./styled";
 import LogoSVG from "@/assets/svg/logo.svg";
 import SearchSVG from "@/assets/svg/search.svg";
 import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { routes } from "@/constants/routes";
 import { CustomSwitch } from "@/components/custom-switch";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { appActions } from "@/store/slices/app";
+import { selectorAppTheme } from "@/store/slices/app/appSelectors";
 
 export const Header = () => {
-  const [currentTheme, setCurrentTheme] = useState<"light" | "dark">("light");
+  const dispatch = useAppDispatch();
+  const theme = useAppSelector(selectorAppTheme);
 
   const navigate = useNavigate();
 
@@ -16,9 +20,12 @@ export const Header = () => {
     navigate(routes.home);
   }, [navigate]);
 
-  const onCheckedChangeHandler = useCallback((checked: boolean) => {
-    setCurrentTheme(checked ? "dark" : "light");
-  }, []);
+  const onCheckedChangeHandler = useCallback(
+    (checked: boolean) => {
+      dispatch(appActions.setTheme({ theme: checked ? "dark" : "light" }));
+    },
+    [dispatch],
+  );
 
   return (
     <Wrapper>
@@ -32,8 +39,8 @@ export const Header = () => {
         <div className={"actions"}>
           <div className={"link"}>Shop</div>
           <CustomSwitch
-            checked={currentTheme !== "light"}
-            defaultChecked={currentTheme !== "light"}
+            checked={theme !== "light"}
+            defaultChecked={theme !== "light"}
             onCheckedChange={onCheckedChangeHandler}
           />
           <SearchSVG />
