@@ -3,32 +3,28 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 250px;
-  .swiperContainer {
-    width: 100%;
-    height: 646px;
-  }
+`;
 
-  .latest {
-    .titleContainer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 64px 0 40px;
-
-      .label {
-        font: var(--h1);
-      }
-    }
-
-    .list {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      row-gap: 79px;
-      column-gap: 54px;
-    }
-  }
+export const SwiperContainer = styled.div`
+  width: 100%;
+  height: 646px;
+`;
+export const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 64px 0 40px;
+`;
+export const Title = styled.div`
+  font: var(--h1);
+`;
+export const List = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  row-gap: 79px;
+  column-gap: 54px;
 `;
 
 export const ViewAllLink = styled.div`

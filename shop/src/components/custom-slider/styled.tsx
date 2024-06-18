@@ -1,40 +1,52 @@
 import styled from "styled-components";
+import * as Slider from "@radix-ui/react-slider";
 
 export const Wrapper = styled.div`
-  .sliderRoot {
-    position: relative;
-    display: flex;
-    align-items: center;
-    user-select: none;
-    touch-action: none;
-    width: 100%;
-    height: 20px;
-  }
-
-  .sliderTrack {
-    background-color: ${({ theme }) => theme.color.gray};
-    position: relative;
-    flex-grow: 1;
-    height: 2px;
-  }
-
-  .sliderRange {
-    position: absolute;
-    background-color: ${({ theme }) => theme.color.black};
-    border-radius: 9999px;
-    height: 100%;
-  }
-
   .sliderThumb {
-    position: relative;
-    transition: all 0.3s ease;
-    display: block;
-    width: 2px;
-    height: 10px;
-    background-color: ${({ theme }) => theme.color.black};
-    box-shadow: 0 2px 10px black;
   }
   .sliderThumb:after {
+  }
+
+  .sliderThumb:hover {
+  }
+  .sliderThumb:focus {
+  }
+`;
+
+export const SliderRoot = styled(Slider.Root)`
+  position: relative;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  touch-action: none;
+  width: 100%;
+  height: 20px;
+`;
+
+export const SliderTrack = styled(Slider.Track)`
+  background-color: ${({ theme }) => theme.color.gray};
+  position: relative;
+  flex-grow: 1;
+  height: 2px;
+`;
+
+export const SliderRange = styled(Slider.Range)`
+  position: absolute;
+  background-color: ${({ theme }) => theme.color.black};
+  border-radius: 9999px;
+  height: 100%;
+`;
+
+export const SliderThumb = styled(Slider.Thumb)`
+  position: relative;
+  transition: all 0.3s ease;
+  display: block;
+  width: 2px;
+  height: 10px;
+  background-color: ${({ theme }) => theme.color.black};
+  box-shadow: 0 2px 10px black;
+
+  &:after {
     content: "";
     position: absolute;
     top: -10px;
@@ -42,11 +54,10 @@ export const Wrapper = styled.div`
     left: -10px;
     right: -10px;
   }
-
-  .sliderThumb:hover {
+  &:hover {
     cursor: pointer;
   }
-  .sliderThumb:focus {
+  &:focus {
     outline: none;
     box-shadow: ${({ theme }) => `0 0 0 1px ${theme.color.black}`};
   }

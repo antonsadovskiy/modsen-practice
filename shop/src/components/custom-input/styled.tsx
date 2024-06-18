@@ -45,16 +45,6 @@ export const Wrapper = styled.div<{
   display: flex;
   align-items: center;
 
-  .error {
-    position: absolute;
-    bottom: -22px;
-    font-family: var(--font-family-dm-sans);
-    font-size: var(--font-size-14);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-10);
-    color: ${({ theme }) => `${theme.color.errors}`};
-  }
-
   .icon {
     display: flex;
     align-items: center;
@@ -65,4 +55,13 @@ export const Wrapper = styled.div<{
   .clickable {
     cursor: pointer;
   }
+`;
+export const Error = styled.div`
+  position: absolute;
+  bottom: -22px;
+  font-family: var(--font-family-dm-sans);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-10);
+  color: ${({ theme }) => `${theme.color.errors}`};
 `;

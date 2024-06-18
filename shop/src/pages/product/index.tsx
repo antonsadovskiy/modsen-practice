@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ProductType } from "@/api/types";
 import { Api } from "@/api/api";
 import {
@@ -10,14 +10,42 @@ import {
   SocialMediaIconButton,
   Description,
   SimilarItems,
-} from "@/pages/product/styled";
+  IncreaseAmountButton,
+  PriceContainer,
+  AdditionalImage,
+  MainImage,
+  ProductTitle,
+  ProductPrice,
+  RatingContainer,
+  ProductDescription,
+  AddToCartContainer,
+  AmountContainer,
+  Amount,
+  ButtonContainer,
+  TotalPrice,
+  IconsContainer,
+  CategoryContainer,
+  CategoryTitle,
+  Category,
+  DescriptionTitle,
+  DescriptionContainer,
+  Label,
+  List,
+} from "./styled";
 import { StarRating } from "@/pages/shop/star-rating";
 import { socialMedias } from "@/constants/socials";
 import { CatalogCard } from "@/components/catalog-card";
 import { Skeleton } from "@/components/skeleton";
+import { CustomButton } from "@/components/custom-button";
+import { useAppDispatch } from "@/store/hooks";
+import { cartActions } from "@/store/slices/cart/cartSlice";
 
 export const ProductPage = () => {
+  const dispatch = useAppDispatch();
+
   const [product, setProduct] = useState<ProductType | undefined>();
+
+  const [amount, setAmount] = useState<number>(0);
 
   const [similarItems, setSimilarItems] = useState<ProductType[]>([]);
 
@@ -29,6 +57,31 @@ export const ProductPage = () => {
     () => similarItems.filter((item) => item.id !== product?.id).splice(0, 3),
     [product?.id, similarItems],
   );
+
+  const increaseHandler = useCallback(() => {
+    setAmount((prevState) => prevState + 1);
+  }, []);
+
+  const decreaseHandler = useCallback(() => {
+    setAmount((prevState) => prevState - 1);
+  }, []);
+
+  const totalPrice = useMemo(
+    () => (amount * (product?.price ?? 0)).toFixed(2),
+    [product, amount],
+  );
+
+  const addToCartHandler = useCallback(() => {
+    if (product.id) {
+      dispatch(
+        cartActions.addToCart({
+          productId: product.id,
+          amount,
+          totalPrice: +totalPrice,
+        }),
+      );
+    }
+  }, [amount, dispatch, product, totalPrice]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,22 +112,50 @@ export const ProductPage = () => {
         ) : (
           <>
             <ImagesContainer>
-              <div className={"moreImages"}>
-                <img src={product?.image} alt={"product image"} />
+              <div>
+                <AdditionalImage src={product?.image} alt={"product image"} />
               </div>
-              <div className={"mainImage"}>
-                <img src={product?.image} alt={"product image"} />
+              <div>
+                <MainImage src={product?.image} alt={"product image"} />
               </div>
             </ImagesContainer>
             <Information>
-              <div className={"title"}>{product?.title ?? ""}</div>
-              <div className={"price"}>$ {product?.price ?? ""}</div>
-              <div className={"rating"}>
+              <ProductTitle>{product?.title ?? ""}</ProductTitle>
+              <ProductPrice>$ {product?.price ?? ""}</ProductPrice>
+              <RatingContainer>
                 <StarRating value={product?.rating?.rate ?? 0} />
                 {product?.rating?.count ?? 0} customer review
-              </div>
-              <div className={"description"}>{product?.description ?? ""}</div>
-              <div className={"icons"}>
+              </RatingContainer>
+              <ProductDescription>
+                {product?.description ?? ""}
+              </ProductDescription>
+              <AddToCartContainer>
+                <PriceContainer>
+                  <AmountContainer>
+                    <IncreaseAmountButton
+                      $disabled={amount === 0}
+                      onClick={decreaseHandler}
+                    >
+                      -
+                    </IncreaseAmountButton>
+                    <Amount>{amount}</Amount>
+                    <IncreaseAmountButton onClick={increaseHandler}>
+                      +
+                    </IncreaseAmountButton>
+                  </AmountContainer>
+                  <TotalPrice>${totalPrice}</TotalPrice>
+                </PriceContainer>
+                <ButtonContainer>
+                  <CustomButton
+                    onClick={addToCartHandler}
+                    disabled={amount === 0}
+                    variant={"secondary"}
+                  >
+                    Add to cart
+                  </CustomButton>
+                </ButtonContainer>
+              </AddToCartContainer>
+              <IconsContainer>
                 {socialMedias.map((item, index) => (
                   <SocialMediaIconButton
                     target={"_blank"}
@@ -84,24 +165,24 @@ export const ProductPage = () => {
                     {item.icon}
                   </SocialMediaIconButton>
                 ))}
-              </div>
-              <div className={"categoryContainer"}>
-                <span className={"categoryTitle"}>Categories:</span>
-                <span className={"category"}>{product?.category}</span>
-              </div>
+              </IconsContainer>
+              <CategoryContainer>
+                <CategoryTitle>Categories:</CategoryTitle>
+                <Category>{product?.category}</Category>
+              </CategoryContainer>
             </Information>
           </>
         )}
       </MainInfoContainer>
-      <Description>
-        <div className={"title"}>Description</div>
-        <div className={"description"}>
+      <DescriptionContainer>
+        <DescriptionTitle>Description</DescriptionTitle>
+        <Description>
           {isLoading ? <Skeleton /> : product?.description ?? ""}
-        </div>
-      </Description>
+        </Description>
+      </DescriptionContainer>
       <SimilarItems>
-        <div className={"label"}>Similar Items</div>
-        <div className={"list"}>
+        <Label>Similar Items</Label>
+        <List>
           {isLoading &&
             Array.from({ length: 3 }).map((_, index) => (
               <Skeleton key={index} width={380} height={472} />
@@ -116,7 +197,7 @@ export const ProductPage = () => {
                 price={item.price}
               />
             ))}
-        </div>
+        </List>
       </SimilarItems>
     </Wrapper>
   );

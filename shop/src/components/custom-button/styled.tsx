@@ -71,4 +71,8 @@ export const Button = styled.button<{
       return theme.color.white;
     }};
   }
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
 `;

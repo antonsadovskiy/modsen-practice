@@ -1,4 +1,4 @@
-import { Wrapper, Textarea } from "@/components/custom-textarea/styled";
+import { Wrapper, Textarea, Error } from "@/components/custom-textarea/styled";
 import { ComponentProps } from "react";
 
 type CustomTextareaPropsType = ComponentProps<"textarea"> & {
@@ -14,7 +14,7 @@ export const CustomTextarea = ({
   ...rest
 }: CustomTextareaPropsType) => (
   <Wrapper $disabled={disabled} $isFullWidth={isFullWidth}>
-    <Textarea className={"textarea"} rows={rows} {...rest} />
-    {error && <div className={"error"}>{error}</div>}
+    <Textarea rows={rows} {...rest} />
+    {error && <Error>{error}</Error>}
   </Wrapper>
 );

@@ -1,9 +1,14 @@
-import { BorderBottomLine, Wrapper } from "./styled";
-import LogoSVG from "@/assets/svg/logo.svg";
-import SearchSVG from "@/assets/svg/search.svg";
+import {
+  Actions,
+  BorderBottomLine,
+  HeaderContent,
+  Logo,
+  Wrapper,
+  ShopLink,
+} from "./styled";
 import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
 import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routes } from "@/constants/routes";
 import { CustomSwitch } from "@/components/custom-switch";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -29,24 +34,25 @@ export const Header = () => {
 
   return (
     <Wrapper>
-      <div className={"headerContent"}>
-        <LogoSVG
+      <HeaderContent>
+        <Logo
           className={"logo"}
           onClick={goHomePageHandler}
           width={290}
           height={32}
         />
-        <div className={"actions"}>
-          <div className={"link"}>Shop</div>
+        <Actions>
+          <ShopLink>Shop</ShopLink>
           <CustomSwitch
             checked={theme !== "light"}
             defaultChecked={theme !== "light"}
             onCheckedChange={onCheckedChangeHandler}
           />
-          <SearchSVG />
-          <ShoppingCardSVG />
-        </div>
-      </div>
+          <Link to={routes.cart}>
+            <ShoppingCardSVG />
+          </Link>
+        </Actions>
+      </HeaderContent>
       <BorderBottomLine />
     </Wrapper>
   );

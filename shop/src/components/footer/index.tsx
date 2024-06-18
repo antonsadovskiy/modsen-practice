@@ -1,8 +1,15 @@
 import {
+  Copyright,
   FooterInput,
   FooterLink,
+  InputContainer,
+  Links,
+  LinksAndInputContainer,
+  Slim,
   SocialMediaIconButton,
+  Socials,
   Wrapper,
+  CopyrightAndSocials,
 } from "./styled";
 import { socialMedias } from "@/constants/socials";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
@@ -56,8 +63,8 @@ export const Footer = () => {
 
   return (
     <Wrapper>
-      <div className={"linksAndInput"}>
-        <div className={"links"}>
+      <LinksAndInputContainer>
+        <Links>
           {footerLinks.map((item, index) => (
             <FooterLink
               onClick={() => item.link && onLinkClickHandler(item.link)}
@@ -67,8 +74,8 @@ export const Footer = () => {
               {item.label}
             </FooterLink>
           ))}
-        </div>
-        <div className={"inputContainer"}>
+        </Links>
+        <InputContainer>
           <FooterInput
             placeholder={"Give an email, get the news letter."}
             value={email}
@@ -77,16 +84,16 @@ export const Footer = () => {
             onIconClick={onSendHandler}
             endIcon={isSending ? <CircleLoader /> : <ArrowRightSVG />}
           />
-        </div>
-      </div>
-      <div className={"copyrightAndSocials"}>
-        <div className={"copyright"}>
+        </InputContainer>
+      </LinksAndInputContainer>
+      <CopyrightAndSocials>
+        <Copyright>
           <span>© 2023 Shelly. </span>
-          <span className={"slim"}>Terms of use </span>
+          <Slim>Terms of use </Slim>
           <span>and </span>
-          <span className={"slim"}>privacy policy.</span>
-        </div>
-        <div className={"socials"}>
+          <Slim>privacy policy.</Slim>
+        </Copyright>
+        <Socials>
           {socialMedias.map((item, index) => (
             <SocialMediaIconButton
               target={"_blank"}
@@ -96,8 +103,8 @@ export const Footer = () => {
               {item.icon}
             </SocialMediaIconButton>
           ))}
-        </div>
-      </div>
+        </Socials>
+      </CopyrightAndSocials>
     </Wrapper>
   );
 };

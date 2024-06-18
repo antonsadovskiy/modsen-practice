@@ -20,9 +20,13 @@ const darkTheme = {
 
 export const theme = {
   dark: {
+    textColor: "#FBFBFB",
+    backgroundColor: "black",
     color: darkTheme,
   },
   light: {
+    textColor: "#000000",
+    backgroundColor: "#FFFFFF",
     color: lightTheme,
   },
 };

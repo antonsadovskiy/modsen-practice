@@ -1,5 +1,4 @@
-import * as Switch from "@radix-ui/react-switch";
-import { Wrapper } from "@/components/custom-switch/styled";
+import { SwitchRoot, SwitchThumb } from "./styled";
 
 type CustomSwitchPropsType = {
   defaultChecked: boolean;
@@ -12,14 +11,13 @@ export const CustomSwitch = ({
   defaultChecked,
   onCheckedChange,
 }: CustomSwitchPropsType) => (
-  <Wrapper>
-    <Switch.Root
+  <>
+    <SwitchRoot
       checked={checked}
       defaultChecked={defaultChecked}
       onCheckedChange={onCheckedChange}
-      className="switchRoot"
     >
-      <Switch.Thumb className="switchThumb" />
-    </Switch.Root>
-  </Wrapper>
+      <SwitchThumb className="switchThumb" />
+    </SwitchRoot>
+  </>
 );

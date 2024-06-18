@@ -1,16 +1,16 @@
 import styled, { ThemeProvider } from "styled-components";
 import { Footer } from "./components/footer";
 import { Header } from "./components/header";
-import { useState } from "react";
 import { theme } from "./assets/styles/theme";
 import { Outlet } from "react-router-dom";
+import { useAppSelector } from "@/store/hooks";
+import { selectorAppTheme } from "@/store/slices/app";
 
 export function App() {
-  const [currentTheme] = useState<"light" | "dark">("light");
+  const appTheme = useAppSelector(selectorAppTheme);
 
   return (
-    // @ts-ignore
-    <ThemeProvider theme={theme[currentTheme]}>
+    <ThemeProvider theme={theme[appTheme]}>
       <Wrapper>
         <MaxWidthContainer>
           <div className={"content"}>
@@ -24,7 +24,7 @@ export function App() {
   );
 }
 const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.color.white};
+  background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
 const MaxWidthContainer = styled.div`

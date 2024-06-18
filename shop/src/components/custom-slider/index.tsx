@@ -1,5 +1,10 @@
-import * as Slider from "@radix-ui/react-slider";
-import { Wrapper } from "./styled";
+import {
+  SliderRange,
+  SliderRoot,
+  SliderThumb,
+  SliderTrack,
+  Wrapper,
+} from "./styled";
 
 type CustomSliderPropsType = {
   value: number[];
@@ -19,8 +24,7 @@ export const CustomSlider = ({
   max,
 }: CustomSliderPropsType) => (
   <Wrapper>
-    <Slider.Root
-      className="sliderRoot"
+    <SliderRoot
       value={value}
       min={min}
       max={max}
@@ -28,11 +32,11 @@ export const CustomSlider = ({
       onValueCommit={onValueCommit}
       onValueChange={onValueChange}
     >
-      <Slider.Track className="sliderTrack">
-        <Slider.Range className="sliderRange" />
-      </Slider.Track>
-      <Slider.Thumb className="sliderThumb" />
-      <Slider.Thumb className="sliderThumb" />
-    </Slider.Root>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderThumb />
+      <SliderThumb />
+    </SliderRoot>
   </Wrapper>
 );

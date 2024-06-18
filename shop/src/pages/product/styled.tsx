@@ -21,54 +21,74 @@ export const Information = styled.div`
 
   max-width: 486px;
   width: 100%;
-
-  .title {
-    font: var(--h2);
-    color: ${({ theme }) => theme.color.black};
-  }
-
-  .price {
-    margin-top: 24px;
-    font: var(--h4);
-    color: ${({ theme }) => theme.color.accent};
-  }
-
-  .rating {
-    margin-top: 64px;
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    font: var(--h5);
-    color: ${({ theme }) => theme.color.darkGray};
-  }
-
-  .description {
-    margin-top: 20px;
-    font: var(--h5);
-    color: ${({ theme }) => theme.color.darkGray};
-  }
-
-  .icons {
-    margin-top: 140px;
-    display: flex;
-    align-items: center;
-    gap: 25px;
-  }
   .categoryContainer {
-    margin-top: 64px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font: var(--h5);
-
     .categoryTitle {
-      color: ${({ theme }) => theme.color.black};
     }
 
     .category {
-      color: ${({ theme }) => theme.color.darkGray};
     }
   }
+`;
+
+export const IconsContainer = styled.div`
+  margin-top: 70px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+`;
+
+export const CategoryContainer = styled.div`
+  margin-top: 64px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font: var(--h5);
+`;
+
+export const CategoryTitle = styled.span`
+  color: ${({ theme }) => theme.color.black};
+`;
+export const Category = styled.span`
+  color: ${({ theme }) => theme.color.darkGray};
+`;
+
+export const ProductTitle = styled.div`
+  font: var(--h2);
+  color: ${({ theme }) => theme.color.black};
+`;
+
+export const ProductPrice = styled.div`
+  margin-top: 24px;
+  font: var(--h4);
+  color: ${({ theme }) => theme.color.accent};
+`;
+export const ProductDescription = styled.div`
+  margin-top: 20px;
+  font: var(--h5);
+  color: ${({ theme }) => theme.color.darkGray};
+`;
+export const RatingContainer = styled.div`
+  margin-top: 64px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  font: var(--h5);
+  color: ${({ theme }) => theme.color.darkGray};
+`;
+
+export const AddToCartContainer = styled.div`
+  margin-top: 70px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+export const AmountContainer = styled.div`
+  font-family: var(--font-family-dm-sans);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
 `;
 
 export const ImagesContainer = styled.div`
@@ -76,26 +96,21 @@ export const ImagesContainer = styled.div`
   align-items: flex-start;
   gap: 40px;
   justify-content: space-between;
+`;
 
-  .moreImages {
-    img {
-      width: 120px;
-      height: 120px;
-      object-position: center;
-      object-fit: scale-down;
-      border-radius: 8px;
-    }
-  }
-
-  .mainImage {
-    img {
-      width: 540px;
-      height: 600px;
-      object-position: center;
-      object-fit: scale-down;
-      border-radius: 8px;
-    }
-  }
+export const AdditionalImage = styled.img`
+  width: 120px;
+  height: 120px;
+  object-position: center;
+  object-fit: scale-down;
+  border-radius: 8px;
+`;
+export const MainImage = styled.img`
+  width: 540px;
+  height: 600px;
+  object-position: center;
+  object-fit: scale-down;
+  border-radius: 8px;
 `;
 
 export const SocialMediaIconButton = styled.a`
@@ -113,22 +128,45 @@ export const SocialMediaIconButton = styled.a`
   }
 `;
 
-export const Description = styled.div`
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    max-width: 500px;
+    width: 100%;
+  }
+`;
+
+export const Amount = styled.div`
+  min-width: 20px;
+  text-align: center;
+`;
+
+export const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 35px;
+`;
 
-  .title {
-    padding-bottom: 35px;
-    font: var(--h3);
-    color: ${({ theme }) => theme.color.black};
-    border-bottom: ${({ theme }) => `1px solid ${theme.color.gray}`};
-  }
+export const Label = styled.div`
+  font: var(--h2);
+  color: ${({ theme }) => theme.color.black};
+`;
 
-  .description {
-    font: var(--h5);
-    color: ${({ theme }) => theme.color.darkGray};
-  }
+export const List = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 54px;
+`;
+
+export const Description = styled.div`
+  font: var(--h5);
+  color: ${({ theme }) => theme.color.darkGray};
 `;
 
 export const SimilarItems = styled.div`
@@ -137,17 +175,37 @@ export const SimilarItems = styled.div`
   justify-content: space-between;
   gap: 54px;
   flex-direction: column;
+`;
 
-  .list {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 54px;
-  }
+export const IncreaseAmountButton = styled.div<{ $disabled?: boolean }>`
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid black;
+  pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
 
-  .label {
-    font: var(--h2);
-    color: ${({ theme }) => theme.color.black};
-  }
+  user-select: none;
+
+  ${({ $disabled }) => $disabled && "opacity: 0.5"}
+`;
+
+export const PriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const TotalPrice = styled.div`
+  font: var(--h5);
+`;
+
+export const DescriptionTitle = styled.div`
+  padding-bottom: 35px;
+  font: var(--h3);
+  color: ${({ theme }) => theme.color.black};
+  border-bottom: ${({ theme }) => `1px solid ${theme.color.gray}`};
 `;

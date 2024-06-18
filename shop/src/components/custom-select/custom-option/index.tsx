@@ -13,11 +13,7 @@ export const CustomOption = ({ option, onClick }: CustomOptionPropsType) => {
   }, [onClick, option]);
 
   return (
-    <Wrapper
-      className={"option"}
-      value={option.value}
-      onClick={onChangeValueHandler}
-    >
+    <Wrapper value={option.value} onClick={onChangeValueHandler}>
       {option.title}
     </Wrapper>
   );

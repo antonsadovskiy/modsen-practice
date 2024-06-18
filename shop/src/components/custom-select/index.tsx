@@ -1,4 +1,4 @@
-import { Wrapper } from "./styled";
+import { Placeholder, Select, Wrapper } from "./styled";
 import { useCallback, useRef, useState } from "react";
 import { CustomOption } from "@/components/custom-select/custom-option";
 import Arrow from "@/assets/svg/arrow.svg";
@@ -46,14 +46,14 @@ export const CustomSelect = ({
 
   return (
     <Wrapper ref={ref} $disabled={disabled}>
-      <div className={"placeholder"} onClick={handlePlaceHolderClick}>
+      <Placeholder onClick={handlePlaceHolderClick}>
         {selected?.title ?? placeholder}
         <div className={`${isOpen ? "arrow rotate" : "arrow"}`}>
           <Arrow />
         </div>
-      </div>
+      </Placeholder>
       {isOpen && (
-        <div className={"select"} ref={selectOptionsRef}>
+        <Select ref={selectOptionsRef}>
           {options.map((option) => (
             <CustomOption
               key={option.value}
@@ -61,7 +61,7 @@ export const CustomSelect = ({
               onClick={handleOptionClick}
             />
           ))}
-        </div>
+        </Select>
       )}
     </Wrapper>
   );

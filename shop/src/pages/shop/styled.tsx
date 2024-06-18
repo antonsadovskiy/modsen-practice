@@ -6,48 +6,41 @@ export const Wrapper = styled.div`
   flex-direction: column;
   gap: 40px;
   margin-bottom: 250px;
+`;
 
-  .label {
-    font: var(--h1);
-  }
+export const PageTitle = styled.div`
+  font: var(--h1);
+`;
+export const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 35px;
+  align-items: flex-start;
+`;
+export const Filters = styled.div`
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
+export const Selects = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+export const Price = styled.div`
+  margin-top: 8px;
+  font: var(--body-medium);
+  color: ${({ theme }) => theme.color.darkGray};
+`;
 
-  .content {
-    display: flex;
-    flex-direction: row;
-    gap: 35px;
-    align-items: flex-start;
-
-    .filters {
-      width: 20%;
-      //min-width: 262px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-
-      .selects {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-    }
-
-    .sliderContainer {
-      .price {
-        margin-top: 8px;
-        font: var(--body-medium);
-        color: ${({ theme }) => theme.color.darkGray};
-      }
-    }
-
-    .catalog {
-      width: 80%;
-      display: flex;
-      column-gap: 24px;
-      row-gap: 70px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  }
+export const Catalog = styled.div`
+  width: 80%;
+  display: flex;
+  column-gap: 24px;
+  row-gap: 70px;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const NoData = styled.div`

@@ -7,16 +7,6 @@ export const Wrapper = styled.div<{
   position: relative;
   pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
   width: ${({ $isFullWidth }) => ($isFullWidth ? "100%" : "auto")};
-
-  .error {
-    position: absolute;
-    bottom: -22px;
-    font-family: var(--font-family-dm-sans);
-    font-size: var(--font-size-14);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-10);
-    color: ${({ theme }) => `${theme.color.errors}`};
-  }
 `;
 
 export const Textarea = styled.textarea`
@@ -32,4 +22,14 @@ export const Textarea = styled.textarea`
   ::placeholder {
     color: ${({ theme }) => `${theme.color.darkGray}`};
   }
+`;
+
+export const Error = styled.div`
+  position: absolute;
+  bottom: -22px;
+  font-family: var(--font-family-dm-sans);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-10);
+  color: ${({ theme }) => `${theme.color.errors}`};
 `;

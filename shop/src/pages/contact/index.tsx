@@ -1,4 +1,13 @@
-import { FormInput, Wrapper } from "@/pages/contact/styled";
+import {
+  ButtonContainer,
+  FormFields,
+  FormInput,
+  Inputs,
+  Subtitle,
+  Title,
+  TitleContainer,
+  Wrapper,
+} from "@/pages/contact/styled";
 import { useCallback, useState } from "react";
 import { CustomButton } from "@/components/custom-button";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -38,15 +47,15 @@ export const ContactUsPage = () => {
 
   return (
     <Wrapper>
-      <div className={"titleContainer"}>
-        <div className={"title"}>Contact Us</div>
-        <div className={"subtitle"}>
+      <TitleContainer>
+        <Title>Contact Us</Title>
+        <Subtitle>
           Say Hello send us your thoughts about our products or share <br />{" "}
           your ideas with our Team!
-        </div>
-      </div>
-      <form className={"formFields"} onSubmit={handleSubmit(onSubmit)}>
-        <div className={"inputs"}>
+        </Subtitle>
+      </TitleContainer>
+      <FormFields onSubmit={handleSubmit(onSubmit)}>
+        <Inputs>
           <Controller
             name="firstName"
             control={control}
@@ -71,8 +80,8 @@ export const ContactUsPage = () => {
               />
             )}
           />
-        </div>
-        <div className={"inputs"}>
+        </Inputs>
+        <Inputs>
           <Controller
             name="email"
             control={control}
@@ -97,7 +106,7 @@ export const ContactUsPage = () => {
               />
             )}
           />
-        </div>
+        </Inputs>
         <Controller
           name="message"
           control={control}
@@ -110,12 +119,12 @@ export const ContactUsPage = () => {
             />
           )}
         />
-        <div className={"buttonContainer"}>
+        <ButtonContainer>
           <CustomButton isLoading={isSending} type={"submit"}>
             Send
           </CustomButton>
-        </div>
-      </form>
+        </ButtonContainer>
+      </FormFields>
     </Wrapper>
   );
 };

@@ -17,6 +17,7 @@ import { ContactUsPage } from "@/pages/contact";
 import { routes } from "@/constants/routes";
 import { Provider } from "react-redux";
 import { store } from "@/store";
+import { CartPage } from "@/pages/cart";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path={routes.home} element={<HomePage />} />
       <Route path={routes.shop} element={<ShopPage />} />
       <Route path={routes.contact} element={<ContactUsPage />} />
+      <Route path={routes.cart} element={<CartPage />} />
       <Route path={`${routes.product}/:id`} element={<ProductPage />} />
     </Route>,
   ),

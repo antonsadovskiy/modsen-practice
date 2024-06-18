@@ -10,43 +10,40 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   gap: 50px;
+`;
 
-  .copyrightAndSocials {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+export const Copyright = styled.div`
+  font: var(--h5);
+  color: ${({ theme }) => theme.color.black};
+`;
+export const Socials = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
 
-    .copyright {
-      font: var(--h5);
-      color: ${({ theme }) => theme.color.black};
+export const CopyrightAndSocials = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
-      .slim {
-        color: ${({ theme }) => theme.color.darkGray};
-      }
-    }
-
-    .socials {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-  }
-
-  .linksAndInput {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .links {
-      display: flex;
-      align-items: center;
-      gap: 41px;
-    }
-
-    .inputContainer {
-      max-width: 400px;
-      width: 100%;
-    }
-  }
+export const Slim = styled.span`
+  color: ${({ theme }) => theme.color.darkGray};
+`;
+export const LinksAndInputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+export const Links = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 41px;
+`;
+export const InputContainer = styled.div`
+  max-width: 400px;
+  width: 100%;
 `;
 
 export const SocialMediaIconButton = styled.a`

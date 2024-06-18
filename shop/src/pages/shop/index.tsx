@@ -1,4 +1,13 @@
-import { NoData, Wrapper } from "./styled";
+import {
+  Catalog,
+  Content,
+  Filters,
+  NoData,
+  PageTitle,
+  Price,
+  Selects,
+  Wrapper,
+} from "./styled";
 import { CustomInput } from "@/components/custom-input";
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { Api } from "@/api/api";
@@ -147,9 +156,9 @@ export const ShopPage = () => {
 
   return (
     <Wrapper>
-      <div className={"label"}>Shop the latest</div>
-      <div className={"content"}>
-        <div className={"filters"}>
+      <PageTitle>Shop the latest</PageTitle>
+      <Content>
+        <Filters>
           <CustomInput
             type={"tel"}
             placeholder={"Search..."}
@@ -157,7 +166,7 @@ export const ShopPage = () => {
             onChange={onChangeSearchValue}
             endIcon={<SearchSVG />}
           />
-          <div className={"selects"}>
+          <Selects>
             <CustomSelect
               placeholder={"Shop by"}
               selected={categoryValue}
@@ -171,8 +180,8 @@ export const ShopPage = () => {
               options={sortOptions}
               onChange={(value) => onChangeSelectValue(value, "sort")}
             />
-          </div>
-          <div className={"sliderContainer"}>
+          </Selects>
+          <div>
             <CustomSlider
               min={minAndMaxPrice[0]}
               max={minAndMaxPrice[1]}
@@ -181,37 +190,41 @@ export const ShopPage = () => {
               onValueChange={onValueChangeHandler}
               onValueCommit={onValueCommitHandler}
             />
-            <div className={"price"}>
+            <Price>
               Price:{" "}
               {isLoadingCatalog ? "Loading..." : `$${price[0]} - $${price[1]}`}
-            </div>
+            </Price>
           </div>
           <CustomButton onClick={onClearFiltersHandler} variant={"secondary"}>
             Clear filters
           </CustomButton>
-        </div>
-        <div className={"catalog"}>
+        </Filters>
+        <Catalog className={"catalog"}>
           {isLoadingCatalog &&
             Array.from({ length: 6 }).map((_, index) => (
               <Skeleton key={index} width={300} height={390} />
             ))}
-          {!isLoadingCatalog && filteredCatalog.length > 0 ? (
-            filteredCatalog.map((item) => (
-              <CatalogCard
-                imageSrc={item.image}
-                key={item.id}
-                width={"300"}
-                height={"300"}
-                id={item.id}
-                title={item.title}
-                price={item.price}
-              />
-            ))
-          ) : (
-            <NoData>No products with these filters were found</NoData>
+          {!isLoadingCatalog && (
+            <>
+              {filteredCatalog.length > 0 ? (
+                filteredCatalog.map((item) => (
+                  <CatalogCard
+                    imageSrc={item.image}
+                    key={item.id}
+                    width={"300"}
+                    height={"300"}
+                    id={item.id}
+                    title={item.title}
+                    price={item.price}
+                  />
+                ))
+              ) : (
+                <NoData>No products with these filters were found</NoData>
+              )}
+            </>
           )}
-        </div>
-      </div>
+        </Catalog>
+      </Content>
     </Wrapper>
   );
 };
