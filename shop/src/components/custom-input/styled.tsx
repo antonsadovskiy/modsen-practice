@@ -65,3 +65,4 @@ export const Error = styled.div`
   line-height: var(--line-height-10);
   color: ${({ theme }) => `${theme.color.errors}`};
 `;
+export default { Input, Wrapper, Error };

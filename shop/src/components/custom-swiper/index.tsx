@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
-import { Wrapper } from "./styled";
+import S from "./styled";
 import { useMemo } from "react";
 
 type CustomSwiperPropsType = {
@@ -29,7 +29,7 @@ export const CustomSwiper = ({
   );
 
   return (
-    <Wrapper>
+    <S.Wrapper>
       <Swiper
         pagination={pagination}
         autoplay={{
@@ -45,6 +45,6 @@ export const CustomSwiper = ({
           </SwiperSlide>
         ))}
       </Swiper>
-    </Wrapper>
+    </S.Wrapper>
   );
 };

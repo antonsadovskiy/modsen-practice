@@ -1,13 +1,4 @@
-import {
-  ButtonContainer,
-  FormFields,
-  FormInput,
-  Inputs,
-  Subtitle,
-  Title,
-  TitleContainer,
-  Wrapper,
-} from "@/pages/contact/styled";
+import S from "./styled";
 import { useCallback, useState } from "react";
 import { CustomButton } from "@/components/custom-button";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -46,22 +37,22 @@ export const ContactUsPage = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <TitleContainer>
-        <Title>Contact Us</Title>
-        <Subtitle>
+    <S.Wrapper>
+      <S.TitleContainer>
+        <S.Title>Contact Us</S.Title>
+        <S.Subtitle>
           Say Hello send us your thoughts about our products or share <br />{" "}
           your ideas with our Team!
-        </Subtitle>
-      </TitleContainer>
-      <FormFields onSubmit={handleSubmit(onSubmit)}>
-        <Inputs>
+        </S.Subtitle>
+      </S.TitleContainer>
+      <S.FormFields onSubmit={handleSubmit(onSubmit)}>
+        <S.Inputs>
           <Controller
             name="firstName"
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <FormInput
+              <S.FormInput
                 placeholder={"First name"}
                 {...field}
                 error={errors.firstName ? errors.firstName.message : ""}
@@ -73,21 +64,21 @@ export const ContactUsPage = () => {
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <FormInput
+              <S.FormInput
                 placeholder={"Last name"}
                 {...field}
                 error={errors.lastName ? errors.lastName.message : ""}
               />
             )}
           />
-        </Inputs>
-        <Inputs>
+        </S.Inputs>
+        <S.Inputs>
           <Controller
             name="email"
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <FormInput
+              <S.FormInput
                 placeholder={"Email"}
                 {...field}
                 error={errors.email ? errors.email.message : ""}
@@ -99,14 +90,14 @@ export const ContactUsPage = () => {
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
-              <FormInput
+              <S.FormInput
                 placeholder={"Subject"}
                 {...field}
                 error={errors.subject ? errors.subject.message : ""}
               />
             )}
           />
-        </Inputs>
+        </S.Inputs>
         <Controller
           name="message"
           control={control}
@@ -119,12 +110,12 @@ export const ContactUsPage = () => {
             />
           )}
         />
-        <ButtonContainer>
+        <S.ButtonContainer>
           <CustomButton isLoading={isSending} type={"submit"}>
             Send
           </CustomButton>
-        </ButtonContainer>
-      </FormFields>
-    </Wrapper>
+        </S.ButtonContainer>
+      </S.FormFields>
+    </S.Wrapper>
   );
 };

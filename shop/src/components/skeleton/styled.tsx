@@ -20,3 +20,5 @@ export const Wrapper = styled.div<{ $height?: number; $width?: number }>`
     }
   }
 `;
+
+export default { Wrapper };

@@ -1,4 +1,4 @@
-import { Button } from "./styled";
+import S from "./styled";
 import { ButtonHTMLAttributes } from "react";
 import { CircleLoader } from "@/components/circle-loader";
 
@@ -23,7 +23,7 @@ export const CustomButton = ({
   children,
   ...rest
 }: CustomButtonProps) => (
-  <Button $isFullWidth={fullWidth} $variant={variant} $size={size} {...rest}>
+  <S.Button $isFullWidth={fullWidth} $variant={variant} $size={size} {...rest}>
     {isLoading ? <CircleLoader size={20} /> : children}
-  </Button>
+  </S.Button>
 );

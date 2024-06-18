@@ -51,3 +51,14 @@ export const Inputs = styled.div`
 export const FormInput = styled(CustomInput)`
   font: var(--h5);
 `;
+
+export default {
+  FormInput,
+  Wrapper,
+  FormFields,
+  ButtonContainer,
+  Inputs,
+  TitleContainer,
+  Title,
+  Subtitle,
+};

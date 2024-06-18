@@ -1,11 +1,4 @@
-import {
-  Actions,
-  BorderBottomLine,
-  HeaderContent,
-  Logo,
-  Wrapper,
-  ShopLink,
-} from "./styled";
+import S from "./styled";
 import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
 import { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -33,16 +26,16 @@ export const Header = () => {
   );
 
   return (
-    <Wrapper>
-      <HeaderContent>
-        <Logo
+    <S.Wrapper>
+      <S.HeaderContent>
+        <S.Logo
           className={"logo"}
           onClick={goHomePageHandler}
           width={290}
           height={32}
         />
-        <Actions>
-          <ShopLink>Shop</ShopLink>
+        <S.Actions>
+          <S.ShopLink>Shop</S.ShopLink>
           <CustomSwitch
             checked={theme !== "light"}
             defaultChecked={theme !== "light"}
@@ -51,9 +44,9 @@ export const Header = () => {
           <Link to={routes.cart}>
             <ShoppingCardSVG />
           </Link>
-        </Actions>
-      </HeaderContent>
-      <BorderBottomLine />
-    </Wrapper>
+        </S.Actions>
+      </S.HeaderContent>
+      <S.BorderBottomLine />
+    </S.Wrapper>
   );
 };

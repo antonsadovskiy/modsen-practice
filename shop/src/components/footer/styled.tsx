@@ -72,3 +72,17 @@ export const FooterLink = styled.div<{ $isClickable: boolean }>`
 
   cursor: ${({ $isClickable }) => ($isClickable ? "pointer" : "default")};
 `;
+
+export default {
+  Wrapper,
+  Copyright,
+  Socials,
+  CopyrightAndSocials,
+  Slim,
+  LinksAndInputContainer,
+  Links,
+  InputContainer,
+  FooterInput,
+  FooterLink,
+  SocialMediaIconButton,
+};

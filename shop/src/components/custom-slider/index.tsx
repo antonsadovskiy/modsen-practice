@@ -1,10 +1,4 @@
-import {
-  SliderRange,
-  SliderRoot,
-  SliderThumb,
-  SliderTrack,
-  Wrapper,
-} from "./styled";
+import S from "./styled";
 
 type CustomSliderPropsType = {
   value: number[];
@@ -23,8 +17,8 @@ export const CustomSlider = ({
   min,
   max,
 }: CustomSliderPropsType) => (
-  <Wrapper>
-    <SliderRoot
+  <S.Wrapper>
+    <S.SliderRoot
       value={value}
       min={min}
       max={max}
@@ -32,11 +26,11 @@ export const CustomSlider = ({
       onValueCommit={onValueCommit}
       onValueChange={onValueChange}
     >
-      <SliderTrack>
-        <SliderRange />
-      </SliderTrack>
-      <SliderThumb />
-      <SliderThumb />
-    </SliderRoot>
-  </Wrapper>
+      <S.SliderTrack>
+        <S.SliderRange />
+      </S.SliderTrack>
+      <S.SliderThumb />
+      <S.SliderThumb />
+    </S.SliderRoot>
+  </S.Wrapper>
 );

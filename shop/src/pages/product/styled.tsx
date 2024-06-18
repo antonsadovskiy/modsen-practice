@@ -209,3 +209,34 @@ export const DescriptionTitle = styled.div`
   color: ${({ theme }) => theme.color.black};
   border-bottom: ${({ theme }) => `1px solid ${theme.color.gray}`};
 `;
+
+export default {
+  MainInfoContainer,
+  Information,
+  ProductTitle,
+  ProductPrice,
+  Wrapper,
+  ProductDescription,
+  IconsContainer,
+  SocialMediaIconButton,
+  CategoryContainer,
+  CategoryTitle,
+  Category,
+  RatingContainer,
+  AddToCartContainer,
+  AmountContainer,
+  ImagesContainer,
+  MainImage,
+  AdditionalImage,
+  ButtonContainer,
+  Amount,
+  DescriptionContainer,
+  Label,
+  List,
+  Description,
+  SimilarItems,
+  IncreaseAmountButton,
+  PriceContainer,
+  TotalPrice,
+  DescriptionTitle,
+};

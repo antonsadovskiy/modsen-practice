@@ -1,4 +1,4 @@
-import { Caption, NotFound, Title, Wrapper } from "./styled";
+import S from "./styled";
 import { CustomButton } from "@/components/custom-button";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
@@ -12,17 +12,17 @@ export const NotFoundPage = () => {
   }, [navigate]);
 
   return (
-    <Wrapper>
-      <NotFound>
-        <Title>404 ERROR</Title>
-        <Caption>
+    <S.Wrapper>
+      <S.NotFound>
+        <S.Title>404 ERROR</S.Title>
+        <S.Caption>
           This page not found;
           <br /> back to home and start again
-        </Caption>
+        </S.Caption>
         <CustomButton onClick={onClickHandler} variant={"secondary"}>
           Homepage
         </CustomButton>
-      </NotFound>
-    </Wrapper>
+      </S.NotFound>
+    </S.Wrapper>
   );
 };

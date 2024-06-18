@@ -1,5 +1,5 @@
 import { ComponentProps, ReactNode } from "react";
-import { Error, Input, Wrapper } from "./styled";
+import S from "./styled";
 
 type CustomInputPropsType = {
   isFullWidth?: boolean;
@@ -18,9 +18,9 @@ export const CustomInput = ({
   error,
   ...rest
 }: CustomInputPropsType) => (
-  <Wrapper $isFullWidth={isFullWidth} $disabled={disabled}>
-    <Input $isWithEndIcon={!!endIcon} disabled={disabled} {...rest} />
-    {error && <Error>{error}</Error>}
+  <S.Wrapper $isFullWidth={isFullWidth} $disabled={disabled}>
+    <S.Input $isWithEndIcon={!!endIcon} disabled={disabled} {...rest} />
+    {error && <S.Error>{error}</S.Error>}
     {endIcon && (
       <button
         disabled={disabled}
@@ -30,5 +30,5 @@ export const CustomInput = ({
         {endIcon}
       </button>
     )}
-  </Wrapper>
+  </S.Wrapper>
 );

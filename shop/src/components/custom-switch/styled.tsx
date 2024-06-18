@@ -30,3 +30,5 @@ export const SwitchThumb = styled(Switch.Thumb)`
     transform: translateX(19px);
   }
 `;
+
+export default { SwitchRoot, SwitchThumb };

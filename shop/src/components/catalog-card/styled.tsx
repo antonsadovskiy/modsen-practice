@@ -27,3 +27,5 @@ export const Price = styled.div`
   font: var(--h4);
   color: ${({ theme }) => theme.color.accent};
 `;
+
+export default { CatalogCardWrapper, ImagesContainer, Price, Title };

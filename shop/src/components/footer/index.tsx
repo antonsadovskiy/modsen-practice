@@ -1,16 +1,4 @@
-import {
-  Copyright,
-  FooterInput,
-  FooterLink,
-  InputContainer,
-  Links,
-  LinksAndInputContainer,
-  Slim,
-  SocialMediaIconButton,
-  Socials,
-  Wrapper,
-  CopyrightAndSocials,
-} from "./styled";
+import S from "./styled";
 import { socialMedias } from "@/constants/socials";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import ArrowRightSVG from "@/assets/svg/arrow-right.svg";
@@ -62,21 +50,21 @@ export const Footer = () => {
   );
 
   return (
-    <Wrapper>
-      <LinksAndInputContainer>
-        <Links>
+    <S.Wrapper>
+      <S.LinksAndInputContainer>
+        <S.Links>
           {footerLinks.map((item, index) => (
-            <FooterLink
+            <S.FooterLink
               onClick={() => item.link && onLinkClickHandler(item.link)}
               $isClickable={!!item.link}
               key={index}
             >
               {item.label}
-            </FooterLink>
+            </S.FooterLink>
           ))}
-        </Links>
-        <InputContainer>
-          <FooterInput
+        </S.Links>
+        <S.InputContainer>
+          <S.FooterInput
             placeholder={"Give an email, get the news letter."}
             value={email}
             disabled={isSending}
@@ -84,27 +72,27 @@ export const Footer = () => {
             onIconClick={onSendHandler}
             endIcon={isSending ? <CircleLoader /> : <ArrowRightSVG />}
           />
-        </InputContainer>
-      </LinksAndInputContainer>
-      <CopyrightAndSocials>
-        <Copyright>
+        </S.InputContainer>
+      </S.LinksAndInputContainer>
+      <S.CopyrightAndSocials>
+        <S.Copyright>
           <span>© 2023 Shelly. </span>
-          <Slim>Terms of use </Slim>
+          <S.Slim>Terms of use </S.Slim>
           <span>and </span>
-          <Slim>privacy policy.</Slim>
-        </Copyright>
-        <Socials>
+          <S.Slim>privacy policy.</S.Slim>
+        </S.Copyright>
+        <S.Socials>
           {socialMedias.map((item, index) => (
-            <SocialMediaIconButton
+            <S.SocialMediaIconButton
               target={"_blank"}
               href={item.link}
               key={index}
             >
               {item.icon}
-            </SocialMediaIconButton>
+            </S.SocialMediaIconButton>
           ))}
-        </Socials>
-      </CopyrightAndSocials>
-    </Wrapper>
+        </S.Socials>
+      </S.CopyrightAndSocials>
+    </S.Wrapper>
   );
 };

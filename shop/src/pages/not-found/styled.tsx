@@ -24,3 +24,5 @@ export const Caption = styled.div`
   text-align: center;
   margin-bottom: 64px;
 `;
+
+export default { Caption, Title, NotFound, Wrapper };

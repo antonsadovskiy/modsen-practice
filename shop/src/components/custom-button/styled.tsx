@@ -76,3 +76,5 @@ export const Button = styled.button<{
     opacity: 0.5;
   }
 `;
+
+export default { Button };

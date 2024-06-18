@@ -2,36 +2,7 @@ import { useParams } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ProductType } from "@/api/types";
 import { Api } from "@/api/api";
-import {
-  Wrapper,
-  MainInfoContainer,
-  ImagesContainer,
-  Information,
-  SocialMediaIconButton,
-  Description,
-  SimilarItems,
-  IncreaseAmountButton,
-  PriceContainer,
-  AdditionalImage,
-  MainImage,
-  ProductTitle,
-  ProductPrice,
-  RatingContainer,
-  ProductDescription,
-  AddToCartContainer,
-  AmountContainer,
-  Amount,
-  ButtonContainer,
-  TotalPrice,
-  IconsContainer,
-  CategoryContainer,
-  CategoryTitle,
-  Category,
-  DescriptionTitle,
-  DescriptionContainer,
-  Label,
-  List,
-} from "./styled";
+import S from "./styled";
 import { StarRating } from "@/pages/shop/star-rating";
 import { socialMedias } from "@/constants/socials";
 import { CatalogCard } from "@/components/catalog-card";
@@ -105,47 +76,47 @@ export const ProductPage = () => {
   }, [params?.id]);
 
   return (
-    <Wrapper>
-      <MainInfoContainer>
+    <S.Wrapper>
+      <S.MainInfoContainer>
         {isLoading ? (
           <Skeleton height={600} />
         ) : (
           <>
-            <ImagesContainer>
+            <S.ImagesContainer>
               <div>
-                <AdditionalImage src={product?.image} alt={"product image"} />
+                <S.AdditionalImage src={product?.image} alt={"product image"} />
               </div>
               <div>
-                <MainImage src={product?.image} alt={"product image"} />
+                <S.MainImage src={product?.image} alt={"product image"} />
               </div>
-            </ImagesContainer>
-            <Information>
-              <ProductTitle>{product?.title ?? ""}</ProductTitle>
-              <ProductPrice>$ {product?.price ?? ""}</ProductPrice>
-              <RatingContainer>
+            </S.ImagesContainer>
+            <S.Information>
+              <S.ProductTitle>{product?.title ?? ""}</S.ProductTitle>
+              <S.ProductPrice>$ {product?.price ?? ""}</S.ProductPrice>
+              <S.RatingContainer>
                 <StarRating value={product?.rating?.rate ?? 0} />
                 {product?.rating?.count ?? 0} customer review
-              </RatingContainer>
-              <ProductDescription>
+              </S.RatingContainer>
+              <S.ProductDescription>
                 {product?.description ?? ""}
-              </ProductDescription>
-              <AddToCartContainer>
-                <PriceContainer>
-                  <AmountContainer>
-                    <IncreaseAmountButton
+              </S.ProductDescription>
+              <S.AddToCartContainer>
+                <S.PriceContainer>
+                  <S.AmountContainer>
+                    <S.IncreaseAmountButton
                       $disabled={amount === 0}
                       onClick={decreaseHandler}
                     >
                       -
-                    </IncreaseAmountButton>
-                    <Amount>{amount}</Amount>
-                    <IncreaseAmountButton onClick={increaseHandler}>
+                    </S.IncreaseAmountButton>
+                    <S.Amount>{amount}</S.Amount>
+                    <S.IncreaseAmountButton onClick={increaseHandler}>
                       +
-                    </IncreaseAmountButton>
-                  </AmountContainer>
-                  <TotalPrice>${totalPrice}</TotalPrice>
-                </PriceContainer>
-                <ButtonContainer>
+                    </S.IncreaseAmountButton>
+                  </S.AmountContainer>
+                  <S.TotalPrice>${totalPrice}</S.TotalPrice>
+                </S.PriceContainer>
+                <S.ButtonContainer>
                   <CustomButton
                     onClick={addToCartHandler}
                     disabled={amount === 0}
@@ -153,36 +124,36 @@ export const ProductPage = () => {
                   >
                     Add to cart
                   </CustomButton>
-                </ButtonContainer>
-              </AddToCartContainer>
-              <IconsContainer>
+                </S.ButtonContainer>
+              </S.AddToCartContainer>
+              <S.IconsContainer>
                 {socialMedias.map((item, index) => (
-                  <SocialMediaIconButton
+                  <S.SocialMediaIconButton
                     target={"_blank"}
                     href={item.link}
                     key={index}
                   >
                     {item.icon}
-                  </SocialMediaIconButton>
+                  </S.SocialMediaIconButton>
                 ))}
-              </IconsContainer>
-              <CategoryContainer>
-                <CategoryTitle>Categories:</CategoryTitle>
-                <Category>{product?.category}</Category>
-              </CategoryContainer>
-            </Information>
+              </S.IconsContainer>
+              <S.CategoryContainer>
+                <S.CategoryTitle>Categories:</S.CategoryTitle>
+                <S.Category>{product?.category}</S.Category>
+              </S.CategoryContainer>
+            </S.Information>
           </>
         )}
-      </MainInfoContainer>
-      <DescriptionContainer>
-        <DescriptionTitle>Description</DescriptionTitle>
-        <Description>
+      </S.MainInfoContainer>
+      <S.DescriptionContainer>
+        <S.DescriptionTitle>Description</S.DescriptionTitle>
+        <S.Description>
           {isLoading ? <Skeleton /> : product?.description ?? ""}
-        </Description>
-      </DescriptionContainer>
-      <SimilarItems>
-        <Label>Similar Items</Label>
-        <List>
+        </S.Description>
+      </S.DescriptionContainer>
+      <S.SimilarItems>
+        <S.Label>Similar Items</S.Label>
+        <S.List>
           {isLoading &&
             Array.from({ length: 3 }).map((_, index) => (
               <Skeleton key={index} width={380} height={472} />
@@ -197,8 +168,8 @@ export const ProductPage = () => {
                 price={item.price}
               />
             ))}
-        </List>
-      </SimilarItems>
-    </Wrapper>
+        </S.List>
+      </S.SimilarItems>
+    </S.Wrapper>
   );
 };

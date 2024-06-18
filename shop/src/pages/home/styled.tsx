@@ -40,3 +40,12 @@ export const ViewAllLink = styled.div`
     color: ${({ theme }) => theme.color.black};
   }
 `;
+
+export default {
+  ViewAllLink,
+  List,
+  Title,
+  TitleContainer,
+  SwiperContainer,
+  Wrapper,
+};

@@ -49,3 +49,14 @@ export const NoData = styled.div`
   justify-content: center;
   font: var(--h4);
 `;
+
+export default {
+  Wrapper,
+  PageTitle,
+  Content,
+  Filters,
+  Selects,
+  Price,
+  Catalog,
+  NoData,
+};

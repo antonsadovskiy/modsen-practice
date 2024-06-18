@@ -50,3 +50,5 @@ export const Wrapper = styled.div`
     background-color: transparent !important;
   }
 `;
+
+export default { Wrapper };

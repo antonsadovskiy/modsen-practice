@@ -1,13 +1,4 @@
-import {
-  Catalog,
-  Content,
-  Filters,
-  NoData,
-  PageTitle,
-  Price,
-  Selects,
-  Wrapper,
-} from "./styled";
+import S from "./styled";
 import { CustomInput } from "@/components/custom-input";
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { Api } from "@/api/api";
@@ -155,10 +146,10 @@ export const ShopPage = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <PageTitle>Shop the latest</PageTitle>
-      <Content>
-        <Filters>
+    <S.Wrapper>
+      <S.PageTitle>Shop the latest</S.PageTitle>
+      <S.Content>
+        <S.Filters>
           <CustomInput
             type={"tel"}
             placeholder={"Search..."}
@@ -166,7 +157,7 @@ export const ShopPage = () => {
             onChange={onChangeSearchValue}
             endIcon={<SearchSVG />}
           />
-          <Selects>
+          <S.Selects>
             <CustomSelect
               placeholder={"Shop by"}
               selected={categoryValue}
@@ -180,7 +171,7 @@ export const ShopPage = () => {
               options={sortOptions}
               onChange={(value) => onChangeSelectValue(value, "sort")}
             />
-          </Selects>
+          </S.Selects>
           <div>
             <CustomSlider
               min={minAndMaxPrice[0]}
@@ -190,16 +181,16 @@ export const ShopPage = () => {
               onValueChange={onValueChangeHandler}
               onValueCommit={onValueCommitHandler}
             />
-            <Price>
+            <S.Price>
               Price:{" "}
               {isLoadingCatalog ? "Loading..." : `$${price[0]} - $${price[1]}`}
-            </Price>
+            </S.Price>
           </div>
           <CustomButton onClick={onClearFiltersHandler} variant={"secondary"}>
             Clear filters
           </CustomButton>
-        </Filters>
-        <Catalog className={"catalog"}>
+        </S.Filters>
+        <S.Catalog className={"catalog"}>
           {isLoadingCatalog &&
             Array.from({ length: 6 }).map((_, index) => (
               <Skeleton key={index} width={300} height={390} />
@@ -219,12 +210,12 @@ export const ShopPage = () => {
                   />
                 ))
               ) : (
-                <NoData>No products with these filters were found</NoData>
+                <S.NoData>No products with these filters were found</S.NoData>
               )}
             </>
           )}
-        </Catalog>
-      </Content>
-    </Wrapper>
+        </S.Catalog>
+      </S.Content>
+    </S.Wrapper>
   );
 };

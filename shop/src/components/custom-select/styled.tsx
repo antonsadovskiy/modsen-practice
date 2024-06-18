@@ -57,3 +57,5 @@ export const Select = styled.div`
     border-bottom: ${({ theme }) => `1px solid ${theme.color.gray}`};
   }
 `;
+
+export default { Placeholder, Select, Wrapper };

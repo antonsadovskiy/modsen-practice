@@ -36,3 +36,12 @@ export const BorderBottomLine = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.color.gray};
 `;
+
+export default {
+  Wrapper,
+  HeaderContent,
+  Logo,
+  Actions,
+  ShopLink,
+  BorderBottomLine,
+};

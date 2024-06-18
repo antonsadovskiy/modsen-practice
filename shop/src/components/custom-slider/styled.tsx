@@ -62,3 +62,5 @@ export const SliderThumb = styled(Slider.Thumb)`
     box-shadow: ${({ theme }) => `0 0 0 1px ${theme.color.black}`};
   }
 `;
+
+export default { SliderRoot, SliderTrack, SliderRange, SliderThumb, Wrapper };

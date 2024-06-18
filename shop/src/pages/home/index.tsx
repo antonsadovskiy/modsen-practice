@@ -1,12 +1,5 @@
 import { CatalogCard } from "@/components/catalog-card";
-import {
-  List,
-  SwiperContainer,
-  Title,
-  TitleContainer,
-  ViewAllLink,
-  Wrapper,
-} from "./styled";
+import S from "./styled";
 import { useCallback, useEffect, useState } from "react";
 import { Api } from "@/api/api";
 import { ProductType } from "@/api/types";
@@ -46,16 +39,16 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <S.Wrapper>
       <div>
-        <SwiperContainer>
+        <S.SwiperContainer>
           <CustomSwiper images={homeSwiperImages} />
-        </SwiperContainer>
-        <TitleContainer>
-          <Title>Shop The Latest</Title>
-          <ViewAllLink onClick={viewAllHandler}>View All</ViewAllLink>
-        </TitleContainer>
-        <List>
+        </S.SwiperContainer>
+        <S.TitleContainer>
+          <S.Title>Shop The Latest</S.Title>
+          <S.ViewAllLink onClick={viewAllHandler}>View All</S.ViewAllLink>
+        </S.TitleContainer>
+        <S.List>
           {isLoading
             ? Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton key={index} width={380} height={472} />
@@ -69,8 +62,8 @@ export const HomePage = () => {
                   price={item.price}
                 />
               ))}
-        </List>
+        </S.List>
       </div>
-    </Wrapper>
+    </S.Wrapper>
   );
 };

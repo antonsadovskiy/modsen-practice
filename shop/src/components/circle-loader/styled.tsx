@@ -19,3 +19,5 @@ export const Loader = styled.span<{ $size: number }>`
     }
   }
 `;
+
+export default { Loader };

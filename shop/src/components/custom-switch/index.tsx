@@ -1,4 +1,4 @@
-import { SwitchRoot, SwitchThumb } from "./styled";
+import S from "./styled";
 
 type CustomSwitchPropsType = {
   defaultChecked: boolean;
@@ -12,12 +12,12 @@ export const CustomSwitch = ({
   onCheckedChange,
 }: CustomSwitchPropsType) => (
   <>
-    <SwitchRoot
+    <S.SwitchRoot
       checked={checked}
       defaultChecked={defaultChecked}
       onCheckedChange={onCheckedChange}
     >
-      <SwitchThumb className="switchThumb" />
-    </SwitchRoot>
+      <S.SwitchThumb className="switchThumb" />
+    </S.SwitchRoot>
   </>
 );
