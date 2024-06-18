@@ -11,30 +11,42 @@ export const ContactUsPage = () => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<ContactUsType>({
     resolver: yupResolver(contactUsSchema),
+    defaultValues: {
+      email: "",
+      subject: "",
+      lastName: "",
+      message: "",
+      firstName: "",
+    },
   });
 
   const [isSending, setIsSending] = useState(false);
 
-  const onSubmit: SubmitHandler<ContactUsType> = useCallback(async (data) => {
-    setIsSending(true);
-    try {
-      await emailjs.send(
-        process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
-        process.env.REACT_APP_CONTACT_US_TEMPLATE_ID,
-        {
-          recipient: data.email,
-          ...data,
-        },
-      );
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setIsSending(false);
-    }
-  }, []);
+  const onSubmit: SubmitHandler<ContactUsType> = useCallback(
+    async (data) => {
+      setIsSending(true);
+      try {
+        await emailjs.send(
+          process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
+          process.env.REACT_APP_CONTACT_US_TEMPLATE_ID,
+          {
+            recipient: data.email,
+            ...data,
+          },
+        );
+        reset();
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsSending(false);
+      }
+    },
+    [reset],
+  );
 
   return (
     <S.Wrapper>

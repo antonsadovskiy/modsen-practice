@@ -22,13 +22,12 @@ export const CustomInput = ({
     <S.Input $isWithEndIcon={!!endIcon} disabled={disabled} {...rest} />
     {error && <S.Error>{error}</S.Error>}
     {endIcon && (
-      <button
-        disabled={disabled}
+      <div
         className={onIconClick ? "icon clickable" : "icon"}
         onClick={onIconClick}
       >
         {endIcon}
-      </button>
+      </div>
     )}
   </S.Wrapper>
 );

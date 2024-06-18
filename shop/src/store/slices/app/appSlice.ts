@@ -4,6 +4,7 @@ type ThemeType = "light" | "dark";
 
 const initialState = {
   theme: "light" as ThemeType,
+  isLoggedIn: false,
 };
 
 const slice = createSlice({
@@ -17,6 +18,9 @@ const slice = createSlice({
       }>,
     ) => {
       state.theme = action.payload.theme;
+    },
+    setIsLoggedIn: (state) => {
+      state.isLoggedIn = true;
     },
   },
 });

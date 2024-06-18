@@ -27,26 +27,28 @@ export const Header = () => {
 
   return (
     <S.Wrapper>
-      <S.HeaderContent>
-        <S.Logo
-          className={"logo"}
-          onClick={goHomePageHandler}
-          width={290}
-          height={32}
-        />
-        <S.Actions>
-          <S.ShopLink>Shop</S.ShopLink>
-          <CustomSwitch
-            checked={theme !== "light"}
-            defaultChecked={theme !== "light"}
-            onCheckedChange={onCheckedChangeHandler}
+      <S.MaxWidthContainer>
+        <S.HeaderContent>
+          <S.Logo
+            className={"logo"}
+            onClick={goHomePageHandler}
+            width={290}
+            height={32}
           />
-          <Link to={routes.cart}>
-            <ShoppingCardSVG />
-          </Link>
-        </S.Actions>
-      </S.HeaderContent>
-      <S.BorderBottomLine />
+          <S.Actions>
+            <S.ShopLink>Shop</S.ShopLink>
+            <CustomSwitch
+              checked={theme !== "light"}
+              defaultChecked={theme !== "light"}
+              onCheckedChange={onCheckedChangeHandler}
+            />
+            <Link to={routes.cart}>
+              <ShoppingCardSVG />
+            </Link>
+          </S.Actions>
+        </S.HeaderContent>
+        <S.BorderBottomLine />
+      </S.MaxWidthContainer>
     </S.Wrapper>
   );
 };

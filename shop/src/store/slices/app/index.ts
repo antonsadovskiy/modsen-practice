@@ -1,2 +1,2 @@
-export { selectorAppTheme } from "./appSelectors";
+export { selectorAppTheme, selectorIsLoggedIn } from "./appSelectors";
 export { appReducer, appActions } from "./appSlice";

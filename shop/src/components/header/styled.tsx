@@ -37,6 +37,16 @@ export const BorderBottomLine = styled.div`
   background-color: ${({ theme }) => theme.color.gray};
 `;
 
+const MaxWidthContainer = styled.div`
+  max-width: 1248px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 17px;
+`;
+
 export default {
   Wrapper,
   HeaderContent,
@@ -44,4 +54,5 @@ export default {
   Actions,
   ShopLink,
   BorderBottomLine,
+  MaxWidthContainer,
 };

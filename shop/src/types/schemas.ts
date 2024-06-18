@@ -9,5 +9,24 @@ export const contactUsSchema = yup
     message: yup.string().required("Message is required"),
   })
   .required();
-
 export type ContactUsType = yup.InferType<typeof contactUsSchema>;
+
+export const loginSchema = yup
+  .object({
+    email: yup.string().required("Email is required").email("Invalid email"),
+    password: yup.string().required("Password is required"),
+  })
+  .required();
+export type LoginType = yup.InferType<typeof loginSchema>;
+
+export const registrationSchema = yup
+  .object({
+    email: yup.string().required("Email is required").email("Invalid email"),
+    password: yup.string().required("Password is required"),
+    confirmPassword: yup
+      .string()
+      .required("Field is required")
+      .oneOf([yup.ref("password"), null], "Passwords must match"),
+  })
+  .required();
+export type RegistrationType = yup.InferType<typeof registrationSchema>;

@@ -6,6 +6,7 @@ export const Button = styled.button<{
   $isFullWidth: boolean;
   $variant: ButtonVariant;
 }>`
+  width: ${({ $isFullWidth }) => ($isFullWidth ? "100%" : "auto")};
   text-align: center;
   cursor: pointer;
   font: var(--body-large);

@@ -186,9 +186,11 @@ export const ShopPage = () => {
               {isLoadingCatalog ? "Loading..." : `$${price[0]} - $${price[1]}`}
             </S.Price>
           </div>
-          <CustomButton onClick={onClearFiltersHandler} variant={"secondary"}>
-            Clear filters
-          </CustomButton>
+          <S.ButtonContainer>
+            <CustomButton onClick={onClearFiltersHandler} variant={"secondary"}>
+              Clear filters
+            </CustomButton>
+          </S.ButtonContainer>
         </S.Filters>
         <S.Catalog className={"catalog"}>
           {isLoadingCatalog &&

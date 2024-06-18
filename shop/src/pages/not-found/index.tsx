@@ -19,9 +19,11 @@ export const NotFoundPage = () => {
           This page not found;
           <br /> back to home and start again
         </S.Caption>
-        <CustomButton onClick={onClickHandler} variant={"secondary"}>
-          Homepage
-        </CustomButton>
+        <S.ButtonContainer>
+          <CustomButton onClick={onClickHandler} variant={"secondary"}>
+            Homepage
+          </CustomButton>
+        </S.ButtonContainer>
       </S.NotFound>
     </S.Wrapper>
   );

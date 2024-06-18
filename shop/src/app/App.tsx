@@ -1,24 +1,25 @@
 import styled, { ThemeProvider } from "styled-components";
-import { Footer } from "./components/footer";
-import { Header } from "./components/header";
-import { theme } from "./assets/styles/theme";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { theme } from "@/assets/styles/theme";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
-import { selectorAppTheme } from "@/store/slices/app";
+import { selectorAppTheme, selectorIsLoggedIn } from "@/store/slices/app";
 
 export function App() {
   const appTheme = useAppSelector(selectorAppTheme);
+  const IsLoggedIn = useAppSelector(selectorIsLoggedIn);
 
   return (
     <ThemeProvider theme={theme[appTheme]}>
       <Wrapper>
+        {IsLoggedIn && <Header />}
         <MaxWidthContainer>
-          <div className={"content"}>
-            <Header />
+          <Content>
             <Outlet />
             <ScrollRestoration />
-          </div>
-          <Footer />
+          </Content>
+          {IsLoggedIn && <Footer />}
         </MaxWidthContainer>
       </Wrapper>
     </ThemeProvider>
@@ -29,15 +30,15 @@ const Wrapper = styled.div`
 `;
 
 const MaxWidthContainer = styled.div`
-  min-height: 100vh;
+  min-height: calc(100vh - 114px);
   max-width: 1248px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
 
-  .content {
-    display: flex;
-    flex-direction: column;
-  }
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

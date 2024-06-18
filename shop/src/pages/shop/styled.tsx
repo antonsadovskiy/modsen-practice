@@ -50,6 +50,12 @@ export const NoData = styled.div`
   font: var(--h4);
 `;
 
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
 export default {
   Wrapper,
   PageTitle,
@@ -59,4 +65,5 @@ export default {
   Price,
   Catalog,
   NoData,
+  ButtonContainer,
 };

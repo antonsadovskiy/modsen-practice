@@ -25,4 +25,9 @@ export const Caption = styled.div`
   margin-bottom: 64px;
 `;
 
-export default { Caption, Title, NotFound, Wrapper };
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export default { Caption, Title, NotFound, Wrapper, ButtonContainer };
