@@ -2,7 +2,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { Footer } from "./components/footer";
 import { Header } from "./components/header";
 import { theme } from "./assets/styles/theme";
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
 import { selectorAppTheme } from "@/store/slices/app";
 
@@ -16,6 +16,7 @@ export function App() {
           <div className={"content"}>
             <Header />
             <Outlet />
+            <ScrollRestoration />
           </div>
           <Footer />
         </MaxWidthContainer>
