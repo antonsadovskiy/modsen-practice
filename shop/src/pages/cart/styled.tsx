@@ -8,8 +8,11 @@ const Wrapper = styled.div`
   margin-bottom: 250px;
 `;
 
-const Title = styled.div`
+const TitleContainer = styled.div`
   font: var(--h1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 const ProductsContainer = styled.div`
   display: flex;
@@ -19,7 +22,6 @@ const ProductsContainer = styled.div`
   row-gap: 60px;
   column-gap: 54px;
   justify-content: center;
-  width: 75%;
 `;
 const NoData = styled.div`
   font: var(--h4);
@@ -33,20 +35,11 @@ const CartContainer = styled.div`
   align-items: flex-start;
   gap: 30px;
 `;
-const BuyContainer = styled.div`
-  width: 25%;
-`;
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-`;
 
 export default {
   Wrapper,
-  Title,
+  TitleContainer,
   ProductsContainer,
   NoData,
   CartContainer,
-  BuyContainer,
-  ButtonContainer,
 };

@@ -16,12 +16,15 @@ export const Content = styled.div`
   flex-direction: row;
   gap: 35px;
   align-items: flex-start;
+  position: relative;
 `;
 export const Filters = styled.div`
+  position: sticky;
   width: 20%;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  top: 144px;
 `;
 export const Selects = styled.div`
   display: flex;

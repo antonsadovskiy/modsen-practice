@@ -23,12 +23,12 @@ export const useGetUserCart = () => {
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
-      const { amount, productId, totalPrice } = doc.data();
+      const { amount, productId } = doc.data();
       dispatch(
         cartActions.addToCart({
+          docId: doc.id,
           amount,
           productId,
-          totalPrice,
         }),
       );
     });

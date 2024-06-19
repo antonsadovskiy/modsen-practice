@@ -1,9 +1,13 @@
 import S from "./styled";
 import { useNavigate } from "react-router-dom";
-import { useCallback } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { routes } from "@/constants/routes";
+import { IncreaseAmount } from "@/components/increase-amount";
+import { useDebounce } from "@/hooks/useDebounce";
+import { useUpdateCart } from "@/hooks/useUpdateCart";
 
 export type CartCardPropsType = {
+  docId: string;
   id: number;
   imageSrc?: string;
   title: string;
@@ -11,9 +15,11 @@ export type CartCardPropsType = {
   price: number;
   width?: string;
   height?: string;
+  amountItemsInCart: number;
 };
 
 export const CartCard = ({
+  docId,
   id,
   imageSrc,
   height = "380",
@@ -21,7 +27,39 @@ export const CartCard = ({
   description,
   price,
   title,
+  amountItemsInCart,
 }: CartCardPropsType) => {
+  const [amount, setAmount] = useState(amountItemsInCart);
+
+  const debouncedAmount = useDebounce(amount, 700);
+
+  const { updateCart } = useUpdateCart();
+
+  const increaseHandler = useCallback(() => {
+    setAmount((prevState) => prevState + 1);
+  }, []);
+
+  const decreaseHandler = useCallback(() => {
+    setAmount((prevState) => prevState - 1);
+  }, []);
+
+  const totalPrice = useMemo(
+    () => (amount * (price ?? 0)).toFixed(2),
+    [amount, price],
+  );
+
+  const updateCartProduct = useCallback(async () => {
+    try {
+      await updateCart(id, docId, debouncedAmount);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [debouncedAmount, updateCart, docId, id]);
+
+  useEffect(() => {
+    updateCartProduct();
+  }, [debouncedAmount]);
+
   const navigate = useNavigate();
 
   const onClickHandler = useCallback(() => {
@@ -29,17 +67,23 @@ export const CartCard = ({
   }, [navigate, id]);
 
   return (
-    <S.CatalogCardWrapper $width={width} onClick={onClickHandler}>
+    <S.CatalogCardWrapper $width={width}>
       <S.ImageAndDescription>
-        <S.ImagesContainer>
+        <S.ImagesContainer onClick={onClickHandler}>
           <img src={imageSrc} alt={title} height={height} width={width} />
         </S.ImagesContainer>
         <S.TitleAndDescription>
           <S.Title>{title}</S.Title>
           <S.Description>{description}</S.Description>
+          <IncreaseAmount
+            amount={amount}
+            increaseHandler={increaseHandler}
+            decreaseHandler={decreaseHandler}
+            totalPrice={totalPrice}
+            disabled={false}
+          />
         </S.TitleAndDescription>
       </S.ImageAndDescription>
-      <S.Price>${price}</S.Price>
     </S.CatalogCardWrapper>
   );
 };

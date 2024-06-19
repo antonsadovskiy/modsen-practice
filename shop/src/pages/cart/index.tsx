@@ -1,7 +1,7 @@
 import S from "./styled";
 import { useAppSelector } from "@/store/hooks";
 import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Api } from "@/api/api";
 import { ProductType } from "@/api/types";
 import { CartCard } from "@/components/cart-card";
@@ -28,15 +28,30 @@ export const CartPage = () => {
     fetchData();
   }, [cart]);
 
+  const totalPrice = useMemo(
+    () =>
+      productsWithMeta
+        .map((item) => item.price * cart[item.id].amount)
+        .reduce((acc, curr) => acc + curr, 0)
+        .toFixed(2),
+    [cart, productsWithMeta],
+  );
+
+  console.log(totalPrice);
+
   return (
     <S.Wrapper>
-      <S.Title>Cart</S.Title>
+      <S.TitleContainer>
+        Cart
+        <CustomButton fullWidth={false}>Show now</CustomButton>
+      </S.TitleContainer>
       <S.CartContainer>
         <S.ProductsContainer>
           {Object.keys(cart).length > 0 ? (
             <>
               {productsWithMeta.map((item) => (
                 <CartCard
+                  docId={cart[item.id].docId}
                   width={"200"}
                   imageSrc={item.image}
                   height={"200"}
@@ -45,6 +60,7 @@ export const CartPage = () => {
                   id={item.id}
                   title={item.title}
                   price={item.price}
+                  amountItemsInCart={cart[item.id].amount}
                 />
               ))}
             </>
@@ -52,11 +68,6 @@ export const CartPage = () => {
             <S.NoData>No products in cart yet</S.NoData>
           )}
         </S.ProductsContainer>
-        <S.BuyContainer>
-          <S.ButtonContainer>
-            <CustomButton>Show now</CustomButton>
-          </S.ButtonContainer>
-        </S.BuyContainer>
       </S.CartContainer>
     </S.Wrapper>
   );

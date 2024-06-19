@@ -7,17 +7,13 @@ export const useAddCart = () => {
 
   const userId = useAppSelector(selectorUserId);
 
-  const addCart = async (
-    productId: number,
-    amount: number,
-    totalPrice: number,
-  ) => {
-    await addDoc(collection(db, "cart"), {
+  const addCart = async (productId: number, amount: number) => {
+    const newDoc = await addDoc(collection(db, "cart"), {
       productId,
       amount,
-      totalPrice,
       userId,
     });
+    return newDoc.id;
   };
 
   return { addCart };

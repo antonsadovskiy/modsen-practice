@@ -13,6 +13,7 @@ import { cartActions } from "@/store/slices/cart/cartSlice";
 import { useAddCart } from "@/hooks/useAddCart";
 import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
 import { routes } from "@/constants/routes";
+import { IncreaseAmount } from "@/components/increase-amount";
 
 export const ProductPage = () => {
   const dispatch = useAppDispatch();
@@ -61,12 +62,12 @@ export const ProductPage = () => {
     if (product.id) {
       setIsAdding(true);
       try {
-        await addCart(product.id, amount, +totalPrice);
+        const docId = await addCart(product.id, amount);
         dispatch(
           cartActions.addToCart({
+            docId,
             productId: product.id.toString(),
             amount,
-            totalPrice: +totalPrice,
           }),
         );
       } catch (e) {
@@ -75,7 +76,7 @@ export const ProductPage = () => {
         setIsAdding(false);
       }
     }
-  }, [addCart, amount, dispatch, product, totalPrice]);
+  }, [addCart, amount, dispatch, product]);
 
   const goToCartHandler = useCallback(() => {
     navigate(routes.cart);
@@ -128,24 +129,13 @@ export const ProductPage = () => {
                 {product?.description ?? ""}
               </S.ProductDescription>
               <S.AddToCartContainer>
-                <S.PriceContainer $disabled={isThisProductAlreadyInCart}>
-                  <S.AmountContainer>
-                    <S.IncreaseAmountButton
-                      $disabled={amount === 0 || isThisProductAlreadyInCart}
-                      onClick={decreaseHandler}
-                    >
-                      -
-                    </S.IncreaseAmountButton>
-                    <S.Amount>{amount}</S.Amount>
-                    <S.IncreaseAmountButton
-                      $disabled={isThisProductAlreadyInCart}
-                      onClick={increaseHandler}
-                    >
-                      +
-                    </S.IncreaseAmountButton>
-                  </S.AmountContainer>
-                  <S.TotalPrice>${totalPrice}</S.TotalPrice>
-                </S.PriceContainer>
+                <IncreaseAmount
+                  amount={amount}
+                  increaseHandler={increaseHandler}
+                  decreaseHandler={decreaseHandler}
+                  totalPrice={totalPrice}
+                  disabled={isThisProductAlreadyInCart}
+                />
                 <S.ButtonContainer>
                   {isThisProductAlreadyInCart ? (
                     <CustomButton

@@ -1,27 +1,29 @@
 import styled from "styled-components";
 
 const CatalogCardWrapper = styled.div<{ $width: string }>`
-  cursor: pointer;
   width: 100%;
   display: flex;
   gap: 20px;
 `;
 const TitleAndDescription = styled.div`
+  height: 200px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 20px;
-  max-width: 100%;
+  width: 100%;
 `;
 
 const ImageAndDescription = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  max-width: 100%;
+  width: 100%;
   gap: 20px;
 `;
 
 const ImagesContainer = styled.div`
+  cursor: pointer;
   img {
     position: relative;
 
@@ -40,21 +42,17 @@ const Description = styled.div`
   max-width: 100%;
   font: var(--h5);
   color: #707070;
-  text-overflow: ellipsis;
   overflow: hidden;
-`;
-
-const Price = styled.div`
-  font: var(--h4);
-  color: ${({ theme }) => theme.color.accent};
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 `;
 
 export default {
   CatalogCardWrapper,
   ImagesContainer,
   ImageAndDescription,
-  Price,
   Description,
   Title,
   TitleAndDescription,

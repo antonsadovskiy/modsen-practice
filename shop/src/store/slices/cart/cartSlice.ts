@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type InitialStateType = {
   cartProducts: {
     [key: string]: {
+      docId: string;
       amount: number;
-      totalPrice: number;
     };
   };
 };
@@ -20,14 +20,26 @@ const slice = createSlice({
     addToCart: (
       state,
       action: PayloadAction<{
+        docId: string;
         productId: string;
         amount: number;
-        totalPrice: number;
       }>,
     ) => {
       state.cartProducts[action.payload.productId] = {
+        docId: action.payload.docId,
         amount: action.payload.amount,
-        totalPrice: action.payload.totalPrice,
+      };
+    },
+    updateProductInCart: (
+      state,
+      action: PayloadAction<{
+        productId: string;
+        amount: number;
+      }>,
+    ) => {
+      state.cartProducts[action.payload.productId] = {
+        ...state.cartProducts[action.payload.productId],
+        amount: action.payload.amount,
       };
     },
   },

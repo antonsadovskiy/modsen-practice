@@ -83,13 +83,6 @@ export const AddToCartContainer = styled.div`
   flex-direction: column;
   gap: 10px;
 `;
-export const AmountContainer = styled.div`
-  font-family: var(--font-family-dm-sans);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  user-select: none;
-`;
 
 export const ImagesContainer = styled.div`
   display: flex;
@@ -140,11 +133,6 @@ export const ButtonContainer = styled.div`
   }
 `;
 
-export const Amount = styled.div`
-  min-width: 20px;
-  text-align: center;
-`;
-
 export const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -177,34 +165,6 @@ export const SimilarItems = styled.div`
   flex-direction: column;
 `;
 
-export const IncreaseAmountButton = styled.div<{ $disabled?: boolean }>`
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: 1px solid black;
-  pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
-
-  user-select: none;
-
-  ${({ $disabled }) => $disabled && "opacity: 0.5"}
-`;
-
-export const PriceContainer = styled.div<{ $disabled: boolean }>`
-  opacity: ${({ $disabled }) => ($disabled ? 0.5 : 1)};
-  pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export const TotalPrice = styled.div`
-  font: var(--h5);
-`;
-
 export const DescriptionTitle = styled.div`
   padding-bottom: 35px;
   font: var(--h3);
@@ -226,19 +186,14 @@ export default {
   Category,
   RatingContainer,
   AddToCartContainer,
-  AmountContainer,
   ImagesContainer,
   MainImage,
   AdditionalImage,
   ButtonContainer,
-  Amount,
   DescriptionContainer,
   Label,
   List,
   Description,
   SimilarItems,
-  IncreaseAmountButton,
-  PriceContainer,
-  TotalPrice,
   DescriptionTitle,
 };
