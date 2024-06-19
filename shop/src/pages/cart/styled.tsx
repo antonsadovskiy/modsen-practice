@@ -16,6 +16,7 @@ const TitleContainer = styled.div`
 `;
 const ProductsContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
@@ -31,8 +32,9 @@ const NoData = styled.div`
   justify-content: center;
 `;
 const CartContainer = styled.div`
+  width: 100%;
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
   gap: 30px;
 `;
 

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { routes } from "@/constants/routes";
 import { IncreaseAmount } from "@/components/increase-amount";
-import { useDebounce } from "@/hooks/useDebounce";
 import { useUpdateCart } from "@/hooks/useUpdateCart";
+import { useDebounce } from "@/hooks/useDebounce";
 
 export type CartCardPropsType = {
   docId: string;
@@ -50,15 +50,17 @@ export const CartCard = ({
 
   const updateCartProduct = useCallback(async () => {
     try {
-      await updateCart(id, docId, debouncedAmount);
+      await updateCart(id, docId, amount);
     } catch (e) {
       console.error(e);
     }
-  }, [debouncedAmount, updateCart, docId, id]);
+  }, [amount, updateCart, docId, id]);
 
   useEffect(() => {
-    updateCartProduct();
-  }, [debouncedAmount]);
+    if (debouncedAmount !== amount) {
+      updateCartProduct();
+    }
+  }, [debouncedAmount, amount, updateCartProduct]);
 
   const navigate = useNavigate();
 
