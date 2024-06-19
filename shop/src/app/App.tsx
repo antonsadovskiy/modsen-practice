@@ -1,4 +1,4 @@
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { theme } from "@/assets/styles/theme";
@@ -12,6 +12,8 @@ import {
 } from "@/store/slices/app";
 import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { CircleLoader } from "@/components/circle-loader";
+import S from "./styled";
 
 export function App() {
   const appTheme = useAppSelector(selectorAppTheme);
@@ -37,34 +39,21 @@ export function App() {
 
   return (
     <ThemeProvider theme={theme[appTheme]}>
-      <Wrapper>
-        {isLoggedIn && <Header />}
-        <MaxWidthContainer>
-          <Content>
+      <S.Wrapper>
+        {isLoggedIn && isAppInitialized && <Header />}
+        <S.MaxWidthContainer>
+          <S.Content>
             {isAppInitialized && <Outlet />}
-            {!isAppInitialized && "Loading..."}
+            {!isAppInitialized && (
+              <S.LoaderContainer>
+                <CircleLoader size={30} />
+              </S.LoaderContainer>
+            )}
             <ScrollRestoration />
-          </Content>
-          {isLoggedIn && <Footer />}
-        </MaxWidthContainer>
-      </Wrapper>
+          </S.Content>
+          {isLoggedIn && isAppInitialized && <Footer />}
+        </S.MaxWidthContainer>
+      </S.Wrapper>
     </ThemeProvider>
   );
 }
-const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.backgroundColor};
-`;
-
-const MaxWidthContainer = styled.div`
-  min-height: calc(100vh - 114px);
-  max-width: 1248px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-`;

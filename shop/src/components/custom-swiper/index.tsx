@@ -4,9 +4,10 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import S from "./styled";
 import { useMemo } from "react";
+import { CustomImage } from "@/components/custom-image";
 
 type CustomSwiperPropsType = {
-  images: string[];
+  images: { highRes: string; lowRes: string }[];
   isWithAutoPlay?: boolean;
   isWithPagination?: boolean;
 };
@@ -41,7 +42,11 @@ export const CustomSwiper = ({
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <img src={image} alt="image" />
+            <CustomImage
+              highResSrc={image.highRes}
+              lowResSrc={image.lowRes}
+              alt={"image"}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
