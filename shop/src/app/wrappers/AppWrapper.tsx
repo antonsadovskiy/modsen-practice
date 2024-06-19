@@ -1,8 +1,8 @@
 import { ReactNode, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { appActions, selectorUserId } from "@/store/slices/app";
 import { useGetUserCart } from "@/hooks/useGetUserCart";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 type AppWrapperPropsType = {
   children: ReactNode;
@@ -16,18 +16,17 @@ export const AppWrapper = ({ children }: AppWrapperPropsType) => {
   const { getUserCart } = useGetUserCart();
 
   useEffect(() => {
-    const authUser = () => {
-      const auth = getAuth();
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          dispatch(appActions.setIsLoggedIn());
-          dispatch(appActions.setUser({ email: user.email, id: user.uid }));
-        }
-        dispatch(appActions.setIsAppInitialized());
-      });
-    };
+    const auth = getAuth();
 
-    authUser();
+    const removeListener = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(appActions.setIsLoggedIn());
+        dispatch(appActions.setUser({ email: user.email, id: user.uid }));
+      }
+      dispatch(appActions.setIsAppInitialized());
+
+      removeListener();
+    });
   }, [dispatch]);
 
   useEffect(() => {
