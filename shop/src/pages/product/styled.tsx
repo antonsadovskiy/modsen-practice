@@ -193,7 +193,9 @@ export const IncreaseAmountButton = styled.div<{ $disabled?: boolean }>`
   ${({ $disabled }) => $disabled && "opacity: 0.5"}
 `;
 
-export const PriceContainer = styled.div`
+export const PriceContainer = styled.div<{ $disabled: boolean }>`
+  opacity: ${({ $disabled }) => ($disabled ? 0.5 : 1)};
+  pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type InitialStateType = {
   cartProducts: {
-    [key: number]: {
+    [key: string]: {
       amount: number;
       totalPrice: number;
     };
@@ -20,7 +20,7 @@ const slice = createSlice({
     addToCart: (
       state,
       action: PayloadAction<{
-        productId: number;
+        productId: string;
         amount: number;
         totalPrice: number;
       }>,

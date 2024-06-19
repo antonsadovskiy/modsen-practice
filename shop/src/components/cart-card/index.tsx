@@ -3,24 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import { routes } from "@/constants/routes";
 
-export type CatalogCardPropsType = {
+export type CartCardPropsType = {
   id: number;
   imageSrc?: string;
   title: string;
+  description: string;
   price: number;
   width?: string;
   height?: string;
-  isWithPrice?: boolean;
 };
 
-export const CatalogCard = ({
+export const CartCard = ({
   id,
   imageSrc,
   height = "380",
   width = "380",
+  description,
   price,
   title,
-}: CatalogCardPropsType) => {
+}: CartCardPropsType) => {
   const navigate = useNavigate();
 
   const onClickHandler = useCallback(() => {
@@ -29,11 +30,16 @@ export const CatalogCard = ({
 
   return (
     <S.CatalogCardWrapper $width={width} onClick={onClickHandler}>
-      <S.ImagesContainer>
-        <img src={imageSrc} alt={title} height={height} width={width} />
-      </S.ImagesContainer>
-      <S.Title>{title}</S.Title>
-      <S.Price>$ {price}</S.Price>
+      <S.ImageAndDescription>
+        <S.ImagesContainer>
+          <img src={imageSrc} alt={title} height={height} width={width} />
+        </S.ImagesContainer>
+        <S.TitleAndDescription>
+          <S.Title>{title}</S.Title>
+          <S.Description>{description}</S.Description>
+        </S.TitleAndDescription>
+      </S.ImageAndDescription>
+      <S.Price>${price}</S.Price>
     </S.CatalogCardWrapper>
   );
 };

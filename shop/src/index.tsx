@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
@@ -6,13 +5,14 @@ import { Provider } from "react-redux";
 import { store } from "@/store";
 import { router } from "@/app/router";
 import "@/app/firebase";
+import { AppWrapper } from "@/app/wrappers/AppWrapper";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <AppWrapper>
       <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>,
+    </AppWrapper>
+  </Provider>,
 );

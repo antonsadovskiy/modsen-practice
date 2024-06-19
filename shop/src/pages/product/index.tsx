@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ProductType } from "@/api/types";
 import { Api } from "@/api/api";
@@ -8,21 +8,34 @@ import { socialMedias } from "@/constants/socials";
 import { CatalogCard } from "@/components/catalog-card";
 import { Skeleton } from "@/components/skeleton";
 import { CustomButton } from "@/components/custom-button";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { cartActions } from "@/store/slices/cart/cartSlice";
+import { useAddCart } from "@/hooks/useAddCart";
+import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
+import { routes } from "@/constants/routes";
 
 export const ProductPage = () => {
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+
   const [product, setProduct] = useState<ProductType | undefined>();
 
-  const [amount, setAmount] = useState<number>(0);
+  const cart = useAppSelector(selectorCartProducts);
+
+  const [amount, setAmount] = useState(0);
 
   const [similarItems, setSimilarItems] = useState<ProductType[]>([]);
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
 
   const params = useParams<{ id: string }>();
+
+  const isThisProductAlreadyInCart = useMemo(
+    () => !!cart[params.id],
+    [cart, params],
+  );
 
   const filteredSimilarItems = useMemo(
     () => similarItems.filter((item) => item.id !== product?.id).splice(0, 3),
@@ -42,24 +55,38 @@ export const ProductPage = () => {
     [product, amount],
   );
 
-  const addToCartHandler = useCallback(() => {
+  const { addCart } = useAddCart();
+
+  const addToCartHandler = useCallback(async () => {
     if (product.id) {
-      dispatch(
-        cartActions.addToCart({
-          productId: product.id,
-          amount,
-          totalPrice: +totalPrice,
-        }),
-      );
+      setIsAdding(true);
+      try {
+        await addCart(product.id, amount, +totalPrice);
+        dispatch(
+          cartActions.addToCart({
+            productId: product.id.toString(),
+            amount,
+            totalPrice: +totalPrice,
+          }),
+        );
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsAdding(false);
+      }
     }
-  }, [amount, dispatch, product, totalPrice]);
+  }, [addCart, amount, dispatch, product, totalPrice]);
+
+  const goToCartHandler = useCallback(() => {
+    navigate(routes.cart);
+  }, [navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (params?.id) {
+      if (params.id) {
         setIsLoading(true);
         try {
-          const data = await Api.getProductById(params?.id ?? "");
+          const data = await Api.getProductById(params.id);
           setProduct(data);
 
           const similarItems = await Api.getProductsByCategory(data.category);
@@ -73,7 +100,7 @@ export const ProductPage = () => {
     };
 
     fetchData();
-  }, [params?.id]);
+  }, [params.id]);
 
   return (
     <S.Wrapper>
@@ -101,29 +128,42 @@ export const ProductPage = () => {
                 {product?.description ?? ""}
               </S.ProductDescription>
               <S.AddToCartContainer>
-                <S.PriceContainer>
+                <S.PriceContainer $disabled={isThisProductAlreadyInCart}>
                   <S.AmountContainer>
                     <S.IncreaseAmountButton
-                      $disabled={amount === 0}
+                      $disabled={amount === 0 || isThisProductAlreadyInCart}
                       onClick={decreaseHandler}
                     >
                       -
                     </S.IncreaseAmountButton>
                     <S.Amount>{amount}</S.Amount>
-                    <S.IncreaseAmountButton onClick={increaseHandler}>
+                    <S.IncreaseAmountButton
+                      $disabled={isThisProductAlreadyInCart}
+                      onClick={increaseHandler}
+                    >
                       +
                     </S.IncreaseAmountButton>
                   </S.AmountContainer>
                   <S.TotalPrice>${totalPrice}</S.TotalPrice>
                 </S.PriceContainer>
                 <S.ButtonContainer>
-                  <CustomButton
-                    onClick={addToCartHandler}
-                    disabled={amount === 0}
-                    variant={"secondary"}
-                  >
-                    Add to cart
-                  </CustomButton>
+                  {isThisProductAlreadyInCart ? (
+                    <CustomButton
+                      onClick={goToCartHandler}
+                      variant={"secondary"}
+                    >
+                      Go to cart
+                    </CustomButton>
+                  ) : (
+                    <CustomButton
+                      onClick={addToCartHandler}
+                      disabled={amount === 0}
+                      isLoading={isAdding}
+                      variant={"secondary"}
+                    >
+                      Add to cart
+                    </CustomButton>
+                  )}
                 </S.ButtonContainer>
               </S.AddToCartContainer>
               <S.IconsContainer>
