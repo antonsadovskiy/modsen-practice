@@ -7,6 +7,8 @@ import { useUpdateCart } from "@/hooks/useUpdateCart";
 import { useDebounce } from "@/hooks/useDebounce";
 import DeleteSVG from "@/assets/svg/bucket.svg";
 import { CustomIconButton } from "@/components/custom-icon-button";
+import { useDeleteCartProduct } from "@/hooks/useDeleteCartProduct";
+import { CircleLoader } from "@/components/circle-loader";
 
 export type CartCardPropsType = {
   docId: string;
@@ -36,6 +38,9 @@ export const CartCard = ({
   const debouncedAmount = useDebounce(amount, 700);
 
   const { updateCart } = useUpdateCart();
+  const { deleteCartProduct } = useDeleteCartProduct();
+
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const increaseHandler = useCallback(() => {
     setAmount((prevState) => prevState + 1);
@@ -68,9 +73,16 @@ export const CartCard = ({
     navigate(`${routes.product}/${id}`);
   }, [navigate, id]);
 
-  const onDeleteProductHandler = useCallback(() => {
-    console.log(id);
-  }, [id]);
+  const onDeleteProductHandler = useCallback(async () => {
+    try {
+      setIsDeleting(true);
+      await deleteCartProduct(docId, id);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsDeleting(false);
+    }
+  }, [deleteCartProduct, docId, id]);
 
   return (
     <S.CatalogCardWrapper $width={width}>
@@ -81,9 +93,13 @@ export const CartCard = ({
         <S.TitleAndDescription>
           <S.TitleAndDelete>
             <S.Title>{title}</S.Title>
-            <CustomIconButton onClick={onDeleteProductHandler}>
-              <DeleteSVG />
-            </CustomIconButton>
+            {isDeleting ? (
+              <CircleLoader />
+            ) : (
+              <CustomIconButton onClick={onDeleteProductHandler}>
+                <DeleteSVG />
+              </CustomIconButton>
+            )}
           </S.TitleAndDelete>
           <S.Description>{description}</S.Description>
           <IncreaseAmount

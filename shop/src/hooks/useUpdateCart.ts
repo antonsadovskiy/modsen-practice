@@ -19,7 +19,7 @@ export const useUpdateCart = () => {
 
         dispatch(
           cartActions.updateProductInCart({
-            productId: id.toString(),
+            productId: id,
             amount,
           }),
         );

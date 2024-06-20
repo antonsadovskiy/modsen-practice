@@ -1,46 +1,53 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+type CartProductType = {
+  docId: string;
+  amount: number;
+  productId: number;
+};
+
 type InitialStateType = {
-  cartProducts: {
-    [key: string]: {
-      docId: string;
-      amount: number;
-    };
-  };
+  cartProducts: CartProductType[];
 };
 
 const initialState: InitialStateType = {
-  cartProducts: {},
+  cartProducts: [],
 };
 
 const slice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (
+    addToCart: (state, action: PayloadAction<CartProductType>) => {
+      state.cartProducts.push({
+        ...action.payload,
+      });
+    },
+    deleteProductFromCart: (
       state,
-      action: PayloadAction<{
-        docId: string;
-        productId: string;
-        amount: number;
-      }>,
+      action: PayloadAction<{ productId: number }>,
     ) => {
-      state.cartProducts[action.payload.productId] = {
-        docId: action.payload.docId,
-        amount: action.payload.amount,
-      };
+      const index = state.cartProducts.findIndex(
+        (product) => product.productId === action.payload.productId,
+      );
+
+      if (index !== -1) {
+        state.cartProducts.splice(index, 1);
+      }
     },
     updateProductInCart: (
       state,
       action: PayloadAction<{
-        productId: string;
+        productId: number;
         amount: number;
       }>,
     ) => {
-      state.cartProducts[action.payload.productId] = {
-        ...state.cartProducts[action.payload.productId],
-        amount: action.payload.amount,
-      };
+      const index = state.cartProducts.findIndex(
+        (product) => product.productId === action.payload.productId,
+      );
+      if (index !== -1) {
+        state.cartProducts[index].amount = action.payload.amount;
+      }
     },
   },
 });

@@ -8,10 +8,17 @@ import { CartCard } from "@/components/cart-card";
 import { CustomButton } from "@/components/custom-button";
 import { Skeleton } from "@/components/skeleton";
 
+type ProductTypeWithStoreData = {
+  docId: string;
+  amountItems: number;
+} & ProductType;
+
 export const CartPage = () => {
   const cart = useAppSelector(selectorCartProducts);
 
-  const [productsWithMeta, setProductsWithMeta] = useState<ProductType[]>([]);
+  const [productsWithMeta, setProductsWithMeta] = useState<
+    ProductTypeWithStoreData[]
+  >([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,7 +28,19 @@ export const CartPage = () => {
 
       try {
         const data = await Api.getProducts();
-        const userProducts = data.filter((product) => !!cart[product.id]);
+
+        const userProducts = data
+          .filter(
+            (product) => !!cart.find((item) => item.productId === product.id),
+          )
+          .map((product) => {
+            const cartItem = cart.find((item) => item.productId === product.id);
+            return {
+              ...product,
+              docId: cartItem ? cartItem.docId : "",
+              amountItems: cartItem ? cartItem.amount : 0,
+            };
+          });
 
         setProductsWithMeta(userProducts);
       } catch (e) {
@@ -62,7 +81,7 @@ export const CartPage = () => {
           {productsWithMeta.length > 0 &&
             productsWithMeta.map((item) => (
               <CartCard
-                docId={cart[item.id].docId}
+                docId={item.docId}
                 width={"200"}
                 imageSrc={item.image}
                 height={"200"}
@@ -71,7 +90,7 @@ export const CartPage = () => {
                 id={item.id}
                 title={item.title}
                 price={item.price}
-                amountItemsInCart={cart[item.id].amount}
+                amountItemsInCart={item.amountItems}
               />
             ))}
         </S.ProductsContainer>

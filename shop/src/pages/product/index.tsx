@@ -34,7 +34,7 @@ export const ProductPage = () => {
   const params = useParams<{ id: string }>();
 
   const isThisProductAlreadyInCart = useMemo(
-    () => !!cart[params.id],
+    () => !!cart.find((item) => item.productId === parseInt(params.id)),
     [cart, params],
   );
 
@@ -66,7 +66,7 @@ export const ProductPage = () => {
         dispatch(
           cartActions.addToCart({
             docId,
-            productId: product.id.toString(),
+            productId: product.id,
             amount,
           }),
         );
