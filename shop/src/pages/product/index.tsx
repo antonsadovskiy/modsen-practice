@@ -13,7 +13,6 @@ import { StarRating } from "@/pages/shop/star-rating";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { cartThunks } from "@/store/slices/cart";
 import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
-import { selectorUserId } from "@/store/slices/user";
 
 import S from "./styled";
 
@@ -29,7 +28,6 @@ export const ProductPage = () => {
 
   const dispatch = useAppDispatch();
 
-  const userId = useAppSelector(selectorUserId);
   const cart = useAppSelector(selectorCartProducts);
 
   const isThisProductAlreadyInCart = useMemo(
@@ -59,11 +57,11 @@ export const ProductPage = () => {
     if (product.id) {
       setIsAdding(true);
       await dispatch(
-        cartThunks.addCartProduct({ userId, productId: product.id, amount }),
+        cartThunks.addCartProduct({ productId: product.id, amount }),
       );
       setIsAdding(false);
     }
-  }, [amount, dispatch, product, userId]);
+  }, [amount, dispatch, product]);
 
   const goToCartHandler = useCallback(() => {
     navigate(routes.cart);

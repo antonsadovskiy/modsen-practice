@@ -98,8 +98,14 @@ const addCartProduct = createAppAsyncThunk<
   AddCartProductResponseType,
   AddCartProductRequestType
 >("cart/addProduct", async (arg, thunkAPI) => {
-  const { rejectWithValue } = thunkAPI;
-  const { amount, productId, userId } = arg;
+  const { rejectWithValue, getState } = thunkAPI;
+
+  const userId = getState().user.user.id;
+  if (!userId) {
+    rejectWithValue(null);
+  }
+
+  const { amount, productId } = arg;
 
   const db = getFirestore();
 
