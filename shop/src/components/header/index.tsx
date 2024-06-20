@@ -1,12 +1,13 @@
 import S from "./styled";
 import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
 import { useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { routes } from "@/constants/routes";
 import { CustomSwitch } from "@/components/custom-switch";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { appActions } from "@/store/slices/app";
 import { selectorAppTheme } from "@/store/slices/app/appSelectors";
+import { CustomIconButton } from "@/components/custom-icon-button";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,10 @@ export const Header = () => {
 
   const goHomePageHandler = useCallback(() => {
     navigate(routes.home);
+  }, [navigate]);
+
+  const goCartPageHandler = useCallback(() => {
+    navigate(routes.cart);
   }, [navigate]);
 
   const onCheckedChangeHandler = useCallback(
@@ -42,9 +47,9 @@ export const Header = () => {
               defaultChecked={theme !== "light"}
               onCheckedChange={onCheckedChangeHandler}
             />
-            <Link to={routes.cart}>
+            <CustomIconButton onClick={goCartPageHandler}>
               <ShoppingCardSVG />
-            </Link>
+            </CustomIconButton>
           </S.Actions>
         </S.HeaderContent>
         <S.BorderBottomLine />

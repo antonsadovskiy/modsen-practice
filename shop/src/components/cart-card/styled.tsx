@@ -49,8 +49,15 @@ const Description = styled.div`
   text-overflow: ellipsis;
 `;
 
+const TitleAndDelete = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export default {
   CatalogCardWrapper,
+  TitleAndDelete,
   ImagesContainer,
   ImageAndDescription,
   Description,

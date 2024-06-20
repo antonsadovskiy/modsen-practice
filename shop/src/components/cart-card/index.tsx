@@ -5,6 +5,8 @@ import { routes } from "@/constants/routes";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { useUpdateCart } from "@/hooks/useUpdateCart";
 import { useDebounce } from "@/hooks/useDebounce";
+import DeleteSVG from "@/assets/svg/bucket.svg";
+import { CustomIconButton } from "@/components/custom-icon-button";
 
 export type CartCardPropsType = {
   docId: string;
@@ -50,23 +52,25 @@ export const CartCard = ({
 
   const updateCartProduct = useCallback(async () => {
     try {
-      await updateCart(id, docId, amount);
+      await updateCart(id, docId, debouncedAmount);
     } catch (e) {
       console.error(e);
     }
-  }, [amount, updateCart, docId, id]);
+  }, [debouncedAmount, updateCart, docId, id]);
 
   useEffect(() => {
-    if (debouncedAmount !== amount) {
-      updateCartProduct();
-    }
-  }, [debouncedAmount, amount, updateCartProduct]);
+    updateCartProduct();
+  }, [debouncedAmount, updateCartProduct]);
 
   const navigate = useNavigate();
 
   const onClickHandler = useCallback(() => {
     navigate(`${routes.product}/${id}`);
   }, [navigate, id]);
+
+  const onDeleteProductHandler = useCallback(() => {
+    console.log(id);
+  }, [id]);
 
   return (
     <S.CatalogCardWrapper $width={width}>
@@ -75,7 +79,12 @@ export const CartCard = ({
           <img src={imageSrc} alt={title} height={height} width={width} />
         </S.ImagesContainer>
         <S.TitleAndDescription>
-          <S.Title>{title}</S.Title>
+          <S.TitleAndDelete>
+            <S.Title>{title}</S.Title>
+            <CustomIconButton onClick={onDeleteProductHandler}>
+              <DeleteSVG />
+            </CustomIconButton>
+          </S.TitleAndDelete>
           <S.Description>{description}</S.Description>
           <IncreaseAmount
             amount={amount}
