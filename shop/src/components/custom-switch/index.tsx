@@ -11,13 +11,11 @@ export const CustomSwitch = ({
   defaultChecked,
   onCheckedChange,
 }: CustomSwitchPropsType) => (
-  <>
-    <S.SwitchRoot
-      checked={checked}
-      defaultChecked={defaultChecked}
-      onCheckedChange={onCheckedChange}
-    >
-      <S.SwitchThumb className="switchThumb" />
-    </S.SwitchRoot>
-  </>
+  <S.SwitchRoot
+    checked={checked}
+    defaultChecked={defaultChecked}
+    onCheckedChange={onCheckedChange}
+  >
+    <S.SwitchThumb className="switchThumb" />
+  </S.SwitchRoot>
 );

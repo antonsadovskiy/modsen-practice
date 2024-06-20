@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useCallback, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,7 +8,7 @@ import OpenedEyeSVG from "@/assets/svg/opened-eye.svg";
 import { CustomButton } from "@/components/custom-button";
 import { routes } from "@/constants/routes";
 import { useAppDispatch } from "@/store/hooks";
-import { appActions } from "@/store/slices/app";
+import { userThunks } from "@/store/slices/user";
 import { loginSchema, LoginType } from "@/types/schemas";
 
 import S from "../styled";
@@ -33,26 +32,20 @@ export const LoginPage = () => {
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<LoginType> = useCallback(
     async (data) => {
-      const auth = getAuth();
       setIsLoading(true);
+
       try {
-        const userData = await signInWithEmailAndPassword(
-          auth,
-          data.email,
-          data.password,
-        );
-        dispatch(appActions.setIsLoggedIn());
-        dispatch(
-          appActions.setUser({
-            email: userData.user.email,
-            id: userData.user.uid,
+        await dispatch(
+          userThunks.loginUser({
+            email: data.email,
+            password: data.password,
           }),
-        );
+        ).unwrap();
+
         navigate(routes.home);
         reset();
       } catch (e) {

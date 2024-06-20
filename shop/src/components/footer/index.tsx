@@ -10,12 +10,9 @@ import { footerLinks } from "./config";
 import S from "./styled";
 
 export const Footer = () => {
-  const [isSending, setIsSending] = useState(false);
-
-  useEffect(() => emailjs.init(process.env.REACT_APP_EMAIL_JS_PUBLIC_KEY), []);
-
   const navigate = useNavigate();
 
+  const [isSending, setIsSending] = useState(false);
   const [email, setEmail] = useState<string>("");
 
   const onChangeEmailHandler = useCallback(
@@ -50,6 +47,8 @@ export const Footer = () => {
     },
     [navigate],
   );
+
+  useEffect(() => emailjs.init(process.env.REACT_APP_EMAIL_JS_PUBLIC_KEY), []);
 
   return (
     <S.Wrapper>

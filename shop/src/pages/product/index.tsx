@@ -9,31 +9,28 @@ import { IncreaseAmount } from "@/components/increase-amount";
 import { Skeleton } from "@/components/skeleton";
 import { routes } from "@/constants/routes";
 import { socialMedias } from "@/constants/socials";
-import { useAddCart } from "@/hooks/useAddCart";
 import { StarRating } from "@/pages/shop/star-rating";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { cartThunks } from "@/store/slices/cart";
 import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
-import { cartActions } from "@/store/slices/cart/cartSlice";
+import { selectorUserId } from "@/store/slices/user";
 
 import S from "./styled";
 
 export const ProductPage = () => {
-  const dispatch = useAppDispatch();
-
+  const params = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [product, setProduct] = useState<ProductType | undefined>();
-
-  const cart = useAppSelector(selectorCartProducts);
-
   const [amount, setAmount] = useState(0);
-
   const [similarItems, setSimilarItems] = useState<ProductType[]>([]);
-
   const [isLoading, setIsLoading] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
 
-  const params = useParams<{ id: string }>();
+  const dispatch = useAppDispatch();
+
+  const userId = useAppSelector(selectorUserId);
+  const cart = useAppSelector(selectorCartProducts);
 
   const isThisProductAlreadyInCart = useMemo(
     () => !!cart.find((item) => item.productId === parseInt(params.id)),
@@ -45,6 +42,11 @@ export const ProductPage = () => {
     [product?.id, similarItems],
   );
 
+  const totalPrice = useMemo(
+    () => (amount * (product?.price ?? 0)).toFixed(2),
+    [product, amount],
+  );
+
   const increaseHandler = useCallback(() => {
     setAmount((prevState) => prevState + 1);
   }, []);
@@ -53,32 +55,15 @@ export const ProductPage = () => {
     setAmount((prevState) => prevState - 1);
   }, []);
 
-  const totalPrice = useMemo(
-    () => (amount * (product?.price ?? 0)).toFixed(2),
-    [product, amount],
-  );
-
-  const { addCart } = useAddCart();
-
   const addToCartHandler = useCallback(async () => {
     if (product.id) {
       setIsAdding(true);
-      try {
-        const docId = await addCart(product.id, amount);
-        dispatch(
-          cartActions.addToCart({
-            docId,
-            productId: product.id,
-            amount,
-          }),
-        );
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsAdding(false);
-      }
+      await dispatch(
+        cartThunks.addCartProduct({ userId, productId: product.id, amount }),
+      );
+      setIsAdding(false);
     }
-  }, [addCart, amount, dispatch, product]);
+  }, [amount, dispatch, product, userId]);
 
   const goToCartHandler = useCallback(() => {
     navigate(routes.cart);

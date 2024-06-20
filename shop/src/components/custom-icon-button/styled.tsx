@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const IconButtonContainer = styled.div<{ $disabled: boolean }>`
+const IconButtonContainer = styled.button<{ $disabled: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;

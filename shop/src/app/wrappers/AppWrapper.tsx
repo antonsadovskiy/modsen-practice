@@ -1,9 +1,10 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ReactNode, useEffect } from "react";
 
-import { useGetUserCart } from "@/hooks/useGetUserCart";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { appActions, selectorUserId } from "@/store/slices/app";
+import { appActions } from "@/store/slices/app";
+import { cartThunks } from "@/store/slices/cart";
+import { selectorUserId, userActions } from "@/store/slices/user";
 
 type AppWrapperPropsType = {
   children: ReactNode;
@@ -14,15 +15,12 @@ export const AppWrapper = ({ children }: AppWrapperPropsType) => {
 
   const userId = useAppSelector(selectorUserId);
 
-  const { getUserCart } = useGetUserCart();
-
   useEffect(() => {
     const auth = getAuth();
 
     const removeListener = onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(appActions.setIsLoggedIn());
-        dispatch(appActions.setUser({ email: user.email, id: user.uid }));
+        dispatch(userActions.setUser({ email: user.email, id: user.uid }));
       }
       dispatch(appActions.setIsAppInitialized());
 
@@ -32,9 +30,9 @@ export const AppWrapper = ({ children }: AppWrapperPropsType) => {
 
   useEffect(() => {
     if (userId) {
-      getUserCart();
+      dispatch(cartThunks.getCart({ userId }));
     }
-  }, [getUserCart, userId]);
+  }, [dispatch, userId]);
 
   return <>{children}</>;
 };

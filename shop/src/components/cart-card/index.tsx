@@ -7,8 +7,8 @@ import { CustomIconButton } from "@/components/custom-icon-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
 import { useDebounce } from "@/hooks/useDebounce";
-import { useDeleteCartProduct } from "@/hooks/useDeleteCartProduct";
-import { useUpdateCart } from "@/hooks/useUpdateCart";
+import { useAppDispatch } from "@/store/hooks";
+import { cartThunks } from "@/store/slices/cart";
 
 import S from "./styled";
 
@@ -35,14 +35,17 @@ export const CartCard = ({
   title,
   amountItemsInCart,
 }: CartCardPropsType) => {
+  const dispatch = useAppDispatch();
+
+  const [isDeleting, setIsDeleting] = useState(false);
   const [amount, setAmount] = useState(amountItemsInCart);
 
   const debouncedAmount = useDebounce(amount, 700);
 
-  const { updateCart } = useUpdateCart();
-  const { deleteCartProduct } = useDeleteCartProduct();
-
-  const [isDeleting, setIsDeleting] = useState(false);
+  const totalPrice = useMemo(
+    () => (amount * (price ?? 0)).toFixed(2),
+    [amount, price],
+  );
 
   const increaseHandler = useCallback(() => {
     setAmount((prevState) => prevState + 1);
@@ -52,39 +55,37 @@ export const CartCard = ({
     setAmount((prevState) => prevState - 1);
   }, []);
 
-  const totalPrice = useMemo(
-    () => (amount * (price ?? 0)).toFixed(2),
-    [amount, price],
-  );
-
-  const updateCartProduct = useCallback(async () => {
+  const updateCartProduct = useCallback(() => {
     try {
-      await updateCart(id, docId, debouncedAmount);
+      dispatch(
+        cartThunks.updateCartProduct({
+          productId: id,
+          docId,
+          amount: debouncedAmount,
+        }),
+      );
     } catch (e) {
       console.error(e);
     }
-  }, [debouncedAmount, updateCart, docId, id]);
+  }, [debouncedAmount, docId, id, dispatch]);
+
+  const navigate = useNavigate();
+
+  const onClickHandler = () => {
+    navigate(`${routes.product}/${id}`);
+  };
+
+  const onDeleteProductHandler = useCallback(async () => {
+    setIsDeleting(true);
+
+    await dispatch(cartThunks.deleteCartProduct({ productId: id, docId }));
+
+    setIsDeleting(false);
+  }, [dispatch, docId, id]);
 
   useEffect(() => {
     updateCartProduct();
   }, [debouncedAmount, updateCartProduct]);
-
-  const navigate = useNavigate();
-
-  const onClickHandler = useCallback(() => {
-    navigate(`${routes.product}/${id}`);
-  }, [navigate, id]);
-
-  const onDeleteProductHandler = useCallback(async () => {
-    try {
-      setIsDeleting(true);
-      await deleteCartProduct(docId, id);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setIsDeleting(false);
-    }
-  }, [deleteCartProduct, docId, id]);
 
   return (
     <S.CatalogCardWrapper $width={width}>

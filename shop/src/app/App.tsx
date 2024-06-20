@@ -6,11 +6,8 @@ import { CircleLoader } from "@/components/circle-loader";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { useAppSelector } from "@/store/hooks";
-import {
-  selectorAppTheme,
-  selectorIsAppInitialized,
-  selectorIsLoggedIn,
-} from "@/store/slices/app";
+import { selectorAppTheme, selectorIsAppInitialized } from "@/store/slices/app";
+import { selectorIsLoggedIn } from "@/store/slices/user";
 
 import S from "./styled";
 

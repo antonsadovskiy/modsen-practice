@@ -37,13 +37,6 @@ export const ShopPage = () => {
 
   const debouncedSearchValue = useDebounce(searchValue, 500);
 
-  const onChangeSearchValue = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setSearchValue(e.currentTarget.value);
-    },
-    [],
-  );
-
   const mappedCategories = useMemo(
     () => categories.map((category) => ({ value: category, title: category })),
     [categories],
@@ -62,6 +55,13 @@ export const ShopPage = () => {
           item.title.toLowerCase().includes(debouncedSearchValue.toLowerCase()),
         ),
     [catalog, committedPrice, debouncedSearchValue],
+  );
+
+  const onChangeSearchValue = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setSearchValue(e.currentTarget.value);
+    },
+    [],
   );
 
   const setData = useCallback((data: ProductType[]) => {

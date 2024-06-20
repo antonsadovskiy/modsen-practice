@@ -1,19 +1,18 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes } from "react";
 
 import S from "./styled";
 
-type CustomIconButtonPropsType = {
-  children: ReactNode;
-  onClick: () => void;
-  disabled?: boolean;
-};
+type CustomIconButtonPropsType = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "onCopy"
+>;
 
 export const CustomIconButton = ({
   children,
-  onClick,
-  disabled = false,
+  disabled,
+  ...rest
 }: CustomIconButtonPropsType) => (
-  <S.IconButtonContainer $disabled={disabled} onClick={onClick}>
+  <S.IconButtonContainer $disabled={disabled} {...rest}>
     {children}
   </S.IconButtonContainer>
 );

@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { routes } from "@/constants/routes";
@@ -25,9 +24,7 @@ export const CatalogCard = ({
 }: CatalogCardPropsType) => {
   const navigate = useNavigate();
 
-  const onClickHandler = useCallback(() => {
-    navigate(`${routes.product}/${id}`);
-  }, [navigate, id]);
+  const onClickHandler = () => navigate(`${routes.product}/${id}`);
 
   return (
     <S.CatalogCardWrapper $width={width} onClick={onClickHandler}>

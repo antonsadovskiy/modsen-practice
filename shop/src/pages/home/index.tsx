@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Api } from "@/api/api";
@@ -12,15 +12,14 @@ import { homeSwiperImages } from "@/pages/home/config";
 import S from "./styled";
 
 export const HomePage = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [latestProducts, setLatestProducts] = useState<ProductType[]>([]);
 
-  const viewAllHandler = useCallback(() => {
+  const viewAllHandler = () => {
     navigate(routes.shop);
-  }, [navigate]);
+  };
 
   useEffect(() => {
     const fetchData = async () => {

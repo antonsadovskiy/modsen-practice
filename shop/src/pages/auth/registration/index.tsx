@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useCallback, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +7,8 @@ import ClosedEyeSVG from "@/assets/svg/closed-eye.svg";
 import OpenedEyeSVG from "@/assets/svg/opened-eye.svg";
 import { CustomButton } from "@/components/custom-button";
 import { routes } from "@/constants/routes";
+import { useAppDispatch } from "@/store/hooks";
+import { userThunks } from "@/store/slices/user";
 import { registrationSchema, RegistrationType } from "@/types/schemas";
 
 import S from "../styled";
@@ -27,20 +28,26 @@ export const RegistrationPage = () => {
     },
   });
 
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit: SubmitHandler<RegistrationType> = useCallback(
     async (data) => {
-      const auth = getAuth();
       setIsLoading(true);
 
       try {
-        await createUserWithEmailAndPassword(auth, data.email, data.password);
+        await dispatch(
+          userThunks.registerUser({
+            email: data.email,
+            password: data.password,
+          }),
+        ).unwrap();
+
         reset();
         navigate(routes.login);
       } catch (e) {
@@ -49,7 +56,7 @@ export const RegistrationPage = () => {
         setIsLoading(false);
       }
     },
-    [navigate, reset],
+    [dispatch, navigate, reset],
   );
 
   return (
