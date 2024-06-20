@@ -30,7 +30,7 @@ export type AddCartProductResponseType = {
 export type AddCartProductRequestType = Omit<
   AddCartProductResponseType,
   "docId"
-> & { userId: string };
+>;
 
 export type GetCartResponseType = {
   cartProducts: CartProductType[];
