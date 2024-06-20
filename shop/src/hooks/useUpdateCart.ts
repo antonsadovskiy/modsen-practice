@@ -1,5 +1,6 @@
+import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { useCallback } from "react";
-import { doc, updateDoc, getFirestore } from "firebase/firestore";
+
 import { useAppDispatch } from "@/store/hooks";
 import { cartActions } from "@/store/slices/cart/cartSlice";
 

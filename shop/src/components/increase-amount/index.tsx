@@ -1,6 +1,7 @@
-import S from "./styled";
 import MinusSVG from "@/assets/svg/minus.svg";
 import PlusSVG from "@/assets/svg/plus.svg";
+
+import S from "./styled";
 
 type IncreaseAmountPropsType = {
   amount: number;

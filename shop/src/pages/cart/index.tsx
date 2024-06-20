@@ -1,12 +1,14 @@
-import S from "./styled";
-import { useAppSelector } from "@/store/hooks";
-import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
 import { useEffect, useState } from "react";
+
 import { Api } from "@/api/api";
 import { ProductType } from "@/api/types";
 import { CartCard } from "@/components/cart-card";
 import { CustomButton } from "@/components/custom-button";
 import { Skeleton } from "@/components/skeleton";
+import { useAppSelector } from "@/store/hooks";
+import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
+
+import S from "./styled";
 
 type ProductTypeWithStoreData = {
   docId: string;

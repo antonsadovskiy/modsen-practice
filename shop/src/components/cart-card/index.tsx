@@ -1,14 +1,16 @@
-import S from "./styled";
-import { useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { routes } from "@/constants/routes";
-import { IncreaseAmount } from "@/components/increase-amount";
-import { useUpdateCart } from "@/hooks/useUpdateCart";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useNavigate } from "react-router-dom";
+
 import DeleteSVG from "@/assets/svg/bucket.svg";
-import { CustomIconButton } from "@/components/custom-icon-button";
-import { useDeleteCartProduct } from "@/hooks/useDeleteCartProduct";
 import { CircleLoader } from "@/components/circle-loader";
+import { CustomIconButton } from "@/components/custom-icon-button";
+import { IncreaseAmount } from "@/components/increase-amount";
+import { routes } from "@/constants/routes";
+import { useDebounce } from "@/hooks/useDebounce";
+import { useDeleteCartProduct } from "@/hooks/useDeleteCartProduct";
+import { useUpdateCart } from "@/hooks/useUpdateCart";
+
+import S from "./styled";
 
 export type CartCardPropsType = {
   docId: string;

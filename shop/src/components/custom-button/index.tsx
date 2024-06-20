@@ -1,6 +1,8 @@
-import S from "./styled";
 import { ButtonHTMLAttributes } from "react";
+
 import { CircleLoader } from "@/components/circle-loader";
+
+import S from "./styled";
 
 export type ButtonSize = "small" | "large";
 export type ButtonVariant = "primary" | "secondary";

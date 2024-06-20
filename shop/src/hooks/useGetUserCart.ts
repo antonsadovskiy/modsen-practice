@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import {
   collection,
   getDocs,
@@ -6,8 +5,10 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { selectorUserId } from "@/store/slices/app";
+import { useCallback } from "react";
+
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { selectorUserId } from "@/store/slices/app";
 import { cartActions } from "@/store/slices/cart/cartSlice";
 
 export const useGetUserCart = () => {

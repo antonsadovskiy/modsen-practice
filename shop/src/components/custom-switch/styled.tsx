@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import * as Switch from "@radix-ui/react-switch";
+import styled from "styled-components";
 
 export const SwitchRoot = styled(Switch.Root)`
   cursor: pointer;

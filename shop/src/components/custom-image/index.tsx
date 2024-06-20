@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import S from "./styled";
 
 type CustomImagePropsType = {

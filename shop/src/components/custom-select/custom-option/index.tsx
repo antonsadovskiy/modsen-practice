@@ -1,5 +1,7 @@
 import { useCallback } from "react";
+
 import { OptionType } from "@/components/custom-select";
+
 import S from "./styled";
 
 type CustomOptionPropsType = {

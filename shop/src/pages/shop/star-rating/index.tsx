@@ -1,6 +1,8 @@
-import Star from "@/assets/svg/star.svg";
-import { Wrapper } from "./styled";
 import { useMemo } from "react";
+
+import Star from "@/assets/svg/star.svg";
+
+import { Wrapper } from "./styled";
 
 type StarRatingPropsType = {
   value: number;

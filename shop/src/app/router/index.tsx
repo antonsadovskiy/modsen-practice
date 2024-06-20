@@ -4,17 +4,18 @@ import {
   Navigate,
   Route,
 } from "react-router-dom";
+
 import { App } from "@/app/App";
-import { NotFoundPage } from "@/pages/not-found";
+import { AuthRoutes } from "@/app/specific-routes/auth-routes";
+import { PrivateRoutes } from "@/app/specific-routes/private-routes";
 import { routes } from "@/constants/routes";
 import { LoginPage, RegistrationPage } from "@/pages/auth";
-import { PrivateRoutes } from "@/app/specific-routes/private-routes";
-import { HomePage } from "@/pages/home";
-import { ShopPage } from "@/pages/shop";
-import { ContactUsPage } from "@/pages/contact";
 import { CartPage } from "@/pages/cart";
+import { ContactUsPage } from "@/pages/contact";
+import { HomePage } from "@/pages/home";
+import { NotFoundPage } from "@/pages/not-found";
 import { ProductPage } from "@/pages/product";
-import { AuthRoutes } from "@/app/specific-routes/auth-routes";
+import { ShopPage } from "@/pages/shop";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

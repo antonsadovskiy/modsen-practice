@@ -1,19 +1,21 @@
-import { useNavigate, useParams } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ProductType } from "@/api/types";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { Api } from "@/api/api";
-import S from "./styled";
-import { StarRating } from "@/pages/shop/star-rating";
-import { socialMedias } from "@/constants/socials";
+import { ProductType } from "@/api/types";
 import { CatalogCard } from "@/components/catalog-card";
-import { Skeleton } from "@/components/skeleton";
 import { CustomButton } from "@/components/custom-button";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { cartActions } from "@/store/slices/cart/cartSlice";
-import { useAddCart } from "@/hooks/useAddCart";
-import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
-import { routes } from "@/constants/routes";
 import { IncreaseAmount } from "@/components/increase-amount";
+import { Skeleton } from "@/components/skeleton";
+import { routes } from "@/constants/routes";
+import { socialMedias } from "@/constants/socials";
+import { useAddCart } from "@/hooks/useAddCart";
+import { StarRating } from "@/pages/shop/star-rating";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
+import { cartActions } from "@/store/slices/cart/cartSlice";
+
+import S from "./styled";
 
 export const ProductPage = () => {
   const dispatch = useAppDispatch();

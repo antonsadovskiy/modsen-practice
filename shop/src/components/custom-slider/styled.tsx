@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import * as Slider from "@radix-ui/react-slider";
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   .sliderThumb {

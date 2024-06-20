@@ -1,10 +1,13 @@
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Autoplay, Pagination } from "swiper/modules";
-import S from "./styled";
+
 import { useMemo } from "react";
+import { Autoplay, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
 import { CustomImage } from "@/components/custom-image";
+
+import S from "./styled";
 
 type CustomSwiperPropsType = {
   images: { highRes: string; lowRes: string }[];

@@ -1,7 +1,9 @@
-import S from "./styled";
-import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { routes } from "@/constants/routes";
+
+import S from "./styled";
 
 export type CatalogCardPropsType = {
   id: number;

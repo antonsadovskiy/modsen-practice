@@ -1,11 +1,13 @@
-import S from "./styled";
-import { socialMedias } from "@/constants/socials";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import ArrowRightSVG from "@/assets/svg/arrow-right.svg";
-import { footerLinks } from "@/constants/footer-links";
-import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import ArrowRightSVG from "@/assets/svg/arrow-right.svg";
 import { CircleLoader } from "@/components/circle-loader";
+import { socialMedias } from "@/constants/socials";
+
+import { footerLinks } from "./config";
+import S from "./styled";
 
 export const Footer = () => {
   const [isSending, setIsSending] = useState(false);

@@ -1,13 +1,15 @@
-import S from "./styled";
-import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { routes } from "@/constants/routes";
+
+import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
+import { CustomIconButton } from "@/components/custom-icon-button";
 import { CustomSwitch } from "@/components/custom-switch";
+import { routes } from "@/constants/routes";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { appActions } from "@/store/slices/app";
 import { selectorAppTheme } from "@/store/slices/app/appSelectors";
-import { CustomIconButton } from "@/components/custom-icon-button";
+
+import S from "./styled";
 
 export const Header = () => {
   const dispatch = useAppDispatch();

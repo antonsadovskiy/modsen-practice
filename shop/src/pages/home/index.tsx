@@ -1,13 +1,15 @@
-import { CatalogCard } from "@/components/catalog-card";
-import S from "./styled";
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Api } from "@/api/api";
 import { ProductType } from "@/api/types";
-import { Skeleton } from "@/components/skeleton";
-import { useNavigate } from "react-router-dom";
-import { routes } from "@/constants/routes";
+import { CatalogCard } from "@/components/catalog-card";
 import { CustomSwiper } from "@/components/custom-swiper";
-import { homeSwiperImages } from "@/constants/home-swiper-images";
+import { Skeleton } from "@/components/skeleton";
+import { routes } from "@/constants/routes";
+import { homeSwiperImages } from "@/pages/home/config";
+
+import S from "./styled";
 
 export const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,5 +1,6 @@
-import S from "./styled";
 import { ComponentProps } from "react";
+
+import S from "./styled";
 
 type CustomTextareaPropsType = ComponentProps<"textarea"> & {
   error?: string;

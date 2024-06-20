@@ -1,16 +1,18 @@
-import S from "../styled";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { loginSchema, LoginType } from "@/types/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useCallback, useState } from "react";
-import { CustomButton } from "@/components/custom-button";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { routes } from "@/constants/routes";
-import OpenedEyeSVG from "@/assets/svg/opened-eye.svg";
+
 import ClosedEyeSVG from "@/assets/svg/closed-eye.svg";
+import OpenedEyeSVG from "@/assets/svg/opened-eye.svg";
+import { CustomButton } from "@/components/custom-button";
+import { routes } from "@/constants/routes";
 import { useAppDispatch } from "@/store/hooks";
 import { appActions } from "@/store/slices/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { loginSchema, LoginType } from "@/types/schemas";
+
+import S from "../styled";
 
 export const LoginPage = () => {
   const {

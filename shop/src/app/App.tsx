@@ -1,15 +1,17 @@
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+
+import { theme } from "@/assets/styles/theme";
+import { CircleLoader } from "@/components/circle-loader";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { theme } from "@/assets/styles/theme";
-import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
 import {
   selectorAppTheme,
   selectorIsAppInitialized,
   selectorIsLoggedIn,
 } from "@/store/slices/app";
-import { CircleLoader } from "@/components/circle-loader";
+
 import S from "./styled";
 
 export function App() {

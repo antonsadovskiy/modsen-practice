@@ -1,17 +1,19 @@
-import S from "./styled";
-import { CustomInput } from "@/components/custom-input";
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+
 import { Api } from "@/api/api";
 import { ProductType } from "@/api/types";
-import { CatalogCard } from "@/components/catalog-card";
-import { CustomSelect, OptionType } from "@/components/custom-select";
-import { sortOptions } from "@/constants/sort";
-import { CustomButton } from "@/components/custom-button";
-import { CustomSlider } from "@/components/custom-slider";
 import SearchSVG from "@/assets/svg/search.svg";
+import { CatalogCard } from "@/components/catalog-card";
+import { CustomButton } from "@/components/custom-button";
+import { CustomInput } from "@/components/custom-input";
+import { CustomSelect, OptionType } from "@/components/custom-select";
+import { CustomSlider } from "@/components/custom-slider";
 import { Skeleton } from "@/components/skeleton";
-import { findMinAndMaxPrice } from "@/utils/findMinAndMaxPrice";
+import { sortOptions } from "@/constants/sort";
 import { useDebounce } from "@/hooks/useDebounce";
+import { findMinAndMaxPrice } from "@/utils/findMinAndMaxPrice";
+
+import S from "./styled";
 
 type SortType = "asc" | "desc";
 

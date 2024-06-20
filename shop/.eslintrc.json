@@ -4,7 +4,8 @@
     "react-hooks",
     "react",
     "@typescript-eslint",
-    "prettier"
+    "prettier",
+    "simple-import-sort"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -25,6 +26,8 @@
     "public/*"
   ],
   "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "no-duplicate-imports": ["error", { "includeExports": true }],
     "no-template-curly-in-string": "error",
     "block-scoped-var": "error",

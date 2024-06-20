@@ -1,8 +1,10 @@
-import S from "./styled";
 import { useCallback, useRef, useState } from "react";
-import { CustomOption } from "@/components/custom-select/custom-option";
+
 import Arrow from "@/assets/svg/arrow.svg";
+import { CustomOption } from "@/components/custom-select/custom-option";
 import { useOutsideClick } from "@/hooks/useClickOutside";
+
+import S from "./styled";
 
 export type OptionType = {
   title: string;

@@ -1,8 +1,9 @@
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ReactNode, useEffect } from "react";
+
+import { useGetUserCart } from "@/hooks/useGetUserCart";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { appActions, selectorUserId } from "@/store/slices/app";
-import { useGetUserCart } from "@/hooks/useGetUserCart";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 type AppWrapperPropsType = {
   children: ReactNode;

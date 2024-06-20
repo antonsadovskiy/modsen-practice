@@ -1,8 +1,10 @@
-import S from "./styled";
-import { CustomButton } from "@/components/custom-button";
-import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { CustomButton } from "@/components/custom-button";
 import { routes } from "@/constants/routes";
+
+import S from "./styled";
 
 export const NotFoundPage = () => {
   const navigate = useNavigate();
