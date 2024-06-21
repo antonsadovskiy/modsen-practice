@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Api } from "@/api/api";
-import { ProductType } from "@/api/types";
+import { useGetProductsQuery } from "@/api";
 import { CatalogCard } from "@/components/catalog-card";
 import { CustomSwiper } from "@/components/custom-swiper";
 import { Skeleton } from "@/components/skeleton";
@@ -14,30 +12,16 @@ import S from "./styled";
 export const HomePage = () => {
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [latestProducts, setLatestProducts] = useState<ProductType[]>([]);
-
   const viewAllHandler = () => {
     navigate(routes.shop);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const data = await Api.getProducts({ limit: 6 });
-
-        if (data) {
-          setLatestProducts(data);
-        }
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const { data: latestProducts, isLoading } = useGetProductsQuery(
+    { limit: 6 },
+    {
+      selectFromResult: ({ data, ...rest }) => ({ data: data ?? [], ...rest }),
+    },
+  );
 
   return (
     <S.Wrapper>

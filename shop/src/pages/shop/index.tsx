@@ -1,6 +1,11 @@
+import { skipToken } from "@reduxjs/toolkit/query";
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 
-import { Api } from "@/api/api";
+import {
+  useGetCategoriesQuery,
+  useGetProductsByCategoryQuery,
+  useGetProductsQuery,
+} from "@/api";
 import { ProductType } from "@/api/types";
 import SearchSVG from "@/assets/svg/search.svg";
 import { CatalogCard } from "@/components/catalog-card";
@@ -23,19 +28,33 @@ export const ShopPage = () => {
   const [categoryValue, setCategoryValue] = useState<OptionType | undefined>();
 
   const [catalog, setCatalog] = useState<ProductType[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-
-  const [price, setPrice] = useState<number[]>([0, 100]);
-  const [committedPrice, setCommittedPrice] = useState<number[] | undefined>();
-  const [minAndMaxPrice, setMinAndMaxPrice] = useState<number[]>([0, 100]);
 
   const [filterType, setFilterType] = useState<
     "sort" | "category" | undefined
   >();
+  const [price, setPrice] = useState<number[]>([0, 100]);
+  const [committedPrice, setCommittedPrice] = useState<number[] | undefined>();
+  const [minAndMaxPrice, setMinAndMaxPrice] = useState<number[]>([0, 100]);
 
   const [isLoadingCatalog, setIsLoadingCatalog] = useState(false);
 
   const debouncedSearchValue = useDebounce(searchValue, 500);
+
+  const { data: categories } = useGetCategoriesQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      data: data ?? [],
+    }),
+  });
+
+  const { data: productsData, isFetching: isLoadingProducts } =
+    useGetProductsQuery(
+      filterType === "sort" ? { sort: sortValue.value as SortType } : undefined,
+    );
+
+  const { data: categoryData, isFetching: isLoadingCategory } =
+    useGetProductsByCategoryQuery(
+      filterType === "category" ? categoryValue.value : skipToken,
+    );
 
   const mappedCategories = useMemo(
     () => categories.map((category) => ({ value: category, title: category })),
@@ -72,39 +91,25 @@ export const ShopPage = () => {
     setPrice(prices);
   }, []);
 
-  const fetchCatalog = useCallback(async () => {
-    setIsLoadingCatalog(true);
-    try {
-      if (filterType === "sort") {
-        const data = await Api.getProducts({
-          sortBy: sortValue.value as SortType,
-        });
-        setData(data);
-        return;
-      }
-      if (filterType === "category") {
-        const data = await Api.getProductsByCategory(categoryValue.value);
-        setData(data);
-        return;
-      }
-
-      const data = await Api.getProducts();
-      setData(data);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setIsLoadingCatalog(false);
+  useEffect(() => {
+    setIsLoadingCatalog(isLoadingProducts || isLoadingCategory);
+    if (filterType === "sort" && productsData) {
+      return setData(productsData);
     }
-  }, [categoryValue, filterType, setData, sortValue]);
-
-  const fetchCategories = useCallback(async () => {
-    try {
-      const categories = await Api.getAllCategories();
-      setCategories(categories);
-    } catch (e) {
-      console.error(e);
+    if (filterType === "category" && categoryData) {
+      return setData(categoryData);
     }
-  }, []);
+    if (!filterType && productsData) {
+      setData(productsData);
+    }
+  }, [
+    productsData,
+    categoryData,
+    isLoadingProducts,
+    isLoadingCategory,
+    filterType,
+    setData,
+  ]);
 
   const onChangeSelectValue = useCallback(
     (value: OptionType, type: "category" | "sort") => {
@@ -136,15 +141,6 @@ export const ShopPage = () => {
 
   const onValueCommitHandler = useCallback((value: number[]) => {
     setCommittedPrice(value);
-  }, []);
-
-  useEffect(() => {
-    fetchCatalog();
-  }, [sortValue, categoryValue]);
-
-  useEffect(() => {
-    fetchCatalog();
-    fetchCategories();
   }, []);
 
   return (

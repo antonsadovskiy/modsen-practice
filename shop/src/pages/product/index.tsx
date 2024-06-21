@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Api } from "@/api/api";
-import { ProductType } from "@/api/types";
+import { useGetProductByIdQuery, useGetProductsByCategoryQuery } from "@/api";
 import { CatalogCard } from "@/components/catalog-card";
 import { CustomButton } from "@/components/custom-button";
 import { IncreaseAmount } from "@/components/increase-amount";
@@ -20,24 +19,37 @@ export const ProductPage = () => {
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const [product, setProduct] = useState<ProductType | undefined>();
   const [amount, setAmount] = useState(0);
-  const [similarItems, setSimilarItems] = useState<ProductType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+
   const [isAdding, setIsAdding] = useState(false);
 
   const dispatch = useAppDispatch();
 
   const cart = useAppSelector(selectorCartProducts);
 
+  const { data: product, isFetching: isLoadingProduct } =
+    useGetProductByIdQuery(params.id);
+
+  const { data: similarItems, isFetching: isLoadingSimilarItems } =
+    useGetProductsByCategoryQuery(product?.category, {
+      selectFromResult: ({ data, ...rest }) => ({
+        data: data ?? [],
+        ...rest,
+      }),
+    });
+
+  console.log(isLoadingSimilarItems);
   const isThisProductAlreadyInCart = useMemo(
     () => !!cart.find((item) => item.productId === parseInt(params.id)),
     [cart, params],
   );
 
   const filteredSimilarItems = useMemo(
-    () => similarItems.filter((item) => item.id !== product?.id).splice(0, 3),
-    [product?.id, similarItems],
+    () =>
+      similarItems
+        .filter((item) => item.id !== parseInt(params.id))
+        .splice(0, 3),
+    [params, similarItems],
   );
 
   const totalPrice = useMemo(
@@ -78,31 +90,10 @@ export const ProductPage = () => {
     }
   }, [cart, params.id]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (params.id) {
-        setIsLoading(true);
-        try {
-          const data = await Api.getProductById(params.id);
-          setProduct(data);
-
-          const similarItems = await Api.getProductsByCategory(data.category);
-          setSimilarItems(similarItems);
-        } catch (e) {
-          console.error(e);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    fetchData();
-  }, [params.id]);
-
   return (
     <S.Wrapper>
       <S.MainInfoContainer>
-        {isLoading ? (
+        {isLoadingProduct ? (
           <Skeleton height={600} />
         ) : (
           <>
@@ -174,26 +165,25 @@ export const ProductPage = () => {
       <S.DescriptionContainer>
         <S.DescriptionTitle>Description</S.DescriptionTitle>
         <S.Description>
-          {isLoading ? <Skeleton /> : product?.description ?? ""}
+          {isLoadingProduct ? <Skeleton /> : product?.description ?? ""}
         </S.Description>
       </S.DescriptionContainer>
       <S.SimilarItems>
         <S.Label>Similar Items</S.Label>
         <S.List>
-          {isLoading &&
-            Array.from({ length: 3 }).map((_, index) => (
-              <Skeleton key={index} width={380} height={472} />
-            ))}
-          {!isLoading &&
-            filteredSimilarItems.map((item, index) => (
-              <CatalogCard
-                key={index}
-                id={item.id}
-                imageSrc={item.image}
-                title={item.title}
-                price={item.price}
-              />
-            ))}
+          {isLoadingSimilarItems
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <Skeleton key={index} width={380} height={472} />
+              ))
+            : filteredSimilarItems.map((item, index) => (
+                <CatalogCard
+                  key={index}
+                  id={item.id}
+                  imageSrc={item.image}
+                  title={item.title}
+                  price={item.price}
+                />
+              ))}
         </S.List>
       </S.SimilarItems>
     </S.Wrapper>

@@ -13,5 +13,5 @@ export type ProductType = {
 
 export type GetProductsRequestType = {
   limit?: number;
-  sortBy?: "desc" | "asc";
+  sort?: "desc" | "asc";
 };

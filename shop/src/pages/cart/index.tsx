@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
-import { Api } from "@/api/api";
-import { ProductType } from "@/api/types";
+import { useGetProductsQuery } from "@/api";
 import { CartCard } from "@/components/cart-card";
 import { CustomButton } from "@/components/custom-button";
 import { Modal } from "@/components/modal";
@@ -13,54 +12,40 @@ import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
 
 import S from "./styled";
 
-type ProductTypeWithStoreData = {
-  docId: string;
-  amountItems: number;
-} & ProductType;
-
 export const CartPage = () => {
   const cart = useAppSelector(selectorCartProducts);
   const dispatch = useAppDispatch();
 
-  const [productsWithMeta, setProductsWithMeta] = useState<
-    ProductTypeWithStoreData[]
-  >([]);
-
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
+  const { data: products, isLoading } = useGetProductsQuery(
+    {},
+    {
+      selectFromResult: ({ data, ...rest }) => ({
+        data: data ?? [],
+        ...rest,
+      }),
+    },
+  );
 
-      try {
-        const data = await Api.getProducts();
-
-        const userProducts = data
-          .filter(
-            (product) => !!cart.find((item) => item.productId === product.id),
-          )
-          .map((product) => {
-            const cartItem = cart.find((item) => item.productId === product.id);
-            return {
-              ...product,
-              docId: cartItem ? cartItem.docId : "",
-              amountItems: cartItem ? cartItem.amount : 0,
-            };
-          });
-
-        setProductsWithMeta(userProducts);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [cart]);
+  const productsWithMeta = useMemo(
+    () =>
+      products
+        .filter(
+          (product) => !!cart.find((item) => item.productId === product.id),
+        )
+        .map((product) => {
+          const cartItem = cart.find((item) => item.productId === product.id);
+          return {
+            ...product,
+            docId: cartItem ? cartItem.docId : "",
+            amountItems: cartItem ? cartItem.amount : 0,
+          };
+        }),
+    [cart, products],
+  );
 
   const totalPrice = useMemo(
     () =>
@@ -85,6 +70,7 @@ export const CartPage = () => {
     try {
       await dispatch(cartThunks.clearCart()).unwrap();
       setIsOpenModal(false);
+      console.log("спасибо за покупку");
     } catch (e) {
       console.log(e);
     } finally {
