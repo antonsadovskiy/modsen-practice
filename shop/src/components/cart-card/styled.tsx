@@ -41,7 +41,7 @@ const Title = styled.div`
 const Description = styled.div`
   max-width: 100%;
   font: var(--h5);
-  color: #707070;
+  color: ${({ theme }) => theme.color.darkGray};
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;

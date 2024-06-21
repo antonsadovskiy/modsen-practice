@@ -61,11 +61,22 @@ export const ProductPage = () => {
       );
       setIsAdding(false);
     }
-  }, [amount, dispatch, product]);
+  }, [amount, dispatch, product?.id]);
 
   const goToCartHandler = useCallback(() => {
     navigate(routes.cart);
   }, [navigate]);
+
+  useEffect(() => {
+    if (params.id) {
+      const elem = cart.find((item) => item.productId === parseInt(params.id));
+
+      if (elem) {
+        return setAmount(elem.amount);
+      }
+      setAmount(0);
+    }
+  }, [cart, params.id]);
 
   useEffect(() => {
     const fetchData = async () => {

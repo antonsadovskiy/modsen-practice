@@ -40,7 +40,7 @@ export const CartCard = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const [amount, setAmount] = useState(amountItemsInCart);
 
-  const debouncedAmount = useDebounce(amount, 700);
+  const debouncedAmount = useDebounce(amount, 500);
 
   const totalPrice = useMemo(
     () => (amount * (price ?? 0)).toFixed(2),

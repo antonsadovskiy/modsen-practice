@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useCallback, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { appActions } from "@/store/slices/app";
@@ -15,24 +15,43 @@ export const AppWrapper = ({ children }: AppWrapperPropsType) => {
 
   const userId = useAppSelector(selectorUserId);
 
-  useEffect(() => {
+  const initApp = useCallback(() => {
     const auth = getAuth();
 
-    const removeListener = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(userActions.setUser({ email: user.email, id: user.uid }));
-      }
-      dispatch(appActions.setIsAppInitialized());
+    const removeListener = onAuthStateChanged(auth, async (user) => {
+      try {
+        if (user) {
+          dispatch(userActions.setUser({ email: user.email, id: user.uid }));
 
-      removeListener();
+          await dispatch(cartThunks.getCart({ userId: user.uid }));
+        }
+
+        dispatch(appActions.setIsAppInitialized());
+
+        removeListener();
+      } catch (e) {
+        console.error(e);
+      }
     });
   }, [dispatch]);
 
-  useEffect(() => {
-    if (userId) {
-      dispatch(cartThunks.getCart({ userId }));
+  const fetchCart = useCallback(async () => {
+    try {
+      if (userId) {
+        await dispatch(cartThunks.getCart({ userId }));
+      }
+    } catch (e) {
+      console.error(e);
     }
-  }, [dispatch, userId]);
+  }, [userId, dispatch]);
+
+  useEffect(() => {
+    initApp();
+  }, []);
+
+  useEffect(() => {
+    fetchCart();
+  }, [userId, fetchCart]);
 
   return <>{children}</>;
 };

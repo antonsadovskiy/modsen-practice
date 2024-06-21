@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 import LogoSVG from "@/assets/svg/logo.svg";
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   position: sticky;
 
   background-color: ${({ theme }) => theme.backgroundColor};
-  z-index: 10;
+  z-index: 2;
   padding-top: 64px;
   top: 0;
   width: 100%;
@@ -15,27 +15,49 @@ export const Wrapper = styled.div`
   gap: 17px;
 `;
 
-export const HeaderContent = styled.div`
+const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
-export const Logo = styled(LogoSVG)`
+const Logo = styled(LogoSVG)`
   cursor: pointer;
 `;
-export const Actions = styled.div`
+const Actions = styled.div`
   display: flex;
   align-items: center;
   gap: 40px;
 `;
-export const ShopLink = styled.div`
+const ShopLink = styled.div`
   font: var(--h5);
+  color: ${({ theme }) => theme.color.black};
 `;
 
-export const BorderBottomLine = styled.div`
+const BorderBottomLine = styled.div`
   height: 1px;
   width: 100%;
   background-color: ${({ theme }) => theme.color.gray};
+`;
+
+const CartIconContainer = styled.div`
+  position: relative;
+`;
+
+const CartCount = styled.div`
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  min-width: 16px;
+  height: 16px;
+  width: 100%;
+  background-color: red;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${({ theme }) => theme.color.white};
+  font: var(--h5);
+  font-size: var(--font-size-10);
 `;
 
 const MaxWidthContainer = styled.div`
@@ -56,4 +78,6 @@ export default {
   ShopLink,
   BorderBottomLine,
   MaxWidthContainer,
+  CartIconContainer,
+  CartCount,
 };

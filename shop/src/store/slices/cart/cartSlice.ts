@@ -63,6 +63,9 @@ const slice = createSlice({
         if (index !== -1) {
           state.cartProducts[index].amount = action.payload.amount;
         }
+      })
+      .addCase(clearCart.fulfilled, (state) => {
+        state.cartProducts = [];
       });
   },
 });
@@ -159,10 +162,32 @@ const updateCartProduct = createAppAsyncThunk<
   }
 });
 
+const clearCart = createAppAsyncThunk<void, void>(
+  "cart/clear",
+  async (_, thunkAPI) => {
+    const { rejectWithValue, getState } = thunkAPI;
+
+    const db = getFirestore();
+
+    const cartProducts = getState().cart.cartProducts;
+
+    try {
+      const promises = cartProducts.map((product) =>
+        deleteDoc(doc(db, "cart", product.docId)),
+      );
+
+      await Promise.all(promises);
+    } catch (e) {
+      rejectWithValue(null);
+    }
+  },
+);
+
 export const cartReducer = slice.reducer;
 export const cartThunks = {
   getCart,
   addCartProduct,
   deleteCartProduct,
   updateCartProduct,
+  clearCart,
 };

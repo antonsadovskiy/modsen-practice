@@ -51,7 +51,7 @@ const registerUser = createAppAsyncThunk<void, AuthUserRequestType>(
     try {
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (e) {
-      rejectWithValue(null);
+      return rejectWithValue(null);
     }
   },
 );
@@ -70,7 +70,7 @@ const loginUser = createAppAsyncThunk<
 
     return { id: userData.user.uid, email: userData.user.email };
   } catch (e) {
-    rejectWithValue(null);
+    return rejectWithValue(null);
   }
 });
 
