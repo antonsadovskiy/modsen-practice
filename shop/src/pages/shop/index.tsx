@@ -131,7 +131,7 @@ export const ShopPage = () => {
     setSortValue(undefined);
     setCategoryValue(undefined);
     setPrice(minAndMaxPrice);
-    setCommittedPrice(minAndMaxPrice);
+    setCommittedPrice(undefined);
     setFilterType(undefined);
   }, [minAndMaxPrice]);
 
