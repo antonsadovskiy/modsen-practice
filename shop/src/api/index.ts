@@ -4,7 +4,9 @@ import { GetProductsRequestType, ProductType } from "./types";
 
 export const shopApi = createApi({
   reducerPath: "shopApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://fakestoreapi.com/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.REACT_APP_STORE_API_BASE_URL ?? "",
+  }),
   endpoints: (builder) => ({
     getProducts: builder.query<ProductType[], GetProductsRequestType>({
       query: (args) => ({

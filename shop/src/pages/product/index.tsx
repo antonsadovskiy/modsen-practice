@@ -38,7 +38,6 @@ export const ProductPage = () => {
       }),
     });
 
-  console.log(isLoadingSimilarItems);
   const isThisProductAlreadyInCart = useMemo(
     () => !!cart.find((item) => item.productId === parseInt(params.id)),
     [cart, params],
