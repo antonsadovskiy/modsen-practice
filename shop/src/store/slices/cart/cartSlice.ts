@@ -136,7 +136,7 @@ const deleteCartProduct = createAppAsyncThunk<
 
     return { productId };
   } catch (e) {
-    rejectWithValue(null);
+    return rejectWithValue(null);
   }
 });
 
@@ -158,7 +158,7 @@ const updateCartProduct = createAppAsyncThunk<
 
     return { productId, amount };
   } catch (e) {
-    rejectWithValue(null);
+    return rejectWithValue(null);
   }
 });
 
@@ -178,7 +178,7 @@ const clearCart = createAppAsyncThunk<void, void>(
 
       await Promise.all(promises);
     } catch (e) {
-      rejectWithValue(null);
+      return rejectWithValue(null);
     }
   },
 );

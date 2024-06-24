@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import DeleteSVG from "@/assets/svg/bucket.svg";
@@ -6,7 +6,6 @@ import { CircleLoader } from "@/components/circle-loader";
 import { CustomIconButton } from "@/components/custom-icon-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
-import { useDebounce } from "@/hooks/useDebounce";
 import { useAppDispatch } from "@/store/hooks";
 import { cartThunks } from "@/store/slices/cart";
 
@@ -38,36 +37,23 @@ export const CartCard = ({
   const dispatch = useAppDispatch();
 
   const [isDeleting, setIsDeleting] = useState(false);
-  const [amount, setAmount] = useState(amountItemsInCart);
 
-  const debouncedAmount = useDebounce(amount, 500);
-
-  const totalPrice = useMemo(
-    () => (amount * (price ?? 0)).toFixed(2),
-    [amount, price],
+  const updateCartProduct = useCallback(
+    (newValue: number) => {
+      try {
+        dispatch(
+          cartThunks.updateCartProduct({
+            productId: id,
+            docId,
+            amount: newValue,
+          }),
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [docId, id, dispatch],
   );
-
-  const increaseHandler = useCallback(() => {
-    setAmount((prevState) => prevState + 1);
-  }, []);
-
-  const decreaseHandler = useCallback(() => {
-    setAmount((prevState) => prevState - 1);
-  }, []);
-
-  const updateCartProduct = useCallback(() => {
-    try {
-      dispatch(
-        cartThunks.updateCartProduct({
-          productId: id,
-          docId,
-          amount: debouncedAmount,
-        }),
-      );
-    } catch (e) {
-      console.error(e);
-    }
-  }, [debouncedAmount, docId, id, dispatch]);
 
   const navigate = useNavigate();
 
@@ -82,10 +68,6 @@ export const CartCard = ({
 
     setIsDeleting(false);
   }, [dispatch, docId, id]);
-
-  useEffect(() => {
-    updateCartProduct();
-  }, [debouncedAmount, updateCartProduct]);
 
   return (
     <S.CatalogCardWrapper $width={width}>
@@ -106,11 +88,9 @@ export const CartCard = ({
           </S.TitleAndDelete>
           <S.Description>{description}</S.Description>
           <IncreaseAmount
-            amount={amount}
-            increaseHandler={increaseHandler}
-            decreaseHandler={decreaseHandler}
-            totalPrice={totalPrice}
-            disabled={false}
+            startAmount={amountItemsInCart}
+            onChangeDebouncedValue={updateCartProduct}
+            pricePerItem={price}
           />
         </S.TitleAndDescription>
       </S.ImageAndDescription>

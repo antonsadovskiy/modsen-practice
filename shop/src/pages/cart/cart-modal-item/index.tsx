@@ -21,7 +21,8 @@ export const CartModalItem = ({
       <S.Title>{title}</S.Title>
       <S.Description>{description}</S.Description>
       <S.Price>
-        ${pricePerOne} x {totalAmount} = ${pricePerOne * totalAmount}
+        ${pricePerOne} x {totalAmount} = $
+        {(pricePerOne * totalAmount).toFixed(2)}
       </S.Price>
     </S.Info>
   </S.Wrapper>

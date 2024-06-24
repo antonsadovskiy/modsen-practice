@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { useGetProductsQuery } from "@/api";
-import { CartCard } from "@/components/cart-card";
 import { CustomButton } from "@/components/custom-button";
 import { Modal } from "@/components/modal";
 import { Skeleton } from "@/components/skeleton";
+import { CartCard } from "@/pages/cart/cart-card";
 import { CartModalItem } from "@/pages/cart/cart-modal-item";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { cartThunks } from "@/store/slices/cart";

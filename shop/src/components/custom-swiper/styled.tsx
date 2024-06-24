@@ -1,54 +1,53 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+const Container = styled.div<{ activeIndex: number }>`
+  display: flex;
+  transition: transform 0.6s ease;
+  transform: ${({ activeIndex }) => `translateX(-${activeIndex * 100}%)`};
+`;
+
+const Wrapper = styled.div`
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+`;
 
-  .swiper {
-    width: 100%;
-    height: 100%;
-    border-radius: 16px;
-  }
+const Controls = styled.div`
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  bottom: 24px;
+`;
 
-  .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
+const Dot = styled.div<{ $isActive: boolean }>`
+  border-radius: 50%;
+  background-color: ${({ $isActive }) => ($isActive ? "transparent" : "white")};
+  width: ${({ $isActive }) => ($isActive ? "15px" : "10px")};
+  height: ${({ $isActive }) => ($isActive ? "15px" : "10px")};
+  text-align: center;
+  line-height: 10px;
+  opacity: 1;
+  ${({ $isActive }) => $isActive && "border: 1px solid white"};
+`;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+const Slide = styled.div`
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
 
-  .swiper-slide img {
+  img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .swiper-pagination-bullets {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    bottom: 24px !important;
-  }
-
-  .swiper-pagination-bullet {
-    background-color: white !important;
-    width: 10px !important;
-    height: 10px !important;
-    text-align: center;
-    line-height: 10px;
-    opacity: 1 !important;
-  }
-
-  .swiper-pagination-bullet-active {
-    width: 15px !important;
-    height: 15px !important;
-    border: 1px solid white;
-    background-color: transparent !important;
-  }
 `;
 
-export default { Wrapper };
+export default { Wrapper, Slide, Controls, Dot, Container };

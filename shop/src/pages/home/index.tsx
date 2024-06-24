@@ -2,12 +2,22 @@ import { useNavigate } from "react-router-dom";
 
 import { useGetProductsQuery } from "@/api";
 import { CatalogCard } from "@/components/catalog-card";
+import { CustomImage } from "@/components/custom-image";
 import { CustomSwiper } from "@/components/custom-swiper";
 import { Skeleton } from "@/components/skeleton";
 import { routes } from "@/constants/routes";
 import { homeSwiperImages } from "@/pages/home/config";
 
 import S from "./styled";
+
+const homeSwiperItems = homeSwiperImages.map((image, index) => (
+  <CustomImage
+    key={index}
+    highResSrc={image.highRes}
+    lowResSrc={image.lowRes}
+    alt={"image"}
+  />
+));
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -27,7 +37,7 @@ export const HomePage = () => {
     <S.Wrapper>
       <div>
         <S.SwiperContainer>
-          <CustomSwiper images={homeSwiperImages} />
+          <CustomSwiper items={homeSwiperItems} />
         </S.SwiperContainer>
         <S.TitleContainer>
           <S.Title>Shop The Latest</S.Title>

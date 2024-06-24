@@ -1,58 +1,59 @@
-import "swiper/css";
-import "swiper/css/pagination";
-
-import { useMemo } from "react";
-import { Autoplay, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-
-import { CustomImage } from "@/components/custom-image";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 import S from "./styled";
 
-type CustomSwiperPropsType = {
-  images: { highRes: string; lowRes: string }[];
-  isWithAutoPlay?: boolean;
-  isWithPagination?: boolean;
+type SwiperPropsType = {
+  items: ReactNode[];
+  autoplayTime?: number;
 };
 
-export const CustomSwiper = ({
-  images,
-  isWithAutoPlay = true,
-  isWithPagination = true,
-}: CustomSwiperPropsType) => {
-  const pagination = {
-    clickable: true,
-  };
+export const CustomSwiper = ({ items, autoplayTime }: SwiperPropsType) => {
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const modules = useMemo(
-    () =>
-      [isWithPagination && Pagination, isWithAutoPlay && Autoplay].filter(
-        Boolean,
-      ),
-    [isWithAutoPlay, isWithPagination],
-  );
+  const startTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
+    timerRef.current = setInterval(() => {
+      setCurrentSlideIndex((prevIndex) =>
+        prevIndex === items.length - 1 ? 0 : prevIndex + 1,
+      );
+    }, autoplayTime || 4500);
+  }, [items.length, autoplayTime]);
+
+  useEffect(() => {
+    startTimer();
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [startTimer]);
+
+  const setCurrentSlideIndexHandler = (index: number) => {
+    setCurrentSlideIndex(index);
+    startTimer();
+  };
 
   return (
     <S.Wrapper>
-      <Swiper
-        pagination={pagination}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        modules={modules}
-      >
-        {images.map((image, index) => (
-          <SwiperSlide key={index}>
-            <CustomImage
-              highResSrc={image.highRes}
-              lowResSrc={image.lowRes}
-              alt={"image"}
-            />
-          </SwiperSlide>
+      <S.Container activeIndex={currentSlideIndex}>
+        {items.map((item, index) => (
+          <S.Slide key={index}>{item}</S.Slide>
         ))}
-      </Swiper>
+      </S.Container>
+      <S.Controls>
+        {items.map((_, index) => (
+          <S.Dot
+            $isActive={index === currentSlideIndex}
+            key={index}
+            onClick={() => setCurrentSlideIndexHandler(index)}
+          />
+        ))}
+      </S.Controls>
     </S.Wrapper>
   );
 };

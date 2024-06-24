@@ -36,4 +36,4 @@ const Price = styled.div`
   color: ${({ theme }) => theme.color.black};
 `;
 
-export default { Wrapper, Image, Info, Title, Description, Price, Text };
+export default { Wrapper, Image, Info, Title, Description, Price };

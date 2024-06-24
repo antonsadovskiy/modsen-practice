@@ -51,19 +51,6 @@ export const ProductPage = () => {
     [params, similarItems],
   );
 
-  const totalPrice = useMemo(
-    () => (amount * (product?.price ?? 0)).toFixed(2),
-    [product, amount],
-  );
-
-  const increaseHandler = useCallback(() => {
-    setAmount((prevState) => prevState + 1);
-  }, []);
-
-  const decreaseHandler = useCallback(() => {
-    setAmount((prevState) => prevState - 1);
-  }, []);
-
   const addToCartHandler = useCallback(async () => {
     if (product.id) {
       setIsAdding(true);
@@ -77,6 +64,13 @@ export const ProductPage = () => {
   const goToCartHandler = useCallback(() => {
     navigate(routes.cart);
   }, [navigate]);
+
+  const changeAmountHandler = useCallback(
+    (newValue: number) => {
+      setAmount(newValue);
+    },
+    [setAmount],
+  );
 
   useEffect(() => {
     if (params.id) {
@@ -116,11 +110,10 @@ export const ProductPage = () => {
               </S.ProductDescription>
               <S.AddToCartContainer>
                 <IncreaseAmount
-                  amount={amount}
-                  increaseHandler={increaseHandler}
-                  decreaseHandler={decreaseHandler}
-                  totalPrice={totalPrice}
+                  startAmount={amount}
+                  pricePerItem={product?.price}
                   disabled={isThisProductAlreadyInCart}
+                  onChangeValue={changeAmountHandler}
                 />
                 <S.ButtonContainer>
                   {isThisProductAlreadyInCart ? (
