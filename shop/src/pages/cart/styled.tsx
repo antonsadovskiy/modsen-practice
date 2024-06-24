@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
+import { breakpoints } from "@/constants/styles";
+
 const Wrapper = styled.div`
   margin-top: 96px;
   display: flex;
   flex-direction: column;
   gap: 40px;
   margin-bottom: 250px;
+
+  @media screen and (max-width: ${breakpoints.medium}) {
+    margin-top: 40px;
+    margin-bottom: 100px;
+  }
 `;
 
 const TitleContainer = styled.div`

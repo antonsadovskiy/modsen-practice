@@ -28,8 +28,8 @@ export const CatalogCard = ({
 
   return (
     <S.CatalogCardWrapper $width={width} onClick={onClickHandler}>
-      <S.ImagesContainer>
-        <img src={imageSrc} alt={title} height={height} width={width} />
+      <S.ImagesContainer $height={height} $width={width}>
+        <img src={imageSrc} alt={title} height={"100%"} width={"100%"} />
       </S.ImagesContainer>
       <S.Title>{title}</S.Title>
       <S.Price>$ {price}</S.Price>

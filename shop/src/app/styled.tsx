@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { breakpoints } from "@/constants/styles";
+
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor};
 `;
@@ -18,6 +20,20 @@ const MaxWidthContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media screen and (max-width: ${breakpoints.maxPossibleWidth}) {
+    max-width: 1100px;
+  }
+  @media screen and (max-width: ${breakpoints.extraLarge}) {
+    max-width: 900px;
+  }
+  @media screen and (max-width: ${breakpoints.large}) {
+    max-width: 750px;
+  }
+  @media screen and (max-width: ${breakpoints.medium}) {
+    width: calc(100vw - 40px);
+    padding: 0 20px;
+  }
 `;
 
 const Content = styled.div`

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { breakpoints } from "@/constants/styles";
+
 export const Wrapper = styled.div`
   margin-top: 96px;
   display: flex;
@@ -11,6 +13,10 @@ export const Wrapper = styled.div`
 export const PageTitle = styled.div`
   font: var(--h1);
   color: ${({ theme }) => theme.mainTextColor};
+
+  @media screen and (max-width: ${breakpoints.large}) {
+    font: var(--h5);
+  }
 `;
 export const Content = styled.div`
   display: flex;

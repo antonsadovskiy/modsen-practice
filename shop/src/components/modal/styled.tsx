@@ -18,7 +18,7 @@ const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   width: 100vw;
   height: 100vh;
-  z-index: 3;
+  z-index: var(--modal-background-z-index);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -33,12 +33,12 @@ const ModalWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 4;
+  z-index: var(--modal-z-index);
 `;
 const Modal = styled.div`
   width: 50vw;
   color: white;
-  z-index: 10;
+  z-index: var(--modal-z-index);
   border-radius: 20px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
   padding: 32px 20px 20px;

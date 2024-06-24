@@ -1,11 +1,27 @@
 import styled from "styled-components";
 
+import { breakpoints } from "@/constants/styles";
+
 export const CatalogCardWrapper = styled.div<{ $width: string }>`
   cursor: pointer;
-  width: ${({ $width }) => `${$width}px`};
+  max-width: ${({ $width }) => `${$width}px`};
+  width: 100%;
+
+  @media screen and (max-width: ${breakpoints.medium}) {
+    max-width: 136px;
+  }
 `;
 
-export const ImagesContainer = styled.div`
+export const ImagesContainer = styled.div<{ $height: string; $width: string }>`
+  height: ${({ $height }) => `${$height}px`};
+  max-width: ${({ $width }) => `${$width}px`};
+  width: 100%;
+
+  @media screen and (max-width: ${breakpoints.medium}) {
+    max-width: 136px;
+    max-height: 136px;
+  }
+
   img {
     position: relative;
 
@@ -22,11 +38,19 @@ export const Title = styled.div`
   overflow: hidden;
   white-space: nowrap;
   color: ${({ theme }) => theme.mainTextColor};
+
+  @media screen and (max-width: ${breakpoints.medium}) {
+    font: var(--body-medium);
+  }
 `;
 
 export const Price = styled.div`
   font: var(--h4);
   color: ${({ theme }) => theme.color.accent};
+
+  @media screen and (max-width: ${breakpoints.medium}) {
+    font: var(--body-small-mobile);
+  }
 `;
 
 export default { CatalogCardWrapper, ImagesContainer, Price, Title };

@@ -16,11 +16,8 @@ export const CustomSwitch = ({
   }, [checked, onCheckedChange]);
 
   return (
-    <S.SwitchRoot
-      onClick={onChangeHandler}
-      data-state={checked ? "checked" : ""}
-    >
-      <S.SwitchThumb data-state={checked ? "checked" : ""} />
+    <S.SwitchRoot onClick={onChangeHandler} $isChecked={checked}>
+      <S.SwitchThumb $isChecked={checked} />
     </S.SwitchRoot>
   );
 };

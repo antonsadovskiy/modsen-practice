@@ -1,45 +1,51 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
+import BurgerNavSVG from "@/assets/svg/burger-nav.svg";
 import { CustomIconButton } from "@/components/custom-icon-button";
 import { CustomSwitch } from "@/components/custom-switch";
+import { CartIcon } from "@/components/header/cart-icon";
+import { Sidebar } from "@/components/header/sidebar";
 import { routes } from "@/constants/routes";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { appActions } from "@/store/slices/app";
+import { useChangeTheme } from "@/hooks/useChangeTheme";
+import { useAppSelector } from "@/store/hooks";
 import { selectorAppTheme } from "@/store/slices/app/appSelectors";
-import { selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";
 
 export const Header = () => {
-  const dispatch = useAppDispatch();
   const theme = useAppSelector(selectorAppTheme);
 
-  const cart = useAppSelector(selectorCartProducts);
+  const { changeTheme } = useChangeTheme();
 
-  const cartAmount = useMemo(
-    () => cart.reduce((acc, item) => acc + item.amount, 0),
-    [cart],
-  );
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const navigate = useNavigate();
 
   const goHomePageHandler = useCallback(() => {
     navigate(routes.home);
-  }, [navigate]);
 
-  const goCartPageHandler = useCallback(() => {
-    navigate(routes.cart);
+    setIsOpenMenu(false);
   }, [navigate]);
 
   const onCheckedChangeHandler = useCallback(
     (checked: boolean) => {
-      dispatch(appActions.setTheme({ theme: checked ? "dark" : "light" }));
-      localStorage.setItem("theme", checked ? "dark" : "light");
+      changeTheme(checked ? "dark" : "light");
     },
-    [dispatch],
+    [changeTheme],
   );
+
+  const onShowMenu = () => {
+    setIsOpenMenu(true);
+  };
+  const onHideMenu = () => {
+    setIsOpenMenu(false);
+  };
+
+  const navigateHandler = (link: string) => {
+    navigate(link);
+    setIsOpenMenu(false);
+  };
 
   return (
     <S.Wrapper>
@@ -51,6 +57,16 @@ export const Header = () => {
             width={290}
             height={32}
           />
+          <S.BurgerNav>
+            <CartIcon onClick={() => navigateHandler(routes.cart)} />
+            <CustomIconButton onClick={isOpenMenu ? onHideMenu : onShowMenu}>
+              {isOpenMenu ? (
+                <S.Cross width={20} height={15} />
+              ) : (
+                <BurgerNavSVG width={20} height={15} />
+              )}
+            </CustomIconButton>
+          </S.BurgerNav>
           <S.Actions>
             <Link to={routes.shop}>
               <S.ShopLink>Shop</S.ShopLink>
@@ -59,16 +75,16 @@ export const Header = () => {
               checked={theme !== "light"}
               onCheckedChange={onCheckedChangeHandler}
             />
-            <CustomIconButton onClick={goCartPageHandler}>
-              <S.CartIconContainer>
-                <ShoppingCardSVG />
-                {cartAmount > 0 && <S.CartCount>{cartAmount}</S.CartCount>}
-              </S.CartIconContainer>
-            </CustomIconButton>
+            <CartIcon onClick={() => navigateHandler(routes.cart)} />
           </S.Actions>
         </S.HeaderContent>
         <S.BorderBottomLine />
       </S.MaxWidthContainer>
+      <Sidebar
+        isOpenMenu={isOpenMenu}
+        onClose={onHideMenu}
+        onNavigate={navigateHandler}
+      />
     </S.Wrapper>
   );
 };

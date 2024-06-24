@@ -34,6 +34,10 @@ export default (env: EnvVariable) => {
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "public", "index.html"),
         favicon: path.resolve(__dirname, "public", "favicon.ico"),
+        meta: {
+          viewport:
+            "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+        },
       }),
       !isDev &&
         new MiniCssExtractPlugin({

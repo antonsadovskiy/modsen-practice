@@ -4,6 +4,7 @@ import { useGetProductsQuery } from "@/api";
 import { CustomButton } from "@/components/custom-button";
 import { Modal } from "@/components/modal";
 import { Skeleton } from "@/components/skeleton";
+import { usePreventScroll } from "@/hooks/usePreventScroll";
 import { CartCard } from "@/pages/cart/cart-card";
 import { CartModalItem } from "@/pages/cart/cart-modal-item";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -19,6 +20,8 @@ export const CartPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
+
+  usePreventScroll(isOpenModal);
 
   const { data: products, isLoading } = useGetProductsQuery(
     {},

@@ -1,6 +1,10 @@
 @import './fonts.css';
 
 :root {
+    --modal-background-z-index: 10;
+    --modal-z-index: 11;
+    --header-z-index: 10;
+
     /*Font family*/
     --font-family-dm-sans: 'DM Sans';
 
@@ -72,4 +76,14 @@
     var(--line-height-22) var(--font-family-dm-sans);
     --body-small: var(--font-weight-400) var(--font-size-12) /
     var(--line-height-20) var(--font-family-dm-sans);
+
+    /*Mobiles*/
+    --h1-mobile: var(--font-weight-400) var(--font-size-20) / var(--line-height-26)
+    var(--font-family-dm-sans);
+    --h2-mobile: var(--font-weight-400) var(--font-size-16) / var(--line-height-27)
+    var(--font-family-dm-sans);
+    --h3-mobile: var(--font-weight-400) var(--font-size-14) / var(--line-height-26)
+    var(--font-family-dm-sans);
+    --body-small-mobile: var(--font-weight-400) var(--font-size-12) / var(--line-height-20)
+    var(--font-family-dm-sans);
 }

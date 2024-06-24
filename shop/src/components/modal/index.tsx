@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 import CrossSVG from "@/assets/svg/plus.svg";
 import { CustomButton } from "@/components/custom-button";
@@ -31,26 +31,6 @@ export const Modal = ({
   const confirmHandler = () => {
     onConfirmHandler?.();
   };
-
-  useEffect(() => {
-    const scrollPos = window.scrollY;
-
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollPos}px`;
-    document.body.style.left = "0";
-    document.body.style.right = "0";
-    document.body.style.overflow = "hidden";
-    document.body.style.width = "100%";
-
-    return () => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.left = "";
-      document.body.style.right = "";
-      document.body.style.overflow = "";
-      window.scrollTo(0, scrollPos);
-    };
-  }, []);
 
   return (
     <>

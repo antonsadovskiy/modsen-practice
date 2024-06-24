@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SwitchRoot = styled.div`
+export const SwitchRoot = styled.div<{ $isChecked: boolean }>`
   cursor: pointer;
   width: 42px;
   height: 25px;
@@ -10,12 +10,11 @@ export const SwitchRoot = styled.div`
   display: flex;
   align-items: center;
 
-  &[data-state="checked"] {
-    background-color: ${({ theme }) => theme.color.darkGray};
-  }
+  ${({ $isChecked, theme }) =>
+    $isChecked && `background-color: ${theme.color.darkGray};`}
 `;
 
-export const SwitchThumb = styled.div`
+export const SwitchThumb = styled.div<{ $isChecked: boolean }>`
   display: block;
   width: 21px;
   height: 21px;
@@ -26,9 +25,7 @@ export const SwitchThumb = styled.div`
   transform: translateX(2px);
   will-change: transform;
 
-  &[data-state="checked"] {
-    transform: translateX(19px);
-  }
+  ${({ $isChecked }) => $isChecked && `transform: translateX(19px);`}
 `;
 
 export default { SwitchRoot, SwitchThumb };

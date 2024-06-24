@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { breakpoints } from "@/constants/styles";
+
 const CatalogCardWrapper = styled.div<{ $width: string }>`
   width: 100%;
   display: flex;
@@ -20,6 +22,11 @@ const ImageAndDescription = styled.div`
   justify-content: space-between;
   width: 100%;
   gap: 20px;
+
+  @media screen and (max-width: ${breakpoints.medium}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ImagesContainer = styled.div`

@@ -1,18 +1,22 @@
 import styled from "styled-components";
 
 import LogoSVG from "@/assets/svg/logo.svg";
+import CrossSVG from "@/assets/svg/plus.svg";
+import { breakpoints } from "@/constants/styles";
 
 const Wrapper = styled.div`
   position: sticky;
-
   background-color: ${({ theme }) => theme.backgroundColor};
-  z-index: 2;
-  padding-top: 64px;
+  z-index: var(--header-z-index);
   top: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 17px;
+
+  @media screen and (max-width: ${breakpoints.large}) {
+    padding-top: 0;
+  }
 `;
 
 const HeaderContent = styled.div`
@@ -22,11 +26,19 @@ const HeaderContent = styled.div`
 `;
 const Logo = styled(LogoSVG)`
   cursor: pointer;
+
+  @media screen and (max-width: ${breakpoints.large}) {
+    width: 207px;
+  }
 `;
 const Actions = styled.div`
   display: flex;
   align-items: center;
   gap: 40px;
+
+  @media screen and (max-width: ${breakpoints.medium}) {
+    display: none;
+  }
 `;
 const ShopLink = styled.div`
   font: var(--h5);
@@ -39,27 +51,6 @@ const BorderBottomLine = styled.div`
   background-color: ${({ theme }) => theme.color.gray};
 `;
 
-const CartIconContainer = styled.div`
-  position: relative;
-`;
-
-const CartCount = styled.div`
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  min-width: 16px;
-  height: 16px;
-  width: 100%;
-  background-color: red;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${({ theme }) => theme.color.white};
-  font: var(--h5);
-  font-size: var(--font-size-10);
-`;
-
 const MaxWidthContainer = styled.div`
   max-width: 1248px;
   width: 100%;
@@ -68,16 +59,49 @@ const MaxWidthContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 17px;
+  padding-top: 64px;
+
+  background-color: ${({ theme }) => theme.backgroundColor};
+
+  z-index: 12;
+
+  @media screen and (max-width: ${breakpoints.maxPossibleWidth}) {
+    max-width: 1100px;
+  }
+  @media screen and (max-width: ${breakpoints.extraLarge}) {
+    max-width: 900px;
+  }
+  @media screen and (max-width: ${breakpoints.large}) {
+    max-width: 744px;
+    padding: 17px 20px 0 20px;
+  }
+  @media screen and (max-width: ${breakpoints.medium}) {
+    width: calc(100vw - 40px);
+    padding: 17px 20px 0 20px;
+  }
+`;
+
+const BurgerNav = styled.div`
+  display: none;
+  @media screen and (max-width: ${breakpoints.medium}) {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+  }
+`;
+
+const Cross = styled(CrossSVG)`
+  transform: rotate(45deg);
 `;
 
 export default {
   Wrapper,
   HeaderContent,
   Logo,
+  BurgerNav,
   Actions,
   ShopLink,
   BorderBottomLine,
   MaxWidthContainer,
-  CartIconContainer,
-  CartCount,
+  Cross,
 };
