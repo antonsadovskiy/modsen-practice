@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
 
 export const PageTitle = styled.div`
   font: var(--h1);
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 export const Content = styled.div`
   display: flex;
@@ -51,6 +52,7 @@ export const NoData = styled.div`
   display: flex;
   justify-content: center;
   font: var(--h4);
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 
 export const ButtonContainer = styled.div`

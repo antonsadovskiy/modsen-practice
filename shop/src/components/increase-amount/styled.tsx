@@ -22,7 +22,8 @@ export const IncreaseAmountButton = styled.div<{ $disabled?: boolean }>`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  border: 1px solid black;
+  border: ${({ theme }) => `1px solid ${theme.mainTextColor}`};
+  color: ${({ theme }) => theme.mainTextColor};
   pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
 
   user-select: none;
@@ -32,10 +33,12 @@ export const IncreaseAmountButton = styled.div<{ $disabled?: boolean }>`
 export const Amount = styled.div`
   min-width: 20px;
   text-align: center;
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 
 export const TotalPrice = styled.div`
   font: var(--h5);
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 export default {
   TotalPrice,

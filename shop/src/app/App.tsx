@@ -1,7 +1,7 @@
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
-import { theme } from "@/assets/styles/theme";
+import { darkTheme, lightTheme } from "@/assets/styles/theme";
 import { CircleLoader } from "@/components/circle-loader";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
@@ -17,7 +17,7 @@ export function App() {
   const isAppInitialized = useAppSelector(selectorIsAppInitialized);
 
   return (
-    <ThemeProvider theme={theme[appTheme]}>
+    <ThemeProvider theme={appTheme === "light" ? lightTheme : darkTheme}>
       <S.Wrapper>
         {isLoggedIn && isAppInitialized && <Header />}
         <S.MaxWidthContainer>

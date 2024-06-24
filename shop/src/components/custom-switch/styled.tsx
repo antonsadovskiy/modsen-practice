@@ -1,21 +1,21 @@
-import * as Switch from "@radix-ui/react-switch";
 import styled from "styled-components";
 
-export const SwitchRoot = styled(Switch.Root)`
+export const SwitchRoot = styled.div`
   cursor: pointer;
   width: 42px;
   height: 25px;
   background-color: #78788029;
   border-radius: 9999px;
   position: relative;
-  box-shadow: 0 2px 10px var(--black-a7);
+  display: flex;
+  align-items: center;
 
   &[data-state="checked"] {
     background-color: ${({ theme }) => theme.color.darkGray};
   }
 `;
 
-export const SwitchThumb = styled(Switch.Thumb)`
+export const SwitchThumb = styled.div`
   display: block;
   width: 21px;
   height: 21px;

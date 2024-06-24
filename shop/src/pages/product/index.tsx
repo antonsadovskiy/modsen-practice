@@ -8,11 +8,11 @@ import { IncreaseAmount } from "@/components/increase-amount";
 import { Skeleton } from "@/components/skeleton";
 import { routes } from "@/constants/routes";
 import { socialMedias } from "@/constants/socials";
-import { StarRating } from "@/pages/shop/star-rating";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { cartThunks } from "@/store/slices/cart";
 import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
 
+import { StarRating } from "./star-rating";
 import S from "./styled";
 
 export const ProductPage = () => {

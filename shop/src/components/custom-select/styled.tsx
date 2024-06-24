@@ -18,8 +18,8 @@ export const Placeholder = styled.div`
   cursor: pointer;
   border: 1px;
   font: var(--body-medium);
-  color: ${({ theme }) => theme.color.black};
-  background: ${({ theme }) => theme.color.white};
+  color: ${({ theme }) => theme.mainTextColor};
+  background: ${({ theme }) => theme.backgroundColor};
   box-sizing: border-box;
   width: 100%;
   border-radius: 4px;
@@ -29,6 +29,10 @@ export const Placeholder = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    svg path {
+      fill: ${({ theme }) => theme.mainTextColor};
+    }
   }
 
   .rotate {
@@ -45,7 +49,7 @@ export const Select = styled.div`
   padding: 0;
   box-sizing: border-box;
   z-index: 10;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: ${({ theme }) => theme.backgroundColor};
 
   box-shadow: 0 4px 6px 1px gray;
 

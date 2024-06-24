@@ -1,10 +1,11 @@
-import path from "path";
-import webpack from "webpack";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import Dotenv from "dotenv-webpack";
+import FaviconsWebpackPlugin from "favicons-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import path from "path";
 import ReactRefreshTypeScript from "react-refresh-typescript";
+import webpack from "webpack";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 
@@ -30,6 +31,9 @@ export default (env: EnvVariable) => {
     plugins: [
       new Dotenv({
         systemvars: true,
+      }),
+      new FaviconsWebpackPlugin({
+        logo: "./public/favicon.ico",
       }),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "public", "index.html"),

@@ -22,6 +22,18 @@ export const Textarea = styled.textarea`
   ::placeholder {
     color: ${({ theme }) => `${theme.color.darkGray}`};
   }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: ${({ theme }) =>
+      `0 0 0 30px ${theme.backgroundColor} inset !important`};
+    -webkit-text-fill-color: ${({ theme }) =>
+      `${theme.mainTextColor} !important`};
+  }
+
+  color: ${({ theme }) => `${theme.mainTextColor}`};
 `;
 
 export const Error = styled.div`
@@ -31,7 +43,7 @@ export const Error = styled.div`
   font-size: var(--font-size-14);
   font-weight: var(--font-weight-400);
   line-height: var(--line-height-10);
-  color: ${({ theme }) => `${theme.color.errors}`};
+  color: ${({ theme }) => `${theme.color.error}`};
 `;
 
 export default { Wrapper, Textarea, Error };

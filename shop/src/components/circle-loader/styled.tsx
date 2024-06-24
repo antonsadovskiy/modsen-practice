@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Loader = styled.span<{ $size: number }>`
   width: ${({ $size }) => `${$size}px`};
   height: ${({ $size }) => `${$size}px`};
-  border: ${({ $size }) => `${$size / 10}px`} solid currentColor;
+  border: ${({ $size, theme }) => `${$size / 10}px solid ${theme.loaderColor}`};
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;

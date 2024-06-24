@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import ClosedEyeSVG from "@/assets/svg/closed-eye.svg";
+import OpenedEyeSVG from "@/assets/svg/opened-eye.svg";
 import { CustomInput } from "@/components/custom-input";
 
 const Wrapper = styled.div`
@@ -7,6 +9,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
 const Form = styled.form`
@@ -19,6 +22,7 @@ const Form = styled.form`
 `;
 const Title = styled.div`
   font: var(--h2);
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 const Link = styled.div`
   font: var(--h5);
@@ -44,8 +48,19 @@ const InputsWithLink = styled.div`
   gap: 35px;
 `;
 
-export const FormInput = styled(CustomInput)`
+const FormInput = styled(CustomInput)`
   font: var(--h5);
+
+  svg path {
+    fill: ${({ theme }) => theme.color.white} !important;
+  }
+`;
+
+const OpenedEye = styled(OpenedEyeSVG)`
+  fill: ${({ theme }) => theme.mainTextColor};
+`;
+const ClosedEye = styled(ClosedEyeSVG)`
+  fill: ${({ theme }) => theme.mainTextColor};
 `;
 
 export default {
@@ -57,4 +72,6 @@ export default {
   Link,
   ButtonContainer,
   FormInput,
+  OpenedEye,
+  ClosedEye,
 };

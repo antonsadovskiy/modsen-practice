@@ -7,11 +7,11 @@ export const Wrapper = styled.li`
   padding: 8px 12px;
   cursor: pointer;
   font: var(--body-medium);
-  color: ${({ theme }) => theme.color.black};
-  background: ${({ theme }) => theme.color.white};
+  color: ${({ theme }) => theme.mainTextColor};
+  background: ${({ theme }) => theme.backgroundColor};
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: ${({ theme }) => theme.color.lightGray};
   }
 `;
 

@@ -13,6 +13,7 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 const ProductsContainer = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const NoData = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 const CartContainer = styled.div`
   width: 100%;

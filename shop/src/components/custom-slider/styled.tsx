@@ -1,18 +1,6 @@
 import * as Slider from "@radix-ui/react-slider";
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  .sliderThumb {
-  }
-  .sliderThumb:after {
-  }
-
-  .sliderThumb:hover {
-  }
-  .sliderThumb:focus {
-  }
-`;
-
 export const SliderRoot = styled(Slider.Root)`
   position: relative;
   display: flex;
@@ -32,7 +20,7 @@ export const SliderTrack = styled(Slider.Track)`
 
 export const SliderRange = styled(Slider.Range)`
   position: absolute;
-  background-color: ${({ theme }) => theme.color.black};
+  background-color: ${({ theme }) => theme.mainTextColor};
   border-radius: 9999px;
   height: 100%;
 `;
@@ -43,7 +31,7 @@ export const SliderThumb = styled(Slider.Thumb)`
   display: block;
   width: 2px;
   height: 10px;
-  background-color: ${({ theme }) => theme.color.black};
+  background-color: ${({ theme }) => theme.mainTextColor};
   box-shadow: 0 2px 10px black;
 
   &:after {
@@ -59,8 +47,8 @@ export const SliderThumb = styled(Slider.Thumb)`
   }
   &:focus {
     outline: none;
-    box-shadow: ${({ theme }) => `0 0 0 1px ${theme.color.black}`};
+    box-shadow: ${({ theme }) => `0 0 0 1px ${theme.mainTextColor}`};
   }
 `;
 
-export default { SliderRoot, SliderTrack, SliderRange, SliderThumb, Wrapper };
+export default { SliderRoot, SliderTrack, SliderRange, SliderThumb };

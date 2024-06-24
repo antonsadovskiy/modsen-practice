@@ -3,6 +3,7 @@ import { ReactNode, useCallback, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { appActions } from "@/store/slices/app";
+import { ThemeType } from "@/store/slices/app/types";
 import { cartThunks } from "@/store/slices/cart";
 import { selectorUserId, userActions } from "@/store/slices/user";
 
@@ -17,6 +18,12 @@ export const AppWrapper = ({ children }: AppWrapperPropsType) => {
 
   const initApp = useCallback(() => {
     const auth = getAuth();
+
+    const theme = localStorage.getItem("theme");
+
+    if (theme) {
+      dispatch(appActions.setTheme({ theme: theme as ThemeType }));
+    }
 
     const removeListener = onAuthStateChanged(auth, async (user) => {
       try {

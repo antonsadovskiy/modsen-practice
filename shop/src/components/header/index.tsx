@@ -36,6 +36,7 @@ export const Header = () => {
   const onCheckedChangeHandler = useCallback(
     (checked: boolean) => {
       dispatch(appActions.setTheme({ theme: checked ? "dark" : "light" }));
+      localStorage.setItem("theme", checked ? "dark" : "light");
     },
     [dispatch],
   );
@@ -56,7 +57,6 @@ export const Header = () => {
             </Link>
             <CustomSwitch
               checked={theme !== "light"}
-              defaultChecked={theme !== "light"}
               onCheckedChange={onCheckedChangeHandler}
             />
             <CustomIconButton onClick={goCartPageHandler}>

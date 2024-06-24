@@ -3,8 +3,6 @@ import { useCallback, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
-import ClosedEyeSVG from "@/assets/svg/closed-eye.svg";
-import OpenedEyeSVG from "@/assets/svg/opened-eye.svg";
 import { CustomButton } from "@/components/custom-button";
 import { routes } from "@/constants/routes";
 import { useAppDispatch } from "@/store/hooks";
@@ -83,9 +81,9 @@ export const LoginPage = () => {
                 <S.FormInput
                   endIcon={
                     showPassword ? (
-                      <OpenedEyeSVG height={20} width={20} />
+                      <S.OpenedEye height={20} width={20} />
                     ) : (
-                      <ClosedEyeSVG height={20} width={20} />
+                      <S.ClosedEye height={20} width={20} />
                     )
                   }
                   onIconClick={() => setShowPassword(!showPassword)}

@@ -21,13 +21,6 @@ export const Information = styled.div`
 
   max-width: 486px;
   width: 100%;
-  .categoryContainer {
-    .categoryTitle {
-    }
-
-    .category {
-    }
-  }
 `;
 
 export const IconsContainer = styled.div`
@@ -46,7 +39,7 @@ export const CategoryContainer = styled.div`
 `;
 
 export const CategoryTitle = styled.span`
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 export const Category = styled.span`
   color: ${({ theme }) => theme.color.darkGray};
@@ -54,7 +47,7 @@ export const Category = styled.span`
 
 export const ProductTitle = styled.div`
   font: var(--h2);
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 
 export const ProductPrice = styled.div`
@@ -141,7 +134,7 @@ export const DescriptionContainer = styled.div`
 
 export const Label = styled.div`
   font: var(--h2);
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 
 export const List = styled.div`
@@ -168,7 +161,7 @@ export const SimilarItems = styled.div`
 export const DescriptionTitle = styled.div`
   padding-bottom: 35px;
   font: var(--h3);
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.mainTextColor};
   border-bottom: ${({ theme }) => `1px solid ${theme.color.gray}`};
 `;
 

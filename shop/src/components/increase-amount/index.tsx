@@ -28,6 +28,7 @@ export const IncreaseAmount = ({
   const increaseHandler = () => {
     setValue((prevState) => prevState + 1);
   };
+
   const decreaseHandler = () => {
     setValue((prevState) => prevState - 1);
   };
@@ -36,6 +37,10 @@ export const IncreaseAmount = ({
     () => (value * (pricePerItem ?? 0)).toFixed(2),
     [value, pricePerItem],
   );
+
+  useEffect(() => {
+    setValue(startAmount);
+  }, [startAmount]);
 
   useEffect(() => {
     onChangeValue?.(value);

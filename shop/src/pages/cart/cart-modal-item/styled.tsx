@@ -23,6 +23,7 @@ const Image = styled.img`
 
 const Title = styled.div`
   font: var(--h5);
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 const Description = styled.div`
   font: var(--h5);
@@ -33,7 +34,7 @@ const Price = styled.div`
   display: flex;
   flex-wrap: nowrap;
   font: var(--h5);
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 
 export default { Wrapper, Image, Info, Title, Description, Price };

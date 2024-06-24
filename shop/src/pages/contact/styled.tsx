@@ -17,11 +17,11 @@ export const TitleContainer = styled.div`
 `;
 export const Title = styled.div`
   font: var(--h1);
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 export const Subtitle = styled.div`
   font: var(--h3);
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.mainTextColor};
   text-align: center;
 `;
 

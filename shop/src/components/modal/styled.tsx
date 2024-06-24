@@ -10,7 +10,7 @@ const ModalHeader = styled.div<{ $isShowCloseIcon: boolean }>`
 `;
 
 const ModalTitle = styled.div`
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.mainTextColor};
   font: var(--h4);
 `;
 
@@ -37,7 +37,6 @@ const ModalWrapper = styled.div`
 `;
 const Modal = styled.div`
   width: 50vw;
-  background: white;
   color: white;
   z-index: 10;
   border-radius: 20px;
@@ -47,6 +46,7 @@ const Modal = styled.div`
   flex-direction: column;
   gap: 24px;
   justify-content: space-between;
+  background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
 const ModalContent = styled.div`

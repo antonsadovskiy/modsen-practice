@@ -6,6 +6,10 @@ const IconButtonContainer = styled.button<{ $disabled: boolean }>`
   justify-content: center;
   cursor: ${({ $disabled }) => ($disabled ? "default" : "pointer")};
   opacity: ${({ $disabled }) => ($disabled ? "0.5" : "1")};
+
+  svg path {
+    fill: ${({ theme }) => theme.mainTextColor};
+  }
 `;
 
 export default { IconButtonContainer };

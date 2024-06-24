@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 
 export const Copyright = styled.div`
   font: var(--h5);
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 export const Socials = styled.div`
   display: flex;
@@ -67,8 +67,10 @@ export const FooterLink = styled.div<{ $isClickable: boolean }>`
   font: var(--h5);
   color: ${({ theme }) => theme.color.darkGray};
 
+  transition: all 0.3s ease;
+
   &:hover {
-    color: ${({ theme }) => theme.color.black};
+    color: ${({ theme }) => theme.mainTextColor};
   }
 
   cursor: ${({ $isClickable }) => ($isClickable ? "pointer" : "default")};

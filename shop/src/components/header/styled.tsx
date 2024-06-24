@@ -30,7 +30,7 @@ const Actions = styled.div`
 `;
 const ShopLink = styled.div`
   font: var(--h5);
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 
 const BorderBottomLine = styled.div`

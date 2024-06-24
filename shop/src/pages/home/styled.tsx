@@ -17,6 +17,7 @@ export const TitleContainer = styled.div`
 `;
 export const Title = styled.div`
   font: var(--h1);
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 export const List = styled.div`
   display: flex;
@@ -37,7 +38,7 @@ export const ViewAllLink = styled.div`
   color: ${({ theme }) => theme.color.accent};
 
   &:hover {
-    color: ${({ theme }) => theme.color.black};
+    color: ${({ theme }) => theme.mainTextColor};
   }
 `;
 

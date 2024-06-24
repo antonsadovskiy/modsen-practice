@@ -37,6 +37,7 @@ const Title = styled.div`
   font: var(--h3);
   text-overflow: ellipsis;
   overflow: hidden;
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 const Description = styled.div`
   max-width: 100%;

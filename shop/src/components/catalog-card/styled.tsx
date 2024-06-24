@@ -21,6 +21,7 @@ export const Title = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  color: ${({ theme }) => theme.mainTextColor};
 `;
 
 export const Price = styled.div`

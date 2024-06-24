@@ -7,7 +7,6 @@ export const Input = styled.input<{
   font-size: var(--font-size-12);
   line-height: var(--line-height-16);
   font-family: var(--font-family-dm-sans);
-  color: ${({ theme }) => `${theme.color.black}`};
 
   width: 100%;
   height: 40px;
@@ -31,6 +30,18 @@ export const Input = styled.input<{
     -webkit-appearance: none;
     height: 1em;
   }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: ${({ theme }) =>
+      `0 0 0 30px ${theme.backgroundColor} inset !important`};
+    -webkit-text-fill-color: ${({ theme }) =>
+      `${theme.mainTextColor} !important`};
+  }
+
+  color: ${({ theme }) => `${theme.mainTextColor}`};
 `;
 
 export const Wrapper = styled.div<{
@@ -63,6 +74,6 @@ export const Error = styled.div`
   font-size: var(--font-size-14);
   font-weight: var(--font-weight-400);
   line-height: var(--line-height-10);
-  color: ${({ theme }) => `${theme.color.errors}`};
+  color: ${({ theme }) => `${theme.color.error}`};
 `;
 export default { Input, Wrapper, Error };

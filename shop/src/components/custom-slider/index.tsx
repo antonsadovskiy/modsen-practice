@@ -17,20 +17,18 @@ export const CustomSlider = ({
   min,
   max,
 }: CustomSliderPropsType) => (
-  <S.Wrapper>
-    <S.SliderRoot
-      value={value}
-      min={min}
-      max={max}
-      defaultValue={defaultValue}
-      onValueCommit={onValueCommit}
-      onValueChange={onValueChange}
-    >
-      <S.SliderTrack>
-        <S.SliderRange />
-      </S.SliderTrack>
-      <S.SliderThumb />
-      <S.SliderThumb />
-    </S.SliderRoot>
-  </S.Wrapper>
+  <S.SliderRoot
+    value={value}
+    min={min}
+    max={max}
+    defaultValue={defaultValue}
+    onValueCommit={onValueCommit}
+    onValueChange={onValueChange}
+  >
+    <S.SliderTrack>
+      <S.SliderRange />
+    </S.SliderTrack>
+    <S.SliderThumb />
+    <S.SliderThumb />
+  </S.SliderRoot>
 );
