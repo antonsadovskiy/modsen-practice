@@ -42,8 +42,6 @@
     "eslint-plugin-react": "7.33.0",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-simple-import-sort": "^12.1.0",
-    "favicons": "^7.2.0",
-    "favicons-webpack-plugin": "^6.0.1",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.9.0",
     "prettier": "^3.3.2",

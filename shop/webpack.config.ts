@@ -1,6 +1,5 @@
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import Dotenv from "dotenv-webpack";
-import FaviconsWebpackPlugin from "favicons-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
@@ -32,11 +31,9 @@ export default (env: EnvVariable) => {
       new Dotenv({
         systemvars: true,
       }),
-      new FaviconsWebpackPlugin({
-        logo: "./public/favicon.ico",
-      }),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "public", "index.html"),
+        favicon: path.resolve(__dirname, "public", "favicon.ico"),
       }),
       !isDev &&
         new MiniCssExtractPlugin({
