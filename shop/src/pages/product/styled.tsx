@@ -140,9 +140,10 @@ export const Label = styled.div`
 export const List = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 54px;
+  width: 100%;
 `;
 
 export const Description = styled.div`
