@@ -14,6 +14,10 @@ const ModalHeader = styled.div<{ $isShowCloseIcon: boolean }>`
 const ModalTitle = styled.div`
   color: ${({ theme }) => theme.mainTextColor};
   font: var(--h4);
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--h5);
+  }
 `;
 
 const Background = styled.div`
@@ -43,7 +47,7 @@ const Modal = styled.div`
   z-index: var(--modal-z-index);
   border-radius: 20px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
-  padding: 32px 20px 20px;
+  padding: 25px 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -79,6 +83,10 @@ const ButtonContainer = styled.div`
 const AdditionalText = styled.div`
   color: ${({ theme }) => theme.color.darkGray};
   font: var(--h5);
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--h3-mobile);
+  }
 `;
 
 export default {

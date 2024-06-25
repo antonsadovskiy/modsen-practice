@@ -2,22 +2,22 @@ import styled from "styled-components";
 
 import { breakpoints } from "@/constants/styles";
 
-export const CatalogCardWrapper = styled.div<{ $width: string }>`
+const CatalogCardWrapper = styled.div<{ $width: string }>`
   cursor: pointer;
   max-width: ${({ $width }) => `${$width}px`};
   width: 100%;
 
-  @media screen and (max-width: ${breakpoints.medium}) {
+  @media screen and (max-width: ${breakpoints.small}) {
     max-width: 136px;
   }
 `;
 
-export const ImagesContainer = styled.div<{ $height: string; $width: string }>`
+const ImagesContainer = styled.div<{ $height: string; $width: string }>`
   height: ${({ $height }) => `${$height}px`};
   max-width: ${({ $width }) => `${$width}px`};
   width: 100%;
 
-  @media screen and (max-width: ${breakpoints.medium}) {
+  @media screen and (max-width: ${breakpoints.small}) {
     max-width: 136px;
     max-height: 136px;
   }
@@ -30,7 +30,7 @@ export const ImagesContainer = styled.div<{ $height: string; $width: string }>`
     border-radius: 8px;
   }
 `;
-export const Title = styled.div`
+const Title = styled.div`
   width: 100%;
   margin: 24px 0 16px;
   font: var(--h3);
@@ -39,16 +39,16 @@ export const Title = styled.div`
   white-space: nowrap;
   color: ${({ theme }) => theme.mainTextColor};
 
-  @media screen and (max-width: ${breakpoints.medium}) {
+  @media screen and (max-width: ${breakpoints.small}) {
     font: var(--body-medium);
   }
 `;
 
-export const Price = styled.div`
+const Price = styled.div`
   font: var(--h4);
   color: ${({ theme }) => theme.color.accent};
 
-  @media screen and (max-width: ${breakpoints.medium}) {
+  @media screen and (max-width: ${breakpoints.small}) {
     font: var(--body-small-mobile);
   }
 `;

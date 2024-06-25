@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { breakpoints } from "@/constants/styles";
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   margin-top: 96px;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   margin-bottom: 250px;
 `;
 
-export const PageTitle = styled.div`
+const PageTitle = styled.div`
   font: var(--h1);
   color: ${({ theme }) => theme.mainTextColor};
 
@@ -18,14 +18,14 @@ export const PageTitle = styled.div`
     font: var(--h5);
   }
 `;
-export const Content = styled.div`
+const Content = styled.div`
   display: flex;
   flex-direction: row;
   gap: 35px;
   align-items: flex-start;
   position: relative;
 `;
-export const Filters = styled.div`
+const Filters = styled.div`
   position: sticky;
   width: 20%;
   display: flex;
@@ -33,18 +33,18 @@ export const Filters = styled.div`
   gap: 30px;
   top: 144px;
 `;
-export const Selects = styled.div`
+const Selects = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
 `;
-export const Price = styled.div`
+const Price = styled.div`
   margin-top: 8px;
   font: var(--body-medium);
   color: ${({ theme }) => theme.color.darkGray};
 `;
 
-export const Catalog = styled.div`
+const Catalog = styled.div`
   width: 80%;
   display: flex;
   column-gap: 24px;
@@ -53,7 +53,7 @@ export const Catalog = styled.div`
   justify-content: center;
 `;
 
-export const NoData = styled.div`
+const NoData = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -61,7 +61,7 @@ export const NoData = styled.div`
   color: ${({ theme }) => theme.mainTextColor};
 `;
 
-export const ButtonContainer = styled.div`
+const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;

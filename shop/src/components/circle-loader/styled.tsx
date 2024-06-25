@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Loader = styled.span<{ $size: number }>`
+const Loader = styled.span<{ $size: number }>`
   width: ${({ $size }) => `${$size}px`};
   height: ${({ $size }) => `${$size}px`};
   border: ${({ $size, theme }) => `${$size / 10}px solid ${theme.loaderColor}`};

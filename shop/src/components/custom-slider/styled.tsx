@@ -1,7 +1,7 @@
 import * as Slider from "@radix-ui/react-slider";
 import styled from "styled-components";
 
-export const SliderRoot = styled(Slider.Root)`
+const SliderRoot = styled(Slider.Root)`
   position: relative;
   display: flex;
   align-items: center;
@@ -11,21 +11,21 @@ export const SliderRoot = styled(Slider.Root)`
   height: 20px;
 `;
 
-export const SliderTrack = styled(Slider.Track)`
+const SliderTrack = styled(Slider.Track)`
   background-color: ${({ theme }) => theme.color.gray};
   position: relative;
   flex-grow: 1;
   height: 2px;
 `;
 
-export const SliderRange = styled(Slider.Range)`
+const SliderRange = styled(Slider.Range)`
   position: absolute;
   background-color: ${({ theme }) => theme.mainTextColor};
   border-radius: 9999px;
   height: 100%;
 `;
 
-export const SliderThumb = styled(Slider.Thumb)`
+const SliderThumb = styled(Slider.Thumb)`
   position: relative;
   transition: all 0.3s ease;
   display: block;

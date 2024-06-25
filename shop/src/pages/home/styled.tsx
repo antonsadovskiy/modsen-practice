@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 import { breakpoints } from "@/constants/styles";
-export const Wrapper = styled.div`
+
+const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 250px;
 
@@ -10,7 +11,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const SwiperContainer = styled.div`
+const SwiperContainer = styled.div`
   width: 100%;
   height: 646px;
 
@@ -18,7 +19,7 @@ export const SwiperContainer = styled.div`
     height: 440px;
   }
 `;
-export const TitleContainer = styled.div`
+const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,7 +29,7 @@ export const TitleContainer = styled.div`
     margin: 21px 0 13px;
   }
 `;
-export const Title = styled.div`
+const Title = styled.div`
   font: var(--h1);
   color: ${({ theme }) => theme.mainTextColor};
 
@@ -36,7 +37,7 @@ export const Title = styled.div`
     font: var(--h5);
   }
 `;
-export const List = styled.div`
+const List = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -51,7 +52,7 @@ export const List = styled.div`
   }
 `;
 
-export const ViewAllLink = styled.div`
+const ViewAllLink = styled.div`
   transition: all 0.3s ease;
   cursor: pointer;
   font-family: var(--font-family-dm-sans);

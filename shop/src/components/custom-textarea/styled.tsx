@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { breakpoints } from "@/constants/styles";
+
 export const Wrapper = styled.div<{
   $isFullWidth: boolean;
   $disabled: boolean;
@@ -11,18 +13,19 @@ export const Wrapper = styled.div<{
 
 export const Textarea = styled.textarea`
   width: 100%;
-
   word-wrap: break-word;
-
   font: var(--h5);
-  color: ${({ theme }) => `${theme.color.black}`};
+  color: ${({ theme }) => `${theme.mainTextColor}`};
   padding: 8px 0 8px 0;
   border-bottom: ${({ theme }) => `1px solid ${theme.color.gray}`};
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--body-small-mobile);
+  }
 
   ::placeholder {
     color: ${({ theme }) => `${theme.color.darkGray}`};
   }
-
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
@@ -32,8 +35,6 @@ export const Textarea = styled.textarea`
     -webkit-text-fill-color: ${({ theme }) =>
       `${theme.mainTextColor} !important`};
   }
-
-  color: ${({ theme }) => `${theme.mainTextColor}`};
 `;
 
 export const Error = styled.div`

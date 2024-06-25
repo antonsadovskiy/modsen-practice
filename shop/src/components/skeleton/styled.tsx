@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div<{ $height?: number; $width?: number }>`
+const Wrapper = styled.div<{ $height?: number; $width?: number }>`
   height: ${({ $height }) => ($height ? `${$height}px` : "116px")};
   width: ${({ $width }) => ($width ? `${$width}px` : "100%")};
   border-radius: 8px;

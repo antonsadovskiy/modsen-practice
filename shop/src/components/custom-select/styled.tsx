@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div<{ $disabled: boolean }>`
+const Wrapper = styled.div<{ $disabled: boolean }>`
   pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
 
   position: relative;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div<{ $disabled: boolean }>`
   opacity: ${({ $disabled }) => ($disabled ? "0.5" : "1")};
 `;
 
-export const Placeholder = styled.div`
+const Placeholder = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -40,7 +40,7 @@ export const Placeholder = styled.div`
   }
 `;
 
-export const Select = styled.div`
+const Select = styled.div`
   margin-top: 2px;
   display: grid;
   position: absolute;

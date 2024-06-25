@@ -35,6 +35,10 @@ const Title = styled.div`
 const Description = styled.div`
   font: var(--h5);
   color: ${({ theme }) => theme.color.darkGray};
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--h3-mobile);
+  }
 `;
 
 const Price = styled.div`
@@ -42,6 +46,10 @@ const Price = styled.div`
   flex-wrap: nowrap;
   font: var(--h5);
   color: ${({ theme }) => theme.mainTextColor};
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--h3-mobile);
+  }
 `;
 
 export default { Wrapper, Image, Info, Title, Description, Price };

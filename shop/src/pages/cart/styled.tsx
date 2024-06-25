@@ -21,6 +21,10 @@ const TitleContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   color: ${({ theme }) => theme.mainTextColor};
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--h3);
+  }
 `;
 const ProductsContainer = styled.div`
   display: flex;

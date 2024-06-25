@@ -1,12 +1,18 @@
 import styled from "styled-components";
 
-export const Input = styled.input<{
+import { breakpoints } from "@/constants/styles";
+
+const Input = styled.input<{
   $isWithEndIcon: boolean;
 }>`
   font-weight: var(--font-weight-400);
   font-size: var(--font-size-12);
   line-height: var(--line-height-16);
   font-family: var(--font-family-dm-sans);
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--body-small-mobile);
+  }
 
   width: 100%;
   height: 40px;
@@ -44,7 +50,7 @@ export const Input = styled.input<{
   color: ${({ theme }) => `${theme.mainTextColor}`};
 `;
 
-export const Wrapper = styled.div<{
+const Wrapper = styled.div<{
   $isFullWidth: boolean;
   $disabled?: boolean;
 }>`
@@ -69,7 +75,7 @@ export const Wrapper = styled.div<{
     cursor: pointer;
   }
 `;
-export const Error = styled.div`
+const Error = styled.div`
   position: absolute;
   bottom: -22px;
   font-family: var(--font-family-dm-sans);

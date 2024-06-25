@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CustomInput } from "@/components/custom-input";
 import { breakpoints } from "@/constants/styles";
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   border-top: ${({ theme }) => `1px solid ${theme.color.gray}`};
 
   min-height: 160px;
@@ -13,13 +13,13 @@ export const Wrapper = styled.div`
   justify-content: flex-end;
   gap: 50px;
 
-  @media screen and (max-width: ${breakpoints.medium}) {
+  @media screen and (max-width: ${breakpoints.large}) {
     margin-bottom: 20px;
     border-top: none;
   }
 `;
 
-export const Copyright = styled.div`
+const Copyright = styled.div`
   font: var(--h5);
   color: ${({ theme }) => theme.mainTextColor};
 
@@ -33,7 +33,7 @@ export const Copyright = styled.div`
     font: var(--body-small-mobile);
   }
 `;
-export const Socials = styled.div`
+const Socials = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
@@ -44,7 +44,7 @@ export const Socials = styled.div`
   }
 `;
 
-export const CopyrightAndSocials = styled.div`
+const CopyrightAndSocials = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,10 +56,10 @@ export const CopyrightAndSocials = styled.div`
   }
 `;
 
-export const Slim = styled.span`
+const Slim = styled.span`
   color: ${({ theme }) => theme.color.darkGray};
 `;
-export const LinksAndInputContainer = styled.div`
+const LinksAndInputContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -70,7 +70,7 @@ export const LinksAndInputContainer = styled.div`
     gap: 20px;
   }
 `;
-export const Links = styled.div`
+const Links = styled.div`
   display: flex;
   align-items: center;
   gap: 41px;
@@ -81,7 +81,7 @@ export const Links = styled.div`
     gap: 8px;
   }
 `;
-export const InputContainer = styled.div`
+const InputContainer = styled.div`
   max-width: 400px;
   width: 100%;
 
@@ -90,7 +90,7 @@ export const InputContainer = styled.div`
   }
 `;
 
-export const SocialMediaIconButton = styled.a`
+const SocialMediaIconButton = styled.a`
   cursor: pointer;
 
   &:hover {
@@ -102,11 +102,15 @@ export const SocialMediaIconButton = styled.a`
   }
 `;
 
-export const FooterInput = styled(CustomInput)`
+const FooterInput = styled(CustomInput)`
   font: var(--h5);
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--h3-mobile);
+  }
 `;
 
-export const FooterLink = styled.div<{ $isClickable: boolean }>`
+const FooterLink = styled.div<{ $isClickable: boolean }>`
   font: var(--h5);
   color: ${({ theme }) => theme.color.darkGray};
 

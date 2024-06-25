@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { ButtonSize, ButtonVariant } from "./index";
 
-export const Button = styled.button<{
+const Button = styled.button<{
   $size: ButtonSize;
   $isFullWidth: boolean;
   $variant: ButtonVariant;

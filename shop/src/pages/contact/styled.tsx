@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CustomInput } from "@/components/custom-input";
 import { breakpoints } from "@/constants/styles";
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   margin-top: 125px;
   display: flex;
   flex-direction: column;
@@ -16,13 +16,13 @@ export const Wrapper = styled.div`
     gap: 64px;
   }
 `;
-export const TitleContainer = styled.div`
+const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 39px;
 `;
-export const Title = styled.div`
+const Title = styled.div`
   font: var(--h1);
   color: ${({ theme }) => theme.mainTextColor};
 
@@ -30,8 +30,12 @@ export const Title = styled.div`
     width: 100%;
     text-align: left;
   }
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--h3);
+  }
 `;
-export const Subtitle = styled.div`
+const Subtitle = styled.div`
   font: var(--h3);
   color: ${({ theme }) => theme.mainTextColor};
   text-align: center;
@@ -41,7 +45,7 @@ export const Subtitle = styled.div`
   }
 `;
 
-export const FormFields = styled.form`
+const FormFields = styled.form`
   display: flex;
   flex-direction: column;
   gap: 100px;
@@ -51,7 +55,7 @@ export const FormFields = styled.form`
   }
 `;
 
-export const ButtonContainer = styled.div`
+const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -63,7 +67,7 @@ export const ButtonContainer = styled.div`
   }
 `;
 
-export const Inputs = styled.div`
+const Inputs = styled.div`
   display: flex;
   align-items: center;
   gap: 110px;
@@ -74,8 +78,12 @@ export const Inputs = styled.div`
   }
 `;
 
-export const FormInput = styled(CustomInput)`
+const FormInput = styled(CustomInput)`
   font: var(--h5);
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--body-small-mobile);
+  }
 `;
 
 export default {

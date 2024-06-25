@@ -45,6 +45,10 @@ const Title = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   color: ${({ theme }) => theme.mainTextColor};
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--h5);
+  }
 `;
 const Description = styled.div`
   max-width: 100%;
@@ -55,6 +59,10 @@ const Description = styled.div`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--h3-mobile);
+  }
 `;
 
 const TitleAndDelete = styled.div`
