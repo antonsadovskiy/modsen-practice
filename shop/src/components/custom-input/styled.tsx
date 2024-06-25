@@ -57,6 +57,7 @@ export const Wrapper = styled.div<{
   align-items: center;
 
   .icon {
+    pointer-events: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,6 +65,7 @@ export const Wrapper = styled.div<{
     right: 0;
   }
   .clickable {
+    pointer-events: auto;
     cursor: pointer;
   }
 `;

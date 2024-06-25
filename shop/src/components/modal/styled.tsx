@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
 import { CustomIconButton } from "@/components/custom-icon-button";
+import { breakpoints } from "@/constants/styles";
 
 const ModalHeader = styled.div<{ $isShowCloseIcon: boolean }>`
   display: flex;
   align-items: center;
   justify-content: ${({ $isShowCloseIcon }) =>
     $isShowCloseIcon ? "space-between" : "center"};
+  margin-bottom: 10px;
 `;
 
 const ModalTitle = styled.div`
@@ -44,9 +46,13 @@ const Modal = styled.div`
   padding: 32px 20px 20px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.backgroundColor};
+
+  @media (max-width: ${breakpoints.large}) {
+    width: calc(100vw - 80px);
+  }
 `;
 
 const ModalContent = styled.div`

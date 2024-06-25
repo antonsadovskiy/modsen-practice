@@ -71,6 +71,7 @@ export const Footer = () => {
             disabled={isSending}
             onChange={onChangeEmailHandler}
             onIconClick={onSendHandler}
+            isIconButtonDisabled={email.length === 0}
             endIcon={isSending ? <CircleLoader /> : <ArrowRightSVG />}
           />
         </S.InputContainer>

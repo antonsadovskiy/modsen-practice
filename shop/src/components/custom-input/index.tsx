@@ -9,6 +9,7 @@ type CustomInputPropsType = {
   endIcon?: ReactNode;
   onIconClick?: () => void;
   error?: string;
+  isIconButtonDisabled?: boolean;
 } & ComponentProps<"input">;
 
 export const CustomInput = ({
@@ -17,6 +18,7 @@ export const CustomInput = ({
   onIconClick,
   disabled = false,
   error,
+  isIconButtonDisabled = false,
   ...rest
 }: CustomInputPropsType) => (
   <S.Wrapper $isFullWidth={isFullWidth} $disabled={disabled}>
@@ -24,7 +26,9 @@ export const CustomInput = ({
     {error && <S.Error>{error}</S.Error>}
     {endIcon && (
       <div
-        className={onIconClick ? "icon clickable" : "icon"}
+        className={
+          onIconClick && !isIconButtonDisabled ? "icon clickable" : "icon"
+        }
         onClick={onIconClick}
       >
         {endIcon}

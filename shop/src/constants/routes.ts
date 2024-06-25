@@ -1,4 +1,5 @@
 export const routes = {
+  notFound: "*",
   login: "/login",
   registration: "/registration",
   home: "/home",

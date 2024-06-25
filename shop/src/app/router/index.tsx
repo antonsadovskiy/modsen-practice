@@ -20,8 +20,8 @@ import { ShopPage } from "@/pages/shop";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={"/"} element={<App />}>
-      <Route path={"/"} element={<Navigate to={"/home"} />} />
-      <Route path={"*"} element={<NotFoundPage />} />
+      <Route path={"/"} element={<Navigate to={routes.home} />} />
+      <Route path={routes.notFound} element={<NotFoundPage />} />
 
       <Route element={<AuthRoutes />}>
         <Route path={routes.login} element={<LoginPage />} />
