@@ -1,9 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCallback, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-import { CustomButton } from "@/components/custom-button";
+import { Form } from "@/components/form";
 import { routes } from "@/constants/routes";
 import { useAppDispatch } from "@/store/hooks";
 import { userThunks } from "@/store/slices/user";
@@ -12,12 +12,7 @@ import { loginSchema, LoginType } from "@/types/schemas";
 import S from "../styled";
 
 export const LoginPage = () => {
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<LoginType>({
+  const methods = useForm<LoginType>({
     resolver: yupResolver(loginSchema),
     defaultValues: {
       email: "",
@@ -30,7 +25,6 @@ export const LoginPage = () => {
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<LoginType> = useCallback(
     async (data) => {
@@ -45,68 +39,29 @@ export const LoginPage = () => {
         ).unwrap();
 
         navigate(routes.home);
-        reset();
+        methods.reset();
       } catch (e) {
         console.error(e);
       } finally {
         setIsLoading(false);
       }
     },
-    [dispatch, navigate, reset],
+    [dispatch, navigate, methods],
   );
 
   return (
     <S.Wrapper>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
-        <S.Title>Login</S.Title>
-        <S.InputsWithLink>
-          <S.Inputs>
-            <Controller
-              name={"email"}
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <S.FormInput
-                  placeholder={"Email"}
-                  {...field}
-                  error={errors.email ? errors.email.message : ""}
-                />
-              )}
-            />
-            <Controller
-              name={"password"}
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <S.FormInput
-                  endIcon={
-                    showPassword ? (
-                      <S.OpenedEye height={20} width={20} />
-                    ) : (
-                      <S.ClosedEye height={20} width={20} />
-                    )
-                  }
-                  onIconClick={() => setShowPassword(!showPassword)}
-                  type={showPassword ? "text" : "password"}
-                  placeholder={"Password"}
-                  {...field}
-                  error={errors.password ? errors.password.message : ""}
-                />
-              )}
-            />
-          </S.Inputs>
-          <S.Link>
-            <Link
-              to={routes.registration}
-            >{`You don't have an account yet?`}</Link>
-          </S.Link>
-        </S.InputsWithLink>
-        <S.ButtonContainer>
-          <CustomButton isLoading={isLoading} fullWidth type={"submit"}>
-            Login
-          </CustomButton>
-        </S.ButtonContainer>
-      </S.Form>
+      <S.Title>Login</S.Title>
+      <FormProvider {...methods}>
+        <Form
+          formType={"login"}
+          submitButtonText={"Login"}
+          isLoading={isLoading}
+          link={routes.registration}
+          linkText={"You don't have an account yet?"}
+          onSubmit={onSubmit}
+        />
+      </FormProvider>
     </S.Wrapper>
   );
 };

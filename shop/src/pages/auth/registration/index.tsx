@@ -1,9 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCallback, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-import { CustomButton } from "@/components/custom-button";
+import { Form } from "@/components/form";
 import { routes } from "@/constants/routes";
 import { useAppDispatch } from "@/store/hooks";
 import { userThunks } from "@/store/slices/user";
@@ -12,12 +12,7 @@ import { registrationSchema, RegistrationType } from "@/types/schemas";
 import S from "../styled";
 
 export const RegistrationPage = () => {
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<RegistrationType>({
+  const methods = useForm<RegistrationType>({
     resolver: yupResolver(registrationSchema),
     defaultValues: {
       email: "",
@@ -31,8 +26,6 @@ export const RegistrationPage = () => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit: SubmitHandler<RegistrationType> = useCallback(
     async (data) => {
@@ -46,7 +39,7 @@ export const RegistrationPage = () => {
           }),
         ).unwrap();
 
-        reset();
+        methods.reset();
         navigate(routes.login);
       } catch (e) {
         console.error(e);
@@ -54,84 +47,22 @@ export const RegistrationPage = () => {
         setIsLoading(false);
       }
     },
-    [dispatch, navigate, reset],
+    [dispatch, navigate, methods],
   );
 
   return (
     <S.Wrapper>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
-        <S.Title>Registration</S.Title>
-        <S.InputsWithLink>
-          <S.Inputs>
-            <Controller
-              name={"email"}
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <S.FormInput
-                  placeholder={"Email"}
-                  {...field}
-                  error={errors.email ? errors.email.message : ""}
-                />
-              )}
-            />
-            <Controller
-              name={"password"}
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <S.FormInput
-                  endIcon={
-                    showPassword ? (
-                      <S.OpenedEye height={20} width={20} />
-                    ) : (
-                      <S.ClosedEye height={20} width={20} />
-                    )
-                  }
-                  onIconClick={() => setShowPassword(!showPassword)}
-                  type={showPassword ? "text" : "password"}
-                  placeholder={"Password"}
-                  {...field}
-                  error={errors.password ? errors.password.message : ""}
-                />
-              )}
-            />
-            <Controller
-              name={"confirmPassword"}
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <S.FormInput
-                  endIcon={
-                    showConfirmPassword ? (
-                      <S.OpenedEye height={20} width={20} />
-                    ) : (
-                      <S.ClosedEye height={20} width={20} />
-                    )
-                  }
-                  onIconClick={() =>
-                    setShowConfirmPassword(!showConfirmPassword)
-                  }
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder={"Confirm password"}
-                  {...field}
-                  error={
-                    errors.confirmPassword ? errors.confirmPassword.message : ""
-                  }
-                />
-              )}
-            />
-          </S.Inputs>
-          <S.Link>
-            <Link to={routes.login}>You already have an account?</Link>
-          </S.Link>
-        </S.InputsWithLink>
-        <S.ButtonContainer>
-          <CustomButton isLoading={isLoading} fullWidth type={"submit"}>
-            Register
-          </CustomButton>
-        </S.ButtonContainer>
-      </S.Form>
+      <S.Title>Registration</S.Title>
+      <FormProvider {...methods}>
+        <Form
+          formType={"registration"}
+          isLoading={isLoading}
+          submitButtonText={"Register"}
+          linkText={"You have an account already?"}
+          link={routes.login}
+          onSubmit={onSubmit}
+        />
+      </FormProvider>
     </S.Wrapper>
   );
 };
