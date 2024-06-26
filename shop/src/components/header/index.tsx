@@ -9,7 +9,7 @@ import { Sidebar } from "@/components/header/sidebar";
 import { routes } from "@/constants/routes";
 import { useChangeTheme } from "@/hooks/useChangeTheme";
 import { useAppSelector } from "@/store/hooks";
-import { selectorAppTheme } from "@/store/slices/app/appSelectors";
+import { selectorAppTheme } from "@/store/slices/app";
 
 import S from "./styled";
 

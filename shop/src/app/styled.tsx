@@ -29,6 +29,7 @@ const MaxWidthContainer = styled.div`
   }
   @media screen and (max-width: ${breakpoints.large}) {
     max-width: 750px;
+    min-height: calc(100vh - 67px);
   }
   @media screen and (max-width: ${breakpoints.medium}) {
     width: calc(100vw - 40px);

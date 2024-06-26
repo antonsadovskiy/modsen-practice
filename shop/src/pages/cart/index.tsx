@@ -1,24 +1,26 @@
 import { useCallback, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useGetProductsQuery } from "@/api";
 import { CustomButton } from "@/components/custom-button";
 import { Modal } from "@/components/modal";
 import { Skeleton } from "@/components/skeleton";
+import { routes } from "@/constants/routes";
 import { usePreventScroll } from "@/hooks/usePreventScroll";
 import { CartCard } from "@/pages/cart/cart-card";
 import { CartModalItem } from "@/pages/cart/cart-modal-item";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { cartThunks } from "@/store/slices/cart";
-import { selectorCartProducts } from "@/store/slices/cart/cartSelectors";
+import { cartThunks, selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";
 
 export const CartPage = () => {
+  const navigate = useNavigate();
+
   const cart = useAppSelector(selectorCartProducts);
   const dispatch = useAppDispatch();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
-
   const [isDeleting, setIsDeleting] = useState(false);
 
   usePreventScroll(isOpenModal);
@@ -73,13 +75,13 @@ export const CartPage = () => {
     try {
       await dispatch(cartThunks.clearCart()).unwrap();
       setIsOpenModal(false);
-      console.log("спасибо за покупку");
+      navigate(routes.successfulPurchase, { state: { isSucceeded: true } });
     } catch (e) {
       console.log(e);
     } finally {
       setIsDeleting(false);
     }
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   const onCloseModalHandler = useCallback(() => {
     setIsOpenModal(false);
@@ -126,33 +128,32 @@ export const CartPage = () => {
           </S.ProductsContainer>
         </S.CartContainer>
       </S.Wrapper>
-      {isOpenModal && (
-        <Modal
-          title={"Purchase confirmation"}
-          confirmButtonText={"Confirm"}
-          onConfirmHandler={onConfirmHandler}
-          onCloseHandler={onCloseModalHandler}
-          isLoading={isDeleting}
-          isConfirmButtonDisabled={isCartHasEmptyProducts}
-          isShowCloseIcon
-          bottomText={
-            isCartHasEmptyProducts
-              ? "You need to choose at least one product"
-              : "Total price: $" + totalPrice
-          }
-        >
-          {productsWithMeta.map((item) => (
-            <CartModalItem
-              key={item.id}
-              title={item.title}
-              image={item.image}
-              totalAmount={item.amountItems}
-              description={item.description}
-              pricePerOne={item.price}
-            />
-          ))}
-        </Modal>
-      )}
+      <Modal
+        isOpen={isOpenModal}
+        title={"Purchase confirmation"}
+        confirmButtonText={"Confirm"}
+        onConfirmHandler={onConfirmHandler}
+        onCloseHandler={onCloseModalHandler}
+        isLoading={isDeleting}
+        isConfirmButtonDisabled={isCartHasEmptyProducts}
+        isShowCloseIcon
+        bottomText={
+          isCartHasEmptyProducts
+            ? "You need to choose at least one product"
+            : "Total price: $" + totalPrice
+        }
+      >
+        {productsWithMeta.map((item) => (
+          <CartModalItem
+            key={item.id}
+            title={item.title}
+            image={item.image}
+            totalAmount={item.amountItems}
+            description={item.description}
+            pricePerOne={item.price}
+          />
+        ))}
+      </Modal>
     </>
   );
 };

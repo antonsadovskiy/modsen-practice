@@ -14,6 +14,7 @@ const Input = styled.input<{
     font: var(--body-small-mobile);
   }
 
+  color: ${({ theme }) => `${theme.mainTextColor}`};
   width: 100%;
   height: 40px;
   border: none;
@@ -46,8 +47,6 @@ const Input = styled.input<{
     -webkit-text-fill-color: ${({ theme }) =>
       `${theme.mainTextColor} !important`};
   }
-
-  color: ${({ theme }) => `${theme.mainTextColor}`};
 `;
 
 const Wrapper = styled.div<{
@@ -61,20 +60,19 @@ const Wrapper = styled.div<{
   position: relative;
   display: flex;
   align-items: center;
-
-  .icon {
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    right: 0;
-  }
-  .clickable {
-    pointer-events: auto;
-    cursor: pointer;
-  }
 `;
+
+const InputIcon = styled.div<{ $disabled?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+
+  pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
+  cursor: ${({ $disabled }) => ($disabled ? "default" : "pointer")};
+`;
+
 const Error = styled.div`
   position: absolute;
   bottom: -22px;
@@ -84,4 +82,4 @@ const Error = styled.div`
   line-height: var(--line-height-10);
   color: ${({ theme }) => `${theme.color.error}`};
 `;
-export default { Input, Wrapper, Error };
+export default { Input, Wrapper, Error, InputIcon };

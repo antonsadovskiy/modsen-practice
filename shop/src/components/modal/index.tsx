@@ -2,10 +2,12 @@ import { ReactNode } from "react";
 
 import CrossSVG from "@/assets/svg/plus.svg";
 import { CustomButton } from "@/components/custom-button";
+import { usePreventScroll } from "@/hooks/usePreventScroll";
 
 import S from "./styled";
 
 type ModalPropsType = {
+  isOpen: boolean;
   confirmButtonText: string;
   onConfirmHandler: () => void;
   onCloseHandler: () => void;
@@ -18,6 +20,7 @@ type ModalPropsType = {
 };
 
 export const Modal = ({
+  isOpen,
   title,
   onCloseHandler,
   isShowCloseIcon = false,
@@ -28,37 +31,41 @@ export const Modal = ({
   isLoading = false,
   isConfirmButtonDisabled = false,
 }: ModalPropsType) => {
+  usePreventScroll(isOpen);
+
   const confirmHandler = () => {
     onConfirmHandler?.();
   };
 
   return (
-    <>
-      <S.Background onClick={onCloseHandler} />
-      <S.ModalWrapper>
-        <S.Modal>
-          <S.ModalHeader $isShowCloseIcon={isShowCloseIcon}>
-            <S.ModalTitle>{title}</S.ModalTitle>
-            {isShowCloseIcon && (
-              <S.CloseIconButton onClick={onCloseHandler}>
-                <CrossSVG />
-              </S.CloseIconButton>
-            )}
-          </S.ModalHeader>
-          {children && <S.ModalContent>{children}</S.ModalContent>}
-          {bottomText && <S.AdditionalText>{bottomText}</S.AdditionalText>}
-          <S.ButtonContainer>
-            <CustomButton
-              isLoading={isLoading}
-              disabled={isConfirmButtonDisabled}
-              fullWidth
-              onClick={confirmHandler}
-            >
-              {confirmButtonText}
-            </CustomButton>
-          </S.ButtonContainer>
-        </S.Modal>
-      </S.ModalWrapper>
-    </>
+    isOpen && (
+      <>
+        <S.Background onClick={onCloseHandler} />
+        <S.ModalWrapper>
+          <S.Modal>
+            <S.ModalHeader $isShowCloseIcon={isShowCloseIcon}>
+              <S.ModalTitle>{title}</S.ModalTitle>
+              {isShowCloseIcon && (
+                <S.CloseIconButton onClick={onCloseHandler}>
+                  <CrossSVG />
+                </S.CloseIconButton>
+              )}
+            </S.ModalHeader>
+            {children && <S.ModalContent>{children}</S.ModalContent>}
+            {bottomText && <S.AdditionalText>{bottomText}</S.AdditionalText>}
+            <S.ButtonContainer>
+              <CustomButton
+                isLoading={isLoading}
+                disabled={isConfirmButtonDisabled}
+                fullWidth
+                onClick={confirmHandler}
+              >
+                {confirmButtonText}
+              </CustomButton>
+            </S.ButtonContainer>
+          </S.Modal>
+        </S.ModalWrapper>
+      </>
+    )
   );
 };

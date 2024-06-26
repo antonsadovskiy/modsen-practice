@@ -33,10 +33,7 @@ export const Sidebar = ({
   return (
     <>
       {isOpenMenu && <S.Background onClick={onClose} />}
-      <S.SideBar
-        data-state={isOpenMenu ? "opened" : "closed"}
-        $isOpen={isOpenMenu}
-      >
+      <S.SideBar $isOpen={isOpenMenu}>
         {navigationOptions.map((option, index) => (
           <S.NavOption onClick={() => onNavigate(option.link)} key={index}>
             {option.label}

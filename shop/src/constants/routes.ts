@@ -1,5 +1,6 @@
 export const routes = {
   notFound: "*",
+  successfulPurchase: "/successful-purchase",
   login: "/login",
   registration: "/registration",
   home: "/home",

@@ -65,9 +65,11 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
-  height: 50vh;
+  max-height: 50vh;
   overflow-y: scroll;
-  padding-right: 10px;
+  overflow-x: hidden;
+  padding: 0 5px 5px 5px;
+  width: calc(100% - 10px);
 `;
 const CloseIconButton = styled(CustomIconButton)`
   rotate: 45deg;

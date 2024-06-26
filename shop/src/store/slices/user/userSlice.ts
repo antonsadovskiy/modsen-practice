@@ -38,6 +38,10 @@ const slice = createSlice({
       state.user = action.payload;
     });
   },
+  selectors: {
+    selectorUserId: (sliceState) => sliceState.user.id,
+    selectorIsLoggedIn: (sliceState) => sliceState.isLoggedIn,
+  },
 });
 
 const registerUser = createAppAsyncThunk<void, AuthUserRequestType>(
@@ -77,3 +81,4 @@ const loginUser = createAppAsyncThunk<
 export const userReducer = slice.reducer;
 export const userActions = slice.actions;
 export const userThunks = { registerUser, loginUser };
+export const { selectorUserId, selectorIsLoggedIn } = slice.selectors;

@@ -16,6 +16,7 @@ import { HomePage } from "@/pages/home";
 import { NotFoundPage } from "@/pages/not-found";
 import { ProductPage } from "@/pages/product";
 import { ShopPage } from "@/pages/shop";
+import { SuccessfulPurchasePage } from "@/pages/successful-purchase";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,10 @@ export const router = createBrowserRouter(
 
       <Route element={<PrivateRoutes />}>
         <Route path={routes.home} element={<HomePage />} />
+        <Route
+          path={routes.successfulPurchase}
+          element={<SuccessfulPurchasePage />}
+        />
         <Route path={routes.shop} element={<ShopPage />} />
         <Route path={routes.contact} element={<ContactUsPage />} />
         <Route path={routes.cart} element={<CartPage />} />

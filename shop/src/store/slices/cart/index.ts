@@ -1,2 +1,1 @@
-export { selectorCartProducts } from "./cartSelectors";
-export { cartReducer, cartThunks } from "./cartSlice";
+export { cartReducer, cartThunks, selectorCartProducts } from "./cartSlice";

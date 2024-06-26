@@ -25,14 +25,12 @@ export const CustomInput = ({
     <S.Input $isWithEndIcon={!!endIcon} disabled={disabled} {...rest} />
     {error && <S.Error>{error}</S.Error>}
     {endIcon && (
-      <div
-        className={
-          onIconClick && !isIconButtonDisabled ? "icon clickable" : "icon"
-        }
+      <S.InputIcon
+        $disabled={!!onIconClick && isIconButtonDisabled}
         onClick={onIconClick}
       >
         {endIcon}
-      </div>
+      </S.InputIcon>
     )}
   </S.Wrapper>
 );

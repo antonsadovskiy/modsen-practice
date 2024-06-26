@@ -43,6 +43,10 @@ const NoData = styled.div`
   align-items: center;
   justify-content: center;
   color: ${({ theme }) => theme.mainTextColor};
+
+  @media screen and (max-width: ${breakpoints.small}) {
+    font: var(--h3-mobile);
+  }
 `;
 const CartContainer = styled.div`
   width: 100%;

@@ -28,7 +28,12 @@ const slice = createSlice({
       state.isAppInitialized = true;
     },
   },
+  selectors: {
+    selectorIsAppInitialized: (sliceState) => sliceState.isAppInitialized,
+    selectorAppTheme: (sliceState) => sliceState.theme,
+  },
 });
 
 export const appReducer = slice.reducer;
 export const appActions = slice.actions;
+export const { selectorIsAppInitialized, selectorAppTheme } = slice.selectors;

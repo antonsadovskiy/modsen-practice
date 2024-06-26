@@ -68,6 +68,9 @@ const slice = createSlice({
         state.cartProducts = [];
       });
   },
+  selectors: {
+    selectorCartProducts: (sliceState) => sliceState.cartProducts,
+  },
 });
 
 const getCart = createAppAsyncThunk<GetCartResponseType, GetCartRequestType>(
@@ -191,3 +194,5 @@ export const cartThunks = {
   updateCartProduct,
   clearCart,
 };
+
+export const { selectorCartProducts } = slice.selectors;

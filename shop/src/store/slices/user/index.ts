@@ -1,2 +1,7 @@
-export { selectorIsLoggedIn, selectorUserId } from "./userSelectors";
-export { userActions, userReducer, userThunks } from "./userSlice";
+export {
+  selectorIsLoggedIn,
+  selectorUserId,
+  userActions,
+  userReducer,
+  userThunks,
+} from "./userSlice";
