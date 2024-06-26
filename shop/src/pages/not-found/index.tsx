@@ -1,32 +1,8 @@
-import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { AdditionalPage } from "@/components/additional-page";
 
-import { CustomButton } from "@/components/custom-button";
-import { routes } from "@/constants/routes";
-
-import S from "./styled";
-
-export const NotFoundPage = () => {
-  const navigate = useNavigate();
-
-  const onClickHandler = useCallback(() => {
-    navigate(routes.home);
-  }, [navigate]);
-
-  return (
-    <S.Wrapper>
-      <S.NotFound>
-        <S.Title>404 ERROR</S.Title>
-        <S.Caption>
-          This page not found;
-          <br /> back to home and start again
-        </S.Caption>
-        <S.ButtonContainer>
-          <CustomButton onClick={onClickHandler} variant={"secondary"}>
-            Homepage
-          </CustomButton>
-        </S.ButtonContainer>
-      </S.NotFound>
-    </S.Wrapper>
-  );
-};
+export const NotFoundPage = () => (
+  <AdditionalPage
+    title={"404 ERROR"}
+    caption={"This page not found;\nback to home and start again"}
+  />
+);
