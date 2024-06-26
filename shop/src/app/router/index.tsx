@@ -8,6 +8,7 @@ import {
 import { App } from "@/app/App";
 import { AuthRoutes } from "@/app/specific-routes/auth-routes";
 import { PrivateRoutes } from "@/app/specific-routes/private-routes";
+import { ErrorFallback } from "@/components/error-boundary/error-fallback";
 import { routes } from "@/constants/routes";
 import { LoginPage, RegistrationPage } from "@/pages/auth";
 import { CartPage } from "@/pages/cart";
@@ -20,7 +21,7 @@ import { SuccessfulPurchasePage } from "@/pages/successful-purchase";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path={"/"} element={<App />}>
+    <Route path={"/"} element={<App />} errorElement={<ErrorFallback />}>
       <Route path={"/"} element={<Navigate to={routes.home} />} />
       <Route path={routes.notFound} element={<NotFoundPage />} />
 

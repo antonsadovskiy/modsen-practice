@@ -7,14 +7,17 @@ import { RouterProvider } from "react-router-dom";
 
 import { router } from "@/app/router";
 import { AppWrapper } from "@/app/wrappers/AppWrapper";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { store } from "@/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <Provider store={store}>
-    <AppWrapper>
-      <RouterProvider router={router} />
-    </AppWrapper>
-  </Provider>,
+  <ErrorBoundary>
+    <Provider store={store}>
+      <AppWrapper>
+        <RouterProvider router={router} />
+      </AppWrapper>
+    </Provider>
+  </ErrorBoundary>,
 );
