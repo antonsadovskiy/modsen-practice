@@ -1,6 +1,7 @@
 import React from 'react';
 import {List} from "./jsx/render_list";
 import {Counter} from "./state/counter";
+import {Form} from "./ref/form";
 
 const photos = [
     {
@@ -30,6 +31,7 @@ function App() {
         }}>
             <List list={photos}/>
             <Counter/>
+            <Form/>
         </div>
     );
 }

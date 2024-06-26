@@ -12,7 +12,8 @@ type ListPropsType = {
 
 export const List = ({list}: ListPropsType) => {
     return (
-        <><h3>Render List</h3>
+        <>
+            <h3>Render List</h3>
             <ul style={{display: 'flex', flexDirection: "column", gap: '10px'}}>
                 {list.map(item => <li key={item.id}>
                     <div>Album Id:{item.albumId}</div>
