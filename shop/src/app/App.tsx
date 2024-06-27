@@ -1,11 +1,12 @@
 import { Outlet, ScrollRestoration } from "react-router-dom";
+
 import { ThemeProvider } from "styled-components";
 
 import { darkTheme, lightTheme } from "@/assets/styles/theme";
 import { CircleLoader } from "@/components/circle-loader";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector } from "@/hooks";
 import { selectorAppTheme, selectorIsAppInitialized } from "@/store/slices/app";
 import { selectorIsLoggedIn } from "@/store/slices/user";
 

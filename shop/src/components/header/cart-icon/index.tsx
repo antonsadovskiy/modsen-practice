@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
 import { CustomIconButton } from "@/components/custom-icon-button";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector } from "@/hooks";
 import { selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";

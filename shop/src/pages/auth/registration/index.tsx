@@ -1,15 +1,17 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useCallback, useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { Form } from "@/components/form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { AuthForm } from "@/components/auth-form";
 import { routes } from "@/constants/routes";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch } from "@/hooks";
 import { userThunks } from "@/store/slices/user";
-import { registrationSchema, RegistrationType } from "@/types/schemas";
 
 import S from "../styled";
+
+import { registrationSchema, RegistrationType } from "./schema";
 
 export const RegistrationPage = () => {
   const methods = useForm<RegistrationType>({
@@ -54,7 +56,7 @@ export const RegistrationPage = () => {
     <S.Wrapper>
       <S.Title>Registration</S.Title>
       <FormProvider {...methods}>
-        <Form
+        <AuthForm
           formType={"registration"}
           isLoading={isLoading}
           submitButtonText={"Register"}

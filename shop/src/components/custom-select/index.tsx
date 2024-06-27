@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 
 import Arrow from "@/assets/svg/arrow.svg";
 import { CustomOption } from "@/components/custom-select/custom-option";
-import { useOutsideClick } from "@/hooks/useClickOutside";
+import { useOutsideClick } from "@/hooks";
 
 import S from "./styled";
 

@@ -3,7 +3,8 @@ import { Controller, useFormContext } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import { CustomButton } from "@/components/custom-button";
-import { LoginType, RegistrationType } from "@/types/schemas";
+import { LoginType } from "@/pages/auth/login/schema";
+import { RegistrationType } from "@/pages/auth/registration/schema";
 
 import S from "./styled";
 
@@ -16,7 +17,7 @@ type FormPropsType = {
   onSubmit: (data: LoginType | RegistrationType) => void;
 };
 
-export const Form = ({
+export const AuthForm = ({
   formType,
   submitButtonText,
   isLoading,

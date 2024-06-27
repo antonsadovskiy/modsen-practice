@@ -7,8 +7,7 @@ import { CustomSwitch } from "@/components/custom-switch";
 import { CartIcon } from "@/components/header/cart-icon";
 import { Sidebar } from "@/components/header/sidebar";
 import { routes } from "@/constants/routes";
-import { useChangeTheme } from "@/hooks/useChangeTheme";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector, useChangeTheme } from "@/hooks";
 import { selectorAppTheme } from "@/store/slices/app";
 
 import S from "./styled";

@@ -8,9 +8,9 @@ import { CustomSelect, OptionType } from "@/components/custom-select";
 import { CustomSlider } from "@/components/custom-slider";
 import { Modal } from "@/components/modal";
 import { sortOptions } from "@/constants/sort";
+import { useAppSelector } from "@/hooks";
 import { usePreventScroll } from "@/hooks/usePreventScroll";
 import { useFilters } from "@/pages/shop/hooks/useFilters";
-import { useAppSelector } from "@/store/hooks";
 import {
   selectorCategoryValue,
   selectorFilterType,

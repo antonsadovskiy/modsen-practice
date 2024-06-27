@@ -6,10 +6,9 @@ import { CustomButton } from "@/components/custom-button";
 import { Modal } from "@/components/modal";
 import { Skeleton } from "@/components/skeleton";
 import { routes } from "@/constants/routes";
-import { usePreventScroll } from "@/hooks/usePreventScroll";
+import { useAppDispatch, useAppSelector, usePreventScroll } from "@/hooks";
 import { CartCard } from "@/pages/cart/cart-card";
 import { CartModalItem } from "@/pages/cart/cart-modal-item";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { cartThunks, selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";

@@ -1,5 +1,6 @@
-import { skipToken } from "@reduxjs/toolkit/query";
 import { useCallback, useEffect, useMemo, useState } from "react";
+
+import { skipToken } from "@reduxjs/toolkit/query";
 
 import {
   useGetCategoriesQuery,
@@ -7,11 +8,10 @@ import {
   useGetProductsQuery,
 } from "@/api";
 import { ProductType } from "@/api/types";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useAppDispatch, useAppSelector, useDebounce } from "@/hooks";
 import { Catalog } from "@/pages/shop/catalog";
 import { DesktopFilters } from "@/pages/shop/desktop-filters";
 import { MobileFilters } from "@/pages/shop/mobile-filters";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   filtersActions,
   selectorCategoryValue,

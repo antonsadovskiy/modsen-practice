@@ -6,7 +6,7 @@ import { CircleLoader } from "@/components/circle-loader";
 import { CustomIconButton } from "@/components/custom-icon-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch } from "@/hooks";
 import { cartThunks } from "@/store/slices/cart";
 
 import S from "./styled";

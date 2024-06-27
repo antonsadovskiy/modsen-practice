@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import CrossSVG from "@/assets/svg/plus.svg";
 import { CustomButton } from "@/components/custom-button";
-import { usePreventScroll } from "@/hooks/usePreventScroll";
+import { usePreventScroll } from "@/hooks";
 
 import S from "./styled";
 

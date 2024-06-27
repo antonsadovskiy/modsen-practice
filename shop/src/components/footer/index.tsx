@@ -1,6 +1,7 @@
-import emailjs from "@emailjs/browser";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import emailjs from "@emailjs/browser";
 
 import ArrowRightSVG from "@/assets/svg/arrow-right.svg";
 import { CircleLoader } from "@/components/circle-loader";
@@ -90,7 +91,7 @@ export const Footer = () => {
               href={item.link}
               key={index}
             >
-              {item.icon}
+              {<item.icon />}
             </S.SocialMediaIconButton>
           ))}
         </S.Socials>

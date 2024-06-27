@@ -1,12 +1,13 @@
-import emailjs from "@emailjs/browser";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useCallback, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
+import emailjs from "@emailjs/browser";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import { CustomButton } from "@/components/custom-button";
 import { CustomTextarea } from "@/components/custom-textarea";
-import { contactUsSchema, ContactUsType } from "@/types/schemas";
 
+import { contactUsSchema, ContactUsType } from "./schema";
 import S from "./styled";
 
 export const ContactUsPage = () => {
