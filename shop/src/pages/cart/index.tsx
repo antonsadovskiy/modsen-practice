@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useGetProductsQuery } from "@/api";
@@ -65,11 +65,11 @@ export const CartPage = () => {
     [totalPrice],
   );
 
-  const onShopNowHandler = useCallback(() => {
+  const onShopNowHandler = () => {
     setIsOpenModal(true);
-  }, []);
+  };
 
-  const onConfirmHandler = useCallback(async () => {
+  const onConfirmHandler = async () => {
     setIsDeleting(true);
     try {
       await dispatch(cartThunks.clearCart()).unwrap();
@@ -80,11 +80,11 @@ export const CartPage = () => {
     } finally {
       setIsDeleting(false);
     }
-  }, [dispatch, navigate]);
+  };
 
-  const onCloseModalHandler = useCallback(() => {
+  const onCloseModalHandler = () => {
     setIsOpenModal(false);
-  }, []);
+  };
 
   return (
     <>

@@ -1,5 +1,4 @@
-import { useCallback, useState } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -27,30 +26,17 @@ export const RegistrationPage = () => {
 
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const submitCallback = async (data: RegistrationType) => {
+    await dispatch(
+      userThunks.registerUser({
+        email: data.email,
+        password: data.password,
+      }),
+    ).unwrap();
 
-  const onSubmit: SubmitHandler<RegistrationType> = useCallback(
-    async (data) => {
-      setIsLoading(true);
-
-      try {
-        await dispatch(
-          userThunks.registerUser({
-            email: data.email,
-            password: data.password,
-          }),
-        ).unwrap();
-
-        methods.reset();
-        navigate(routes.login);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [dispatch, navigate, methods],
-  );
+    methods.reset();
+    navigate(routes.login);
+  };
 
   return (
     <S.Wrapper>
@@ -58,11 +44,10 @@ export const RegistrationPage = () => {
       <FormProvider {...methods}>
         <AuthForm
           formType={"registration"}
-          isLoading={isLoading}
           submitButtonText={"Register"}
           linkText={"You have an account already?"}
           link={routes.login}
-          onSubmit={onSubmit}
+          submitCallback={submitCallback}
         />
       </FormProvider>
     </S.Wrapper>

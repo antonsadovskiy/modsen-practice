@@ -62,4 +62,17 @@ const Select = styled.div`
   }
 `;
 
-export default { Placeholder, Select, Wrapper };
+const ArrowContainer = styled.div<{ $isRotated: boolean }>`
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg path {
+    fill: ${({ theme }) => theme.mainTextColor};
+  }
+
+  ${({ $isRotated }) => ($isRotated ? "transform: rotate(180deg)" : "")};
+`;
+
+export default { Placeholder, Select, Wrapper, ArrowContainer };

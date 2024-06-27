@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import emailjs from "@emailjs/browser";
@@ -16,15 +16,13 @@ export const Footer = () => {
   const [isSending, setIsSending] = useState(false);
   const [email, setEmail] = useState<string>("");
 
-  const onChangeEmailHandler = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setEmail(e.currentTarget.value);
-    },
-    [],
-  );
+  const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.currentTarget.value);
+  };
 
-  const onSendHandler = useCallback(async () => {
+  const onSendHandler = async () => {
     setIsSending(true);
+
     try {
       await emailjs.send(
         process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
@@ -40,14 +38,11 @@ export const Footer = () => {
     } finally {
       setIsSending(false);
     }
-  }, [email]);
+  };
 
-  const onLinkClickHandler = useCallback(
-    (link: string) => {
-      navigate(link);
-    },
-    [navigate],
-  );
+  const onLinkClickHandler = (link: string) => {
+    navigate(link);
+  };
 
   useEffect(() => emailjs.init(process.env.REACT_APP_EMAIL_JS_PUBLIC_KEY), []);
 

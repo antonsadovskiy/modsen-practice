@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import BurgerNavSVG from "@/assets/svg/burger-nav.svg";
@@ -21,22 +21,19 @@ export const Header = () => {
 
   const navigate = useNavigate();
 
-  const goHomePageHandler = useCallback(() => {
+  const goHomePageHandler = () => {
     navigate(routes.home);
-
     setIsOpenMenu(false);
-  }, [navigate]);
+  };
 
-  const onCheckedChangeHandler = useCallback(
-    (checked: boolean) => {
-      changeTheme(checked ? "dark" : "light");
-    },
-    [changeTheme],
-  );
+  const onCheckedChangeHandler = (checked: boolean) => {
+    changeTheme(checked ? "dark" : "light");
+  };
 
   const onShowMenu = () => {
     setIsOpenMenu(true);
   };
+
   const onHideMenu = () => {
     setIsOpenMenu(false);
   };

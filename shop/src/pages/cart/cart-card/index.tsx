@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import DeleteSVG from "@/assets/svg/bucket.svg";
@@ -23,77 +23,83 @@ export type CartCardPropsType = {
   amountItemsInCart: number;
 };
 
-export const CartCard = ({
-  docId,
-  id,
-  imageSrc,
-  height = "380",
-  width = "380",
-  description,
-  price,
-  title,
-  amountItemsInCart,
-}: CartCardPropsType) => {
-  const dispatch = useAppDispatch();
+const CartCard = memo(
+  ({
+    docId,
+    id,
+    imageSrc,
+    height = "380",
+    width = "380",
+    description,
+    price,
+    title,
+    amountItemsInCart,
+  }: CartCardPropsType) => {
+    const dispatch = useAppDispatch();
 
-  const [isDeleting, setIsDeleting] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
-  const updateCartProduct = useCallback(
-    (newValue: number) => {
-      try {
-        dispatch(
-          cartThunks.updateCartProduct({
-            productId: id,
-            docId,
-            amount: newValue,
-          }),
-        );
-      } catch (e) {
-        console.error(e);
-      }
-    },
-    [docId, id, dispatch],
-  );
+    const updateCartProduct = useCallback(
+      (newValue: number) => {
+        try {
+          dispatch(
+            cartThunks.updateCartProduct({
+              productId: id,
+              docId,
+              amount: newValue,
+            }),
+          );
+        } catch (e) {
+          console.error(e);
+        }
+      },
+      [docId, id, dispatch],
+    );
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const onClickHandler = () => {
-    navigate(`${routes.product}/${id}`);
-  };
+    const onClickHandler = () => {
+      navigate(`${routes.product}/${id}`);
+    };
 
-  const onDeleteProductHandler = useCallback(async () => {
-    setIsDeleting(true);
+    const onDeleteProductHandler = async () => {
+      setIsDeleting(true);
 
-    await dispatch(cartThunks.deleteCartProduct({ productId: id, docId }));
+      await dispatch(cartThunks.deleteCartProduct({ productId: id, docId }));
 
-    setIsDeleting(false);
-  }, [dispatch, docId, id]);
+      setIsDeleting(false);
+    };
 
-  return (
-    <S.CatalogCardWrapper $width={width}>
-      <S.ImageAndDescription>
-        <S.ImagesContainer onClick={onClickHandler}>
-          <img src={imageSrc} alt={title} height={height} width={width} />
-        </S.ImagesContainer>
-        <S.TitleAndDescription>
-          <S.TitleAndDelete>
-            <S.Title>{title}</S.Title>
-            {isDeleting ? (
-              <CircleLoader />
-            ) : (
-              <CustomIconButton onClick={onDeleteProductHandler}>
-                <DeleteSVG />
-              </CustomIconButton>
-            )}
-          </S.TitleAndDelete>
-          <S.Description>{description}</S.Description>
-          <IncreaseAmount
-            startAmount={amountItemsInCart}
-            onChangeDebouncedValue={updateCartProduct}
-            pricePerItem={price}
-          />
-        </S.TitleAndDescription>
-      </S.ImageAndDescription>
-    </S.CatalogCardWrapper>
-  );
-};
+    return (
+      <S.CatalogCardWrapper $width={width}>
+        <S.ImageAndDescription>
+          <S.ImagesContainer onClick={onClickHandler}>
+            <img src={imageSrc} alt={title} height={height} width={width} />
+          </S.ImagesContainer>
+          <S.TitleAndDescription>
+            <S.TitleAndDelete>
+              <S.Title>{title}</S.Title>
+              {isDeleting ? (
+                <CircleLoader />
+              ) : (
+                <CustomIconButton onClick={onDeleteProductHandler}>
+                  <DeleteSVG />
+                </CustomIconButton>
+              )}
+            </S.TitleAndDelete>
+            <S.Description>{description}</S.Description>
+            <IncreaseAmount
+              startAmount={amountItemsInCart}
+              onChangeDebouncedValue={updateCartProduct}
+              pricePerItem={price}
+            />
+          </S.TitleAndDescription>
+        </S.ImageAndDescription>
+      </S.CatalogCardWrapper>
+    );
+  },
+);
+
+CartCard.displayName = "CartCard";
+
+export { CartCard };

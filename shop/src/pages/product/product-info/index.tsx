@@ -36,9 +36,9 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
     }
   }, [amount, dispatch, product?.id]);
 
-  const goToCartHandler = useCallback(() => {
+  const goToCartHandler = () => {
     navigate(routes.cart);
-  }, [navigate]);
+  };
 
   const changeAmountHandler = useCallback(
     (newValue: number) => {

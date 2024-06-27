@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-
 import { OptionType } from "@/components/custom-select";
 
 import S from "./styled";
@@ -10,9 +8,9 @@ type CustomOptionPropsType = {
 };
 
 export const CustomOption = ({ option, onClick }: CustomOptionPropsType) => {
-  const onChangeValueHandler = useCallback(() => {
+  const onChangeValueHandler = () => {
     onClick(option);
-  }, [onClick, option]);
+  };
 
   return (
     <S.Wrapper value={option.value} onClick={onChangeValueHandler}>
