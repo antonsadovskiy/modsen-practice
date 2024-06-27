@@ -6,8 +6,8 @@ import { CustomButton } from "@/components/custom-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
 import { socialMedias } from "@/constants/socials";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { StarRating } from "@/pages/product/star-rating";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { cartThunks, selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";
@@ -36,9 +36,9 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
     }
   }, [amount, dispatch, product?.id]);
 
-  const goToCartHandler = useCallback(() => {
+  const goToCartHandler = () => {
     navigate(routes.cart);
-  }, [navigate]);
+  };
 
   const changeAmountHandler = useCallback(
     (newValue: number) => {
@@ -103,7 +103,7 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
             href={item.link}
             key={index}
           >
-            {item.icon}
+            {<item.icon />}
           </S.SocialMediaIconButton>
         ))}
       </S.IconsContainer>

@@ -8,7 +8,7 @@ const Container = styled.div`
   @media (max-width: ${breakpoints.small}) {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: ${({ theme }) => theme.s};
   }
 `;
 const Title = styled.div`
@@ -17,7 +17,7 @@ const Title = styled.div`
 
   @media (max-width: ${breakpoints.small}) {
     font: var(--body-small);
-    padding-bottom: 20px;
+    padding-bottom: ${({ theme }) => theme.s};
     display: flex;
     align-items: center;
     justify-content: space-between;

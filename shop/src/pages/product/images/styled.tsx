@@ -5,7 +5,7 @@ import { breakpoints } from "@/constants/styles";
 const ImagesContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: 40px;
+  gap: ${({ theme }) => theme.m};
   justify-content: space-between;
 `;
 const AdditionalImageContainer = styled.div`
@@ -18,7 +18,7 @@ const MainImage = styled.img`
   height: 600px;
   object-position: center;
   object-fit: scale-down;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.xs};
 
   @media (max-width: ${breakpoints.large}) {
     width: 288px;
@@ -30,7 +30,7 @@ const AdditionalImage = styled.img`
   height: 120px;
   object-position: center;
   object-fit: scale-down;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.xs};
 `;
 export default {
   ImagesContainer,

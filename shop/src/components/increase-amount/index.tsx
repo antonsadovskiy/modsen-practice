@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import MinusSVG from "@/assets/svg/minus.svg";
 import PlusSVG from "@/assets/svg/plus.svg";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useDebounce } from "@/hooks";
 
 import S from "./styled";
 

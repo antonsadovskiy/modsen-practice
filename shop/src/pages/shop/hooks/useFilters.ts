@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback } from "react";
 
 import { OptionType } from "@/components/custom-select";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch } from "@/hooks";
 import { filtersActions } from "@/store/slices/filters";
 import { FilterType } from "@/store/slices/filters/types";
 

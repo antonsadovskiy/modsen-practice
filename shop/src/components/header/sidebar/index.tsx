@@ -1,10 +1,6 @@
-import { useCallback } from "react";
-
 import { CustomSwitch } from "@/components/custom-switch";
 import { navigationOptions } from "@/components/header/config";
-import { useChangeTheme } from "@/hooks/useChangeTheme";
-import { usePreventScroll } from "@/hooks/usePreventScroll";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector, useChangeTheme, usePreventScroll } from "@/hooks";
 import { selectorAppTheme } from "@/store/slices/app";
 
 import S from "./styled";
@@ -24,12 +20,10 @@ export const Sidebar = ({
 
   const theme = useAppSelector(selectorAppTheme);
 
-  const onCheckedChangeHandler = useCallback(
-    (checked: boolean) => {
-      changeTheme(checked ? "dark" : "light");
-    },
-    [changeTheme],
-  );
+  const onCheckedChangeHandler = (checked: boolean) => {
+    changeTheme(checked ? "dark" : "light");
+  };
+
   return (
     <>
       {isOpenMenu && <S.Background onClick={onClose} />}

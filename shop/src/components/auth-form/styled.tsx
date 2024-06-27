@@ -8,7 +8,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
+  gap: ${({ theme }) => theme.l};
   max-width: 400px;
   width: 100%;
 `;

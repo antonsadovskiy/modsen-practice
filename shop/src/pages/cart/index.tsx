@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useGetProductsQuery } from "@/api";
@@ -6,10 +6,9 @@ import { CustomButton } from "@/components/custom-button";
 import { Modal } from "@/components/modal";
 import { Skeleton } from "@/components/skeleton";
 import { routes } from "@/constants/routes";
-import { usePreventScroll } from "@/hooks/usePreventScroll";
+import { useAppDispatch, useAppSelector, usePreventScroll } from "@/hooks";
 import { CartCard } from "@/pages/cart/cart-card";
 import { CartModalItem } from "@/pages/cart/cart-modal-item";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { cartThunks, selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";
@@ -66,11 +65,11 @@ export const CartPage = () => {
     [totalPrice],
   );
 
-  const onShopNowHandler = useCallback(() => {
+  const onShopNowHandler = () => {
     setIsOpenModal(true);
-  }, []);
+  };
 
-  const onConfirmHandler = useCallback(async () => {
+  const onConfirmHandler = async () => {
     setIsDeleting(true);
     try {
       await dispatch(cartThunks.clearCart()).unwrap();
@@ -81,11 +80,11 @@ export const CartPage = () => {
     } finally {
       setIsDeleting(false);
     }
-  }, [dispatch, navigate]);
+  };
 
-  const onCloseModalHandler = useCallback(() => {
+  const onCloseModalHandler = () => {
     setIsOpenModal(false);
-  }, []);
+  };
 
   return (
     <>

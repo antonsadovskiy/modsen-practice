@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 20px;
+  gap: ${({ theme }) => theme.s};
   text-align: center;
 `;
 

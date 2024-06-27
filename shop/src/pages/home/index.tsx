@@ -6,8 +6,8 @@ import { CustomImage } from "@/components/custom-image";
 import { CustomSwiper } from "@/components/custom-swiper";
 import { Skeleton } from "@/components/skeleton";
 import { routes } from "@/constants/routes";
-import { homeSwiperImages } from "@/pages/home/config";
 
+import { homeSwiperImages } from "./config";
 import S from "./styled";
 
 const homeSwiperItems = homeSwiperImages.map((image, index) => (
@@ -36,7 +36,7 @@ export const HomePage = () => {
   return (
     <S.Wrapper>
       <div>
-        <S.SwiperContainer>
+        <S.SwiperContainer id={"swiper"}>
           <CustomSwiper items={homeSwiperItems} />
         </S.SwiperContainer>
         <S.TitleContainer>

@@ -1,30 +1,30 @@
 import { useState } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import { CustomButton } from "@/components/custom-button";
-import { LoginType, RegistrationType } from "@/types/schemas";
+import { LoginType } from "@/pages/auth/login/schema";
+import { RegistrationType } from "@/pages/auth/registration/schema";
 
 import S from "./styled";
 
 type FormPropsType = {
   formType: "login" | "registration";
-  isLoading: boolean;
   submitButtonText: string;
   linkText: string;
   link: string;
-  onSubmit: (data: LoginType | RegistrationType) => void;
+  submitCallback: (data: LoginType | RegistrationType) => Promise<void>;
 };
 
-export const Form = ({
+export const AuthForm = ({
   formType,
   submitButtonText,
-  isLoading,
   linkText,
-  onSubmit,
   link,
+  submitCallback,
 }: FormPropsType) => {
   const {
+    reset,
     handleSubmit,
     control,
     formState: { errors },
@@ -32,6 +32,22 @@ export const Form = ({
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit: SubmitHandler<LoginType | RegistrationType> = async (
+    data,
+  ) => {
+    setIsSubmitting(true);
+    try {
+      await submitCallback(data);
+
+      reset();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -103,7 +119,7 @@ export const Form = ({
         </S.Link>
       </S.InputsWithLink>
       <S.ButtonContainer>
-        <CustomButton isLoading={isLoading} fullWidth type={"submit"}>
+        <CustomButton isLoading={isSubmitting} fullWidth type={"submit"}>
           {submitButtonText}
         </CustomButton>
       </S.ButtonContainer>

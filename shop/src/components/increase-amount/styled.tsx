@@ -31,7 +31,7 @@ const IncreaseAmountButton = styled.div<{ $disabled?: boolean }>`
   ${({ $disabled }) => $disabled && "opacity: 0.5"}
 `;
 const Amount = styled.div`
-  min-width: 20px;
+  min-width: ${({ theme }) => theme.s};
   text-align: center;
   color: ${({ theme }) => theme.mainTextColor};
 `;

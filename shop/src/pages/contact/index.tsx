@@ -1,12 +1,13 @@
+import { useState } from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+
 import emailjs from "@emailjs/browser";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useCallback, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import { CustomButton } from "@/components/custom-button";
 import { CustomTextarea } from "@/components/custom-textarea";
-import { contactUsSchema, ContactUsType } from "@/types/schemas";
 
+import { contactUsSchema, ContactUsType } from "./schema";
 import S from "./styled";
 
 export const ContactUsPage = () => {
@@ -28,27 +29,24 @@ export const ContactUsPage = () => {
 
   const [isSending, setIsSending] = useState(false);
 
-  const onSubmit: SubmitHandler<ContactUsType> = useCallback(
-    async (data) => {
-      setIsSending(true);
-      try {
-        await emailjs.send(
-          process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
-          process.env.REACT_APP_CONTACT_US_TEMPLATE_ID,
-          {
-            recipient: data.email,
-            ...data,
-          },
-        );
-        reset();
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsSending(false);
-      }
-    },
-    [reset],
-  );
+  const onSubmit: SubmitHandler<ContactUsType> = async (data) => {
+    setIsSending(true);
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
+        process.env.REACT_APP_CONTACT_US_TEMPLATE_ID,
+        {
+          recipient: data.email,
+          ...data,
+        },
+      );
+      reset();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <S.Wrapper>
