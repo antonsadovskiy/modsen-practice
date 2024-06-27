@@ -51,12 +51,7 @@ export const Header = () => {
 
       const observer = new IntersectionObserver(
         (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              return setIsShowDivider(false);
-            }
-            return setIsShowDivider(true);
-          });
+          entries.forEach((entry) => setIsShowDivider(!entry.isIntersecting));
         },
         {
           rootMargin: "-114px",
