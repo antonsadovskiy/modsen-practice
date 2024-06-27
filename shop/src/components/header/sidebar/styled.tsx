@@ -30,7 +30,7 @@ const NavOption = styled.div`
 const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   z-index: var(--modal-background-z-index);
   top: 50%;
   left: 50%;
