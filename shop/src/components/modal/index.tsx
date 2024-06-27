@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 
 import CrossSVG from "@/assets/svg/plus.svg";
 import { CustomButton } from "@/components/custom-button";
-import { usePreventScroll } from "@/hooks/usePreventScroll";
 
 import S from "./styled";
 
@@ -31,8 +30,6 @@ export const Modal = ({
   isLoading = false,
   isConfirmButtonDisabled = false,
 }: ModalPropsType) => {
-  usePreventScroll(isOpen);
-
   const confirmHandler = () => {
     onConfirmHandler?.();
   };
