@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: ${breakpoints.medium}) {
     margin-top: ${({ theme }) => theme.mobileContentMarginTop};
-    margin-bottom: ${({ theme }) => theme.desktopContentMarginBottom};
+    margin-bottom: ${({ theme }) => theme.mobileContentMarginBottom};
   }
 `;
 
