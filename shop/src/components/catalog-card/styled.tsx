@@ -27,7 +27,7 @@ const ImagesContainer = styled.div<{ $height: string; $width: string }>`
 
     object-position: center;
     object-fit: scale-down;
-    border-radius: 8px;
+    border-radius: ${({ theme }) => theme.xs};
   }
 `;
 const Title = styled.div`

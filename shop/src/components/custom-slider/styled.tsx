@@ -8,14 +8,14 @@ const SliderRoot = styled(Slider.Root)`
   user-select: none;
   touch-action: none;
   width: 100%;
-  height: 20px;
+  height: ${({ theme }) => theme.s};
 `;
 
 const SliderTrack = styled(Slider.Track)`
   background-color: ${({ theme }) => theme.color.gray};
   position: relative;
   flex-grow: 1;
-  height: 2px;
+  height: ${({ theme }) => theme.xxxs};
 `;
 
 const SliderRange = styled(Slider.Range)`
@@ -29,7 +29,7 @@ const SliderThumb = styled(Slider.Thumb)`
   position: relative;
   transition: all 0.3s ease;
   display: block;
-  width: 2px;
+  width: ${({ theme }) => theme.xxxs};
   height: 10px;
   background-color: ${({ theme }) => theme.mainTextColor};
   box-shadow: 0 2px 10px black;

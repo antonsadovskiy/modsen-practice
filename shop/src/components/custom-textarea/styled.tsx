@@ -16,7 +16,7 @@ export const Textarea = styled.textarea`
   word-wrap: break-word;
   font: var(--h5);
   color: ${({ theme }) => `${theme.mainTextColor}`};
-  padding: 8px 0 8px 0;
+  padding: ${({ theme }) => `${theme.xs} 0 ${theme.xs} 0`};
   border-bottom: ${({ theme }) => `1px solid ${theme.color.gray}`};
 
   @media screen and (max-width: ${breakpoints.small}) {

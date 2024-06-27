@@ -3,15 +3,18 @@ import styled from "styled-components";
 import { breakpoints } from "@/constants/styles";
 
 const Wrapper = styled.div`
-  margin-top: 96px;
+  margin-top: ${({ theme }) => theme.desktopContentMarginTop};
+  margin-bottom: ${({ theme }) => theme.desktopContentMarginBottom};
+
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  margin-bottom: 250px;
+  gap: ${({ theme }) => theme.m};
 
   @media screen and (max-width: ${breakpoints.medium}) {
-    margin: 40px 0 100px;
-    gap: 20px;
+    margin-top: ${({ theme }) => theme.mobileContentMarginTop};
+    margin-bottom: ${({ theme }) => theme.mobileContentMarginBottom};
+
+    gap: ${({ theme }) => theme.s};
   }
 `;
 

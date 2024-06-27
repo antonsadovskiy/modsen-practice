@@ -36,7 +36,7 @@ export const HomePage = () => {
   return (
     <S.Wrapper>
       <div>
-        <S.SwiperContainer>
+        <S.SwiperContainer id={"swiper"}>
           <CustomSwiper items={homeSwiperItems} />
         </S.SwiperContainer>
         <S.TitleContainer>

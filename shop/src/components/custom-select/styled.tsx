@@ -4,7 +4,7 @@ const Wrapper = styled.div<{ $disabled: boolean }>`
   pointer-events: ${({ $disabled }) => ($disabled ? "none" : "auto")};
 
   position: relative;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.xxs};
   border: ${({ theme }) => `1px solid ${theme.color.gray}`};
 
   opacity: ${({ $disabled }) => ($disabled ? "0.5" : "1")};
@@ -22,7 +22,7 @@ const Placeholder = styled.div`
   background: ${({ theme }) => theme.backgroundColor};
   box-sizing: border-box;
   width: 100%;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.xxs};
 
   .arrow {
     transition: all 0.3s ease;
@@ -41,7 +41,7 @@ const Placeholder = styled.div`
 `;
 
 const Select = styled.div`
-  margin-top: 2px;
+  margin-top: ${({ theme }) => theme.xxs};
   display: grid;
   position: absolute;
   list-style: none;

@@ -7,7 +7,7 @@ const Container = styled.div`
   font: var(--body-small-mobile);
   color: ${({ theme }) => theme.color.accent};
   align-items: flex-start;
-  gap: 8px;
+  gap: ${({ theme }) => theme.xs};
   flex-direction: column;
 
   width: 100%;
@@ -19,7 +19,7 @@ const Container = styled.div`
 const FiltersTitle = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: ${({ theme }) => theme.xs};
 `;
 const Selects = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const Selects = styled.div`
   gap: 16px;
 `;
 const Price = styled.div`
-  margin-top: 8px;
+  margin-top: ${({ theme }) => theme.xs};
   font: var(--body-medium);
   color: ${({ theme }) => theme.color.darkGray};
 `;
