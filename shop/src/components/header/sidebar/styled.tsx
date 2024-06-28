@@ -3,7 +3,7 @@ import styled from "styled-components";
 const SideBar = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   padding: ${({ theme }) => `${theme.xxl} 0 ${theme.s} ${theme.s}`};
-  z-index: var(--header-z-index);
+  z-index: var(--side-bar-z-index);
   left: 0;
   top: 0;
   text-align: left;
