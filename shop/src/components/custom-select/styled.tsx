@@ -48,7 +48,7 @@ const Select = styled.div`
   width: 100%;
   padding: 0;
   box-sizing: border-box;
-  z-index: 10;
+  z-index: var(--select-options-z-index);
   background-color: ${({ theme }) => theme.backgroundColor};
 
   box-shadow: 0 4px 6px 1px gray;
