@@ -62,7 +62,7 @@ const Wrapper = styled.div<{
   align-items: center;
 `;
 
-const InputIcon = styled.div<{ $disabled?: boolean }>`
+const InputIcon = styled.button<{ $disabled?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
