@@ -40,7 +40,7 @@ export const CustomSwiper = ({ items, autoplayTime }: SwiperPropsType) => {
 
   return (
     <S.Wrapper>
-      <S.Container activeIndex={currentSlideIndex}>
+      <S.Container $activeIndex={currentSlideIndex}>
         {items.map((item, index) => (
           <S.Slide key={index}>{item}</S.Slide>
         ))}

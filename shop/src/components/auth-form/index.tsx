@@ -27,25 +27,21 @@ export const AuthForm = ({
     reset,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useFormContext<LoginType & RegistrationType>();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit: SubmitHandler<LoginType | RegistrationType> = async (
     data,
   ) => {
-    setIsSubmitting(true);
     try {
       await submitCallback(data);
 
       reset();
     } catch (e) {
       console.error(e);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
