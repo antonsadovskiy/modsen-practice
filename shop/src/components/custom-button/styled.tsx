@@ -40,7 +40,21 @@ const Button = styled.button<{
 
   transition: all 0.3s ease;
 
+  --loader-color: ${({ theme, $variant }) => {
+    if ($variant === "primary") {
+      return theme.color.white;
+    }
+    return theme.color.black;
+  }};
+
   &:hover {
+    --loader-color: ${({ theme, $variant }) => {
+      if ($variant === "primary") {
+        return theme.color.black;
+      }
+      return theme.color.white;
+    }};
+
     background-color: ${({ theme, $variant }) => {
       if ($variant === "primary") {
         return theme.color.white;
