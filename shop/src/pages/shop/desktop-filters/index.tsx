@@ -4,8 +4,8 @@ import { CustomInput } from "@/components/custom-input";
 import { CustomSelect } from "@/components/custom-select";
 import { CustomSlider } from "@/components/custom-slider";
 import { sortOptions } from "@/constants/sort";
+import { useAppSelector } from "@/hooks";
 import { useFilters } from "@/pages/shop/hooks/useFilters";
-import { useAppSelector } from "@/store/hooks";
 import {
   selectorCategoryValue,
   selectorMinAndMaxPrice,

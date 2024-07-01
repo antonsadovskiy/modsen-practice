@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   gap: 50px;
 
   @media screen and (max-width: ${breakpoints.large}) {
-    margin-bottom: 20px;
+    margin-bottom: ${({ theme }) => theme.s};
     border-top: none;
   }
 `;
@@ -36,7 +36,7 @@ const Copyright = styled.div`
 const Socials = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: ${({ theme }) => theme.s};
 
   @media screen and (max-width: ${breakpoints.extraLarge}) {
     justify-content: space-around;
@@ -52,7 +52,7 @@ const CopyrightAndSocials = styled.div`
   @media screen and (max-width: ${breakpoints.extraLarge}) {
     flex-direction: column-reverse;
     align-items: flex-start;
-    gap: 38px;
+    gap: ${({ theme }) => theme.m};
   }
 `;
 
@@ -67,21 +67,21 @@ const LinksAndInputContainer = styled.div`
   @media screen and (max-width: ${breakpoints.extraLarge}) {
     flex-direction: column-reverse;
     align-items: flex-start;
-    gap: 20px;
+    gap: ${({ theme }) => theme.m};
   }
 `;
 const Links = styled.div`
   display: flex;
   align-items: center;
-  gap: 41px;
+  gap: ${({ theme }) => theme.m};
 
   @media screen and (max-width: ${breakpoints.extraLarge}) {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: ${({ theme }) => theme.xs};
   }
 `;
-const InputContainer = styled.div`
+const Form = styled.form`
   max-width: 400px;
   width: 100%;
 
@@ -135,7 +135,7 @@ export default {
   Slim,
   LinksAndInputContainer,
   Links,
-  InputContainer,
+  Form,
   FooterInput,
   FooterLink,
   SocialMediaIconButton,

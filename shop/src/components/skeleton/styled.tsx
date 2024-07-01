@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Wrapper = styled.div<{ $height?: number; $width?: number }>`
   height: ${({ $height }) => ($height ? `${$height}px` : "116px")};
   width: ${({ $width }) => ($width ? `${$width}px` : "100%")};
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.xs};
   background: ${({ theme }) => `linear-gradient(
       100deg,
       rgba(255, 255, 255, 0) 40%,

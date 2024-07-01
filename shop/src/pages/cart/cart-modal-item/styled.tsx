@@ -5,7 +5,7 @@ import { breakpoints } from "@/constants/styles";
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
-  gap: 20px;
+  gap: ${({ theme }) => theme.s};
   align-items: flex-start;
   justify-content: space-between;
 

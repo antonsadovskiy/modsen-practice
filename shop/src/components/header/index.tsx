@@ -1,14 +1,15 @@
-import { useCallback, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import BurgerNavSVG from "@/assets/svg/burger-nav.svg";
+import LogoutSVG from "@/assets/svg/logout.svg";
 import { CustomIconButton } from "@/components/custom-icon-button";
 import { CustomSwitch } from "@/components/custom-switch";
 import { CartIcon } from "@/components/header/cart-icon";
 import { Sidebar } from "@/components/header/sidebar";
 import { routes } from "@/constants/routes";
-import { useChangeTheme } from "@/hooks/useChangeTheme";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector, useChangeTheme } from "@/hooks";
+import { useLogout } from "@/hooks/useLogout";
 import { selectorAppTheme } from "@/store/slices/app";
 
 import S from "./styled";
@@ -17,27 +18,27 @@ export const Header = () => {
   const theme = useAppSelector(selectorAppTheme);
 
   const { changeTheme } = useChangeTheme();
+  const { logout } = useLogout();
 
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isShowDivider, setIsShowDivider] = useState(false);
 
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const goHomePageHandler = useCallback(() => {
+  const goHomePageHandler = () => {
     navigate(routes.home);
-
     setIsOpenMenu(false);
-  }, [navigate]);
+  };
 
-  const onCheckedChangeHandler = useCallback(
-    (checked: boolean) => {
-      changeTheme(checked ? "dark" : "light");
-    },
-    [changeTheme],
-  );
+  const onCheckedChangeHandler = (checked: boolean) => {
+    changeTheme(checked ? "dark" : "light");
+  };
 
   const onShowMenu = () => {
     setIsOpenMenu(true);
   };
+
   const onHideMenu = () => {
     setIsOpenMenu(false);
   };
@@ -46,6 +47,25 @@ export const Header = () => {
     navigate(link);
     setIsOpenMenu(false);
   };
+
+  useEffect(() => {
+    if (location.pathname === routes.home) {
+      const swiper = document.getElementById("swiper");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => setIsShowDivider(!entry.isIntersecting));
+        },
+        {
+          rootMargin: "-114px",
+        },
+      );
+
+      observer.observe(swiper);
+      return;
+    }
+    setIsShowDivider(true);
+  }, [location]);
 
   return (
     <S.Wrapper>
@@ -75,10 +95,13 @@ export const Header = () => {
               checked={theme !== "light"}
               onCheckedChange={onCheckedChangeHandler}
             />
+            <CustomIconButton onClick={logout}>
+              <LogoutSVG />
+            </CustomIconButton>
             <CartIcon onClick={() => navigateHandler(routes.cart)} />
           </S.Actions>
         </S.HeaderContent>
-        <S.BorderBottomLine />
+        <S.BorderBottomLine $isShow={isShowDivider} />
       </S.MaxWidthContainer>
       <Sidebar
         isOpenMenu={isOpenMenu}

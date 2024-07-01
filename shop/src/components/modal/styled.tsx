@@ -45,7 +45,7 @@ const Modal = styled.div`
   width: 50vw;
   color: white;
   z-index: var(--modal-z-index);
-  border-radius: 20px;
+  border-radius: ${({ theme }) => theme.s};
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
   padding: 25px 20px 20px;
   display: flex;

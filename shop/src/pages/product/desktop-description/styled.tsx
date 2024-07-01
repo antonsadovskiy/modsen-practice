@@ -19,7 +19,7 @@ const Title = styled.div`
 
   @media (max-width: ${breakpoints.small}) {
     font: var(--body-small);
-    padding-bottom: 20px;
+    padding-bottom: ${({ theme }) => theme.s};
     display: flex;
     align-items: center;
     justify-content: space-between;

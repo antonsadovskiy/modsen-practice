@@ -16,16 +16,16 @@ const Input = styled.input<{
 
   color: ${({ theme }) => `${theme.mainTextColor}`};
   width: 100%;
-  height: 40px;
+  height: ${({ theme }) => theme.m};
   border: none;
   outline: none;
   background-color: transparent;
 
-  padding: ${({ $isWithEndIcon }) => {
+  padding: ${({ $isWithEndIcon, theme }) => {
     if ($isWithEndIcon) {
-      return `8px 20px 8px 0`;
+      return `${theme.xs} ${theme.s} ${theme.xs} 0`;
     }
-    return `8px 0 8px 0`;
+    return `${theme.xs} 0 ${theme.xs} 0`;
   }};
   border-bottom: ${({ theme }) => `1px solid ${theme.color.gray}`};
 
@@ -62,7 +62,7 @@ const Wrapper = styled.div<{
   align-items: center;
 `;
 
-const InputIcon = styled.div<{ $disabled?: boolean }>`
+const InputIcon = styled.button<{ $disabled?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;

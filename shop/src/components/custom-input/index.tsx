@@ -10,6 +10,7 @@ type CustomInputPropsType = {
   onIconClick?: () => void;
   error?: string;
   isIconButtonDisabled?: boolean;
+  iconButtonType?: "submit" | "reset" | "button";
 } & ComponentProps<"input">;
 
 export const CustomInput = ({
@@ -19,6 +20,7 @@ export const CustomInput = ({
   disabled = false,
   error,
   isIconButtonDisabled = false,
+  iconButtonType = "button",
   ...rest
 }: CustomInputPropsType) => (
   <S.Wrapper $isFullWidth={isFullWidth} $disabled={disabled}>
@@ -26,7 +28,12 @@ export const CustomInput = ({
     {error && <S.Error>{error}</S.Error>}
     {endIcon && (
       <S.InputIcon
-        $disabled={!!onIconClick && isIconButtonDisabled}
+        type={iconButtonType}
+        $disabled={
+          iconButtonType === "submit"
+            ? false
+            : !onIconClick || isIconButtonDisabled
+        }
         onClick={onIconClick}
       >
         {endIcon}

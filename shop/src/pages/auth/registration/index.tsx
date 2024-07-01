@@ -1,15 +1,16 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useCallback, useState } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { Form } from "@/components/form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { AuthForm } from "@/components/auth-form";
 import { routes } from "@/constants/routes";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch } from "@/hooks";
 import { userThunks } from "@/store/slices/user";
-import { registrationSchema, RegistrationType } from "@/types/schemas";
 
 import S from "../styled";
+
+import { registrationSchema, RegistrationType } from "./schema";
 
 export const RegistrationPage = () => {
   const methods = useForm<RegistrationType>({
@@ -25,42 +26,28 @@ export const RegistrationPage = () => {
 
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const submitCallback = async (data: RegistrationType) => {
+    await dispatch(
+      userThunks.registerUser({
+        email: data.email,
+        password: data.password,
+      }),
+    ).unwrap();
 
-  const onSubmit: SubmitHandler<RegistrationType> = useCallback(
-    async (data) => {
-      setIsLoading(true);
-
-      try {
-        await dispatch(
-          userThunks.registerUser({
-            email: data.email,
-            password: data.password,
-          }),
-        ).unwrap();
-
-        methods.reset();
-        navigate(routes.login);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [dispatch, navigate, methods],
-  );
+    methods.reset();
+    navigate(routes.login);
+  };
 
   return (
     <S.Wrapper>
       <S.Title>Registration</S.Title>
       <FormProvider {...methods}>
-        <Form
+        <AuthForm
           formType={"registration"}
-          isLoading={isLoading}
           submitButtonText={"Register"}
           linkText={"You have an account already?"}
           link={routes.login}
-          onSubmit={onSubmit}
+          submitCallback={submitCallback}
         />
       </FormProvider>
     </S.Wrapper>

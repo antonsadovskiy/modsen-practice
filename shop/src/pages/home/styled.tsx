@@ -4,10 +4,10 @@ import { breakpoints } from "@/constants/styles";
 
 const Wrapper = styled.div`
   width: 100%;
-  margin-bottom: 250px;
+  margin-bottom: ${({ theme }) => theme.desktopContentMarginBottom};
 
   @media screen and (max-width: ${breakpoints.medium}) {
-    margin-bottom: 100px;
+    margin-bottom: ${({ theme }) => theme.mobileContentMarginBottom};
   }
 `;
 
@@ -46,9 +46,9 @@ const List = styled.div`
   column-gap: 54px;
 
   @media screen and (max-width: ${breakpoints.medium}) {
-    column-gap: 16px;
     justify-content: space-around;
     row-gap: 24px;
+    column-gap: 16px;
   }
 `;
 

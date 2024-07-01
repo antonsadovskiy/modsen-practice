@@ -33,7 +33,7 @@ const MaxWidthContainer = styled.div`
   }
   @media screen and (max-width: ${breakpoints.medium}) {
     width: calc(100vw - 40px);
-    padding: 0 20px;
+    padding: ${({ theme }) => `0 ${theme.s}`};
   }
 `;
 

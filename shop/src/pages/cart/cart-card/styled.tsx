@@ -5,14 +5,14 @@ import { breakpoints } from "@/constants/styles";
 const CatalogCardWrapper = styled.div<{ $width: string }>`
   width: 100%;
   display: flex;
-  gap: 20px;
+  gap: ${({ theme }) => theme.s};
 `;
 const TitleAndDescription = styled.div`
   height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20px;
+  gap: ${({ theme }) => theme.s};
   width: 100%;
 `;
 
@@ -21,7 +21,7 @@ const ImageAndDescription = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  gap: 20px;
+  gap: ${({ theme }) => theme.s};
 
   @media screen and (max-width: ${breakpoints.medium}) {
     flex-direction: column;
@@ -36,7 +36,7 @@ const ImagesContainer = styled.div`
 
     object-position: center;
     object-fit: scale-down;
-    border-radius: 8px;
+    border-radius: ${({ theme }) => theme.xs};
   }
 `;
 const Title = styled.div`

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-const Container = styled.div<{ activeIndex: number }>`
+const Container = styled.div<{ $activeIndex: number }>`
   display: flex;
   transition: transform 0.6s ease;
-  transform: ${({ activeIndex }) => `translateX(-${activeIndex * 100}%)`};
+  transform: ${({ $activeIndex }) => `translateX(-${$activeIndex * 100}%)`};
 `;
 
 const Wrapper = styled.div`

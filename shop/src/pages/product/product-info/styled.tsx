@@ -47,7 +47,7 @@ const RatingContainer = styled.div`
 `;
 
 const ProductDescription = styled.div`
-  margin-top: 20px;
+  margin-top: ${({ theme }) => theme.s};
   font: var(--h5);
   color: ${({ theme }) => theme.color.darkGray};
 

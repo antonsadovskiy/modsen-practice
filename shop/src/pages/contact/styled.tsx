@@ -4,23 +4,25 @@ import { CustomInput } from "@/components/custom-input";
 import { breakpoints } from "@/constants/styles";
 
 const Wrapper = styled.div`
-  margin-top: 125px;
+  margin-top: ${({ theme }) => theme.desktopContentMarginTop};
+  margin-bottom: ${({ theme }) => theme.desktopContentMarginBottom};
+
   display: flex;
   flex-direction: column;
-  gap: 100px;
-  margin-bottom: 250px;
+  gap: ${({ theme }) => theme.xxl};
 
   @media screen and (max-width: ${breakpoints.medium}) {
-    margin-top: 40px;
-    margin-bottom: 100px;
-    gap: 64px;
+    margin-top: ${({ theme }) => theme.mobileContentMarginTop};
+    margin-bottom: ${({ theme }) => theme.mobileContentMarginBottom};
+
+    gap: ${({ theme }) => theme.l};
   }
 `;
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 39px;
+  gap: ${({ theme }) => theme.m};
 `;
 const Title = styled.div`
   font: var(--h1);
@@ -48,10 +50,10 @@ const Subtitle = styled.div`
 const FormFields = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: ${({ theme }) => theme.xxl};
 
   @media screen and (max-width: ${breakpoints.medium}) {
-    gap: 50px;
+    gap: ${({ theme }) => theme.m};
   }
 `;
 
@@ -70,11 +72,11 @@ const ButtonContainer = styled.div`
 const Inputs = styled.div`
   display: flex;
   align-items: center;
-  gap: 110px;
+  gap: ${({ theme }) => theme.xxl};
 
   @media screen and (max-width: ${breakpoints.medium}) {
     flex-direction: column;
-    gap: 50px;
+    gap: ${({ theme }) => theme.m};
   }
 `;
 

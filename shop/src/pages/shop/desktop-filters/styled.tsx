@@ -9,7 +9,6 @@ const Container = styled.div`
   flex-direction: column;
   gap: 30px;
   top: 144px;
-  z-index: 10;
   background-color: ${({ theme }) => theme.backgroundColor};
 
   @media screen and (max-width: ${breakpoints.large}) {
@@ -23,7 +22,7 @@ const Selects = styled.div`
 `;
 
 const Price = styled.div`
-  margin-top: 8px;
+  margin-top: ${({ theme }) => theme.xs};
   font: var(--body-medium);
   color: ${({ theme }) => theme.color.darkGray};
 `;

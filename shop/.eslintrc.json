@@ -26,7 +26,16 @@
     "public/*"
   ],
   "rules": {
-    "simple-import-sort/imports": "error",
+    "simple-import-sort/imports": ["error", {
+      "groups": [
+        ["^react", "^react-dom"],
+        ["^@?\\w"],
+        ["^(@|api|app|assets|components|constants|hooks|pages|store|types|utils)(/.*|$)"],
+        ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+        ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+        ["^\\u0000"]
+      ]
+    }],
     "simple-import-sort/exports": "error",
     "no-duplicate-imports": ["error", { "includeExports": true }],
     "no-template-curly-in-string": "error",

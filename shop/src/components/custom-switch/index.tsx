@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-
 import S from "./styled";
 
 type CustomSwitchPropsType = {
@@ -11,9 +9,9 @@ export const CustomSwitch = ({
   checked,
   onCheckedChange,
 }: CustomSwitchPropsType) => {
-  const onChangeHandler = useCallback(() => {
+  const onChangeHandler = () => {
     onCheckedChange(!checked);
-  }, [checked, onCheckedChange]);
+  };
 
   return (
     <S.SwitchRoot onClick={onChangeHandler} $isChecked={checked}>
