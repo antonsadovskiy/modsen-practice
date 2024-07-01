@@ -6,6 +6,7 @@ import { darkTheme, lightTheme } from "@/assets/styles/theme";
 import { CircleLoader } from "@/components/circle-loader";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { Toast } from "@/components/toast";
 import { useAppSelector } from "@/hooks";
 import { selectorAppTheme, selectorIsAppInitialized } from "@/store/slices/app";
 import { selectorIsLoggedIn } from "@/store/slices/user";
@@ -33,6 +34,7 @@ export function App() {
           </S.Content>
           {isLoggedIn && isAppInitialized && <Footer />}
         </S.MaxWidthContainer>
+        <Toast />
       </S.Wrapper>
     </ThemeProvider>
   );
