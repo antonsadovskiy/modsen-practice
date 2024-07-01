@@ -12,12 +12,15 @@ import {
   GetNewsLetterType,
 } from "@/components/footer/schema";
 import { socialMedias } from "@/constants/socials";
+import { useToast } from "@/hooks/useToast";
 
 import { footerLinks } from "./config";
 import S from "./styled";
 
 export const Footer = () => {
   const navigate = useNavigate();
+
+  const toast = useToast();
 
   const {
     control,
@@ -43,7 +46,7 @@ export const Footer = () => {
 
       reset();
     } catch (e) {
-      console.error(e);
+      toast.error("Something went wrong. Please try again later.");
     }
   };
 
@@ -90,7 +93,7 @@ export const Footer = () => {
       </S.LinksAndInputContainer>
       <S.CopyrightAndSocials>
         <S.Copyright>
-          <span>© 2023 Shelly. </span>
+          <span>© 2024 Shelly. </span>
           <S.Slim>Terms of use </S.Slim>
           <span>and </span>
           <S.Slim>privacy policy.</S.Slim>

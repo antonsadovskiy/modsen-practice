@@ -16,6 +16,13 @@ const commonThemeConfig: CommonThemeInterface = {
 
   mobileContentMarginTop: "40px",
   mobileContentMarginBottom: "100px",
+
+  toastColors: {
+    success: "rgb(56, 142, 60)",
+    info: "rgb(2, 136, 209)",
+    warning: "rgb(245, 124, 0)",
+    error: "rgb(211, 47, 47)",
+  },
 };
 
 export const lightTheme: DefaultTheme = {

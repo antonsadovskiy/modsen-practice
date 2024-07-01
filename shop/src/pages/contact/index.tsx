@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { CustomButton } from "@/components/custom-button";
 import { CustomTextarea } from "@/components/custom-textarea";
+import { useToast } from "@/hooks/useToast";
 
 import { contactUsSchema, ContactUsType } from "./schema";
 import S from "./styled";
@@ -27,6 +28,8 @@ export const ContactUsPage = () => {
     },
   });
 
+  const toast = useToast();
+
   const [isSending, setIsSending] = useState(false);
 
   const onSubmit: SubmitHandler<ContactUsType> = async (data) => {
@@ -42,7 +45,7 @@ export const ContactUsPage = () => {
       );
       reset();
     } catch (e) {
-      console.error(e);
+      toast.error("Something went wrong. Please try again later.");
     } finally {
       setIsSending(false);
     }

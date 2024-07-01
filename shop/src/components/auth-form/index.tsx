@@ -3,6 +3,7 @@ import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import { CustomButton } from "@/components/custom-button";
+import { useToast } from "@/hooks/useToast";
 import { LoginType } from "@/pages/auth/login/schema";
 import { RegistrationType } from "@/pages/auth/registration/schema";
 
@@ -30,6 +31,8 @@ export const AuthForm = ({
     formState: { errors, isSubmitting },
   } = useFormContext<LoginType & RegistrationType>();
 
+  const toast = useToast();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -41,7 +44,7 @@ export const AuthForm = ({
 
       reset();
     } catch (e) {
-      console.error(e);
+      toast.error("Failed to submit form, please try again later.");
     }
   };
 
