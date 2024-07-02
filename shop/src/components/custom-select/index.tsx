@@ -17,6 +17,7 @@ type CustomSelectPropsType = {
   placeholder?: string;
   onChange?: (selected: OptionType) => void;
   disabled?: boolean;
+  type: "category" | "sort";
 };
 
 export const CustomSelect = ({
@@ -25,6 +26,7 @@ export const CustomSelect = ({
   onChange,
   placeholder,
   disabled = false,
+  type,
 }: CustomSelectPropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -44,8 +46,11 @@ export const CustomSelect = ({
   };
 
   return (
-    <S.Wrapper ref={ref} $disabled={disabled}>
-      <S.Placeholder onClick={handlePlaceHolderClick}>
+    <S.Wrapper ref={ref} $disabled={disabled} data-cy={`${type}-select`}>
+      <S.Placeholder
+        onClick={handlePlaceHolderClick}
+        data-cy={`${type}-select-placeholder`}
+      >
         {selected?.title ?? placeholder}
         <S.ArrowContainer $isRotated={isOpen}>
           <Arrow />
@@ -58,6 +63,7 @@ export const CustomSelect = ({
               key={option.value}
               option={option}
               onClick={handleOptionClick}
+              type={type}
             />
           ))}
         </S.Select>

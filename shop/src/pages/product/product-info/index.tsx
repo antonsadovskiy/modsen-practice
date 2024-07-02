@@ -23,7 +23,7 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
   const dispatch = useAppDispatch();
   const cart = useAppSelector(selectorCartProducts);
 
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
 
   const addToCartHandler = useCallback(async () => {
@@ -59,7 +59,7 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
       if (elem) {
         return setAmount(elem.amount);
       }
-      setAmount(0);
+      setAmount(1);
     }
   }, [cart, params.id]);
 
@@ -79,13 +79,18 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
           disabled={isThisProductAlreadyInCart}
           onChangeValue={changeAmountHandler}
         />
-        <S.ButtonContainer>
+        <S.ButtonContainer data-cy={"product-info-button-container"}>
           {isThisProductAlreadyInCart ? (
-            <CustomButton onClick={goToCartHandler} variant={"secondary"}>
+            <CustomButton
+              data-cy={"go-to-cart-button"}
+              onClick={goToCartHandler}
+              variant={"secondary"}
+            >
               Go to cart
             </CustomButton>
           ) : (
             <CustomButton
+              data-cy={"add-to-cart-button"}
               onClick={addToCartHandler}
               disabled={amount === 0}
               isLoading={isAdding}

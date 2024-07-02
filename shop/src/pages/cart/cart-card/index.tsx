@@ -71,9 +71,12 @@ const CartCard = memo(
     };
 
     return (
-      <S.CatalogCardWrapper $width={width}>
+      <S.CatalogCardWrapper data-cy={"cart-card"} $width={width}>
         <S.ImageAndDescription>
-          <S.ImagesContainer onClick={onClickHandler}>
+          <S.ImagesContainer
+            data-cy={"cart-card-image"}
+            onClick={onClickHandler}
+          >
             <img src={imageSrc} alt={title} height={height} width={width} />
           </S.ImagesContainer>
           <S.TitleAndDescription>
@@ -82,7 +85,10 @@ const CartCard = memo(
               {isDeleting ? (
                 <CircleLoader />
               ) : (
-                <CustomIconButton onClick={onDeleteProductHandler}>
+                <CustomIconButton
+                  data-cy={"delete-from-cart-button"}
+                  onClick={onDeleteProductHandler}
+                >
                   <DeleteSVG />
                 </CustomIconButton>
               )}

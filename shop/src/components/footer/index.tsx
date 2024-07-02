@@ -52,6 +52,7 @@ export const Footer = () => {
         <S.Links>
           {footerLinks.map((item, index) => (
             <S.FooterLink
+              data-cy={`${item.label.toLowerCase()}-link`}
               onClick={() => item.link && onLinkClickHandler(item.link)}
               $isClickable={!!item.link}
               key={index}
@@ -82,6 +83,7 @@ export const Footer = () => {
         <S.Socials>
           {socialMedias.map((item, index) => (
             <S.SocialMediaIconButton
+              data-cy={`social-media-icon-button-${index}`}
               target={"_blank"}
               href={item.link}
               key={index}

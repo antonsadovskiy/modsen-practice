@@ -56,7 +56,11 @@ const CatalogCard = memo(
     };
 
     return (
-      <S.CatalogCardWrapper $width={width} onClick={onClickHandler}>
+      <S.CatalogCardWrapper
+        data-cy={`catalog-card`}
+        $width={width}
+        onClick={onClickHandler}
+      >
         <S.ImagesContainer $height={height} $width={width}>
           <img src={imageSrc} alt={title} height={"100%"} width={"100%"} />
           <S.AddToCartButton onClick={addToCartHandler}>
@@ -77,7 +81,7 @@ const CatalogCard = memo(
             )}
           </S.AddToCartButton>
         </S.ImagesContainer>
-        <S.Title>{title}</S.Title>
+        <S.Title data-cy={"catalog-card-title"}>{title}</S.Title>
         <S.Price>$ {price}</S.Price>
       </S.CatalogCardWrapper>
     );

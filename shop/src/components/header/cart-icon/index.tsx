@@ -24,7 +24,7 @@ export const CartIcon = ({ onClick }: CartIconPropsType) => {
   };
 
   return (
-    <CustomIconButton onClick={goCartPageHandler}>
+    <CustomIconButton data-cy={"cart-link"} onClick={goCartPageHandler}>
       <S.CartIconContainer>
         <ShoppingCardSVG />
         {cartAmount > 0 && <S.CartCount>{cartAmount}</S.CartCount>}

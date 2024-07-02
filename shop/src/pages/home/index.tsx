@@ -41,7 +41,9 @@ export const HomePage = () => {
         </S.SwiperContainer>
         <S.TitleContainer>
           <S.Title>Shop The Latest</S.Title>
-          <S.ViewAllLink onClick={viewAllHandler}>View All</S.ViewAllLink>
+          <S.ViewAllLink data-cy={"view-all-link"} onClick={viewAllHandler}>
+            View All
+          </S.ViewAllLink>
         </S.TitleContainer>
         <S.List>
           {isLoading

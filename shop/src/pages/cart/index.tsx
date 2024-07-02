@@ -33,21 +33,20 @@ export const CartPage = () => {
       }),
     },
   );
-
   const productsWithMeta = useMemo(
     () =>
-      products
-        .filter(
-          (product) => !!cart.find((item) => item.productId === product.id),
-        )
-        .map((product) => {
-          const cartItem = cart.find((item) => item.productId === product.id);
-          return {
-            ...product,
-            docId: cartItem ? cartItem.docId : "",
-            amountItems: cartItem ? cartItem.amount : 0,
-          };
-        }),
+      products.length === 0
+        ? []
+        : cart.map((cartItem) => {
+            const product = products.find(
+              (product) => product.id === cartItem.productId,
+            );
+            return {
+              ...product,
+              docId: cartItem.docId,
+              amountItems: cartItem.amount,
+            };
+          }),
     [cart, products],
   );
 
@@ -92,6 +91,7 @@ export const CartPage = () => {
         <S.TitleContainer>
           Cart
           <CustomButton
+            data-cy={"show-now-button"}
             disabled={productsWithMeta.length === 0}
             onClick={onShopNowHandler}
             fullWidth={false}
@@ -107,7 +107,9 @@ export const CartPage = () => {
                   <Skeleton key={index} height={200} />
                 ))
               ) : (
-                <S.NoData>No products in cart yet</S.NoData>
+                <S.NoData data-cy={"cart-empty"}>
+                  No products in cart yet
+                </S.NoData>
               ))}
             {productsWithMeta.length > 0 &&
               productsWithMeta.map((item) => (

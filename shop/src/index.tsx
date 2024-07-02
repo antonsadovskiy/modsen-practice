@@ -12,6 +12,16 @@ import "@/app/firebase";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
+interface CypressWithStore extends Cypress.Cypress {
+  store?: typeof store;
+}
+
+declare global {
+  interface Window {
+    Cypress?: CypressWithStore;
+  }
+}
+
 root.render(
   <ErrorBoundary>
     <Provider store={store}>
@@ -21,3 +31,7 @@ root.render(
     </Provider>
   </ErrorBoundary>,
 );
+
+if (window.Cypress) {
+  window.Cypress.store = store;
+}
