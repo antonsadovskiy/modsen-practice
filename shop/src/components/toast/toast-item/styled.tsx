@@ -4,22 +4,40 @@ import { breakpoints } from "@/constants/styles";
 import { ToastStatusType } from "@/store/slices/app/types";
 
 const slideIn = (corner: "left" | "right") => keyframes`
-  from {
+  0% {
     transform: translateX(${corner === "left" ? "-100%" : "100%"});
     opacity: 0;
   }
-  to {
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.85;
+  }
+  100% {
     transform: translateX(0);
     opacity: 1;
   }
 `;
 
 const slideOut = (corner: "left" | "right") => keyframes`
-  from {
+  0% {
     transform: translateX(0);
     opacity: 1;
   }
-  to {
+  25% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
     transform: translateX(${corner === "left" ? "-100%" : "100%"});
     opacity: 0;
   }
@@ -44,12 +62,7 @@ const Wrapper = styled.div<{
       $isExiting ? slideOut($corner) : slideIn($corner)}
     0.3s ease;
 
-  color: ${({ theme, $type }) => {
-    if ($type === "error") {
-      return theme.color.white;
-    }
-    return theme.color.black;
-  }};
+  color: ${({ theme }) => theme.color.white};
 
   @media (max-width: ${breakpoints.small}) {
     width: calc(100vw - 40px);
