@@ -51,7 +51,7 @@ export const Footer = () => {
     }
   };
 
-  const onLinkClickHandler = (link: string) => {
+  const onLinkClickHandler = (link: string) => () => {
     navigate(link);
   };
   const onBlurHandler = () => {
@@ -67,7 +67,7 @@ export const Footer = () => {
           {footerLinks.map(({ link, label }, index) => (
             <S.FooterLink
               data-cy={`${label.toLowerCase()}-link`}
-              onClick={() => link && onLinkClickHandler(link)}
+              onClick={onLinkClickHandler(link)}
               $isClickable={!!link}
               key={index}
             >
