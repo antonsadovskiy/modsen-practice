@@ -108,6 +108,7 @@ const CartCard = memo(
             </S.TitleAndDelete>
             <S.Description>{description}</S.Description>
             <IncreaseAmount
+              min={1}
               startAmount={amountItemsInCart}
               onChangeDebouncedValue={updateCartProduct}
               pricePerItem={price}
