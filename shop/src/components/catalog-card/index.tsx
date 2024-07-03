@@ -1,4 +1,4 @@
-import { memo, SyntheticEvent, useMemo, useState } from "react";
+import { memo, SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import HeartSVG from "@/assets/svg/heart.svg";
@@ -38,9 +38,8 @@ const CatalogCard = memo(
 
     const [isAdding, setIsAdding] = useState(false);
 
-    const isThisProductAlreadyInCart = useMemo(
-      () => !!cart.find((item) => item.productId === id),
-      [cart, id],
+    const isThisProductAlreadyInCart = !!cart.find(
+      (item) => item.productId === id,
     );
 
     const onClickHandler = () => navigate(`${routes.product}/${id}`);

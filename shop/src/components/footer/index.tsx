@@ -64,14 +64,14 @@ export const Footer = () => {
     <S.Wrapper>
       <S.LinksAndInputContainer>
         <S.Links>
-          {footerLinks.map((item, index) => (
+          {footerLinks.map(({ link, label }, index) => (
             <S.FooterLink
-              data-cy={`${item.label.toLowerCase()}-link`}
-              onClick={() => item.link && onLinkClickHandler(item.link)}
-              $isClickable={!!item.link}
+              data-cy={`${label.toLowerCase()}-link`}
+              onClick={() => link && onLinkClickHandler(link)}
+              $isClickable={!!link}
               key={index}
             >
-              {item.label}
+              {label}
             </S.FooterLink>
           ))}
         </S.Links>
@@ -108,7 +108,7 @@ export const Footer = () => {
               href={item.link}
               key={index}
             >
-              {<item.icon />}
+              <item.icon />
             </S.SocialMediaIconButton>
           ))}
         </S.Socials>

@@ -1,19 +1,21 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { AuthForm } from "@/components/auth-form";
 import { routes } from "@/constants/routes";
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useToast } from "@/hooks/useToast";
-import { userThunks } from "@/store/slices/user";
+import { selectorIsLoggedIn, userThunks } from "@/store/slices/user";
 
 import S from "../styled";
 
 import { registrationSchema, RegistrationType } from "./schema";
 
 export const RegistrationPage = () => {
+  const isLoggedIn = useAppSelector(selectorIsLoggedIn);
+
   const methods = useForm<RegistrationType>({
     resolver: yupResolver(registrationSchema),
     defaultValues: {
@@ -41,6 +43,10 @@ export const RegistrationPage = () => {
     methods.reset();
     navigate(routes.login);
   };
+
+  if (isLoggedIn) {
+    return <Navigate to={routes.home} />;
+  }
 
   return (
     <S.Wrapper>
