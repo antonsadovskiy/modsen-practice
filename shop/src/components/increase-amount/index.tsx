@@ -12,6 +12,7 @@ type IncreaseAmountPropsType = {
   onChangeDebouncedValue?: (debouncedValue: number) => void;
   onChangeValue?: (value: number) => void;
   disabled?: boolean;
+  min?: number;
 };
 
 export const IncreaseAmount = ({
@@ -20,6 +21,7 @@ export const IncreaseAmount = ({
   pricePerItem,
   onChangeDebouncedValue,
   onChangeValue,
+  min = 0,
 }: IncreaseAmountPropsType) => {
   const [value, setValue] = useState(startAmount);
 
@@ -55,7 +57,7 @@ export const IncreaseAmount = ({
       <S.AmountContainer>
         <S.IncreaseAmountButton
           data-cy={"decrease-amount-button"}
-          $disabled={value === 0 || disabled}
+          $disabled={value === min || disabled}
           onClick={decreaseHandler}
         >
           <MinusSVG />

@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AuthForm } from "@/components/auth-form";
 import { routes } from "@/constants/routes";
 import { useAppDispatch } from "@/hooks";
+import { useToast } from "@/hooks/useToast";
 import { userThunks } from "@/store/slices/user";
 
 import S from "../styled";
@@ -20,6 +21,7 @@ export const LoginPage = () => {
       password: "",
     },
   });
+  const toast = useToast();
 
   const navigate = useNavigate();
 
@@ -33,6 +35,7 @@ export const LoginPage = () => {
       }),
     ).unwrap();
 
+    toast.success("Login successful");
     navigate(routes.home);
     methods.reset();
   };

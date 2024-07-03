@@ -62,11 +62,6 @@ export const CartPage = () => {
     [productsWithMeta],
   );
 
-  const isCartHasEmptyProducts = useMemo(
-    () => parseInt(totalPrice) === 0,
-    [totalPrice],
-  );
-
   const onShopNowHandler = () => {
     setIsOpenModal(true);
   };
@@ -139,13 +134,8 @@ export const CartPage = () => {
         onConfirmHandler={onConfirmHandler}
         onCloseHandler={onCloseModalHandler}
         isLoading={isDeleting}
-        isConfirmButtonDisabled={isCartHasEmptyProducts}
         isShowCloseIcon
-        bottomText={
-          isCartHasEmptyProducts
-            ? "You need to choose at least one product"
-            : "Total price: $" + totalPrice
-        }
+        bottomText={"Total price: $" + totalPrice}
       >
         {productsWithMeta.map((item) => (
           <CartModalItem

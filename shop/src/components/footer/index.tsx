@@ -43,6 +43,7 @@ export const Footer = () => {
           recipient: data.email,
         },
       );
+      toast.success("Thanks for your subscription!");
 
       reset();
     } catch (e) {
