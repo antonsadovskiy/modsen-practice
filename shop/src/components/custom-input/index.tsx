@@ -25,7 +25,7 @@ export const CustomInput = ({
 }: CustomInputPropsType) => (
   <S.Wrapper $isFullWidth={isFullWidth} $disabled={disabled}>
     <S.Input $isWithEndIcon={!!endIcon} disabled={disabled} {...rest} />
-    {error && <S.Error>{error}</S.Error>}
+    {error && <S.Error data-cy={"input-error"}>{error}</S.Error>}
     {endIcon && (
       <S.InputIcon
         type={iconButtonType}

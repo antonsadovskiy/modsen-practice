@@ -54,13 +54,18 @@ export const IncreaseAmount = ({
     <S.PriceContainer $disabled={disabled}>
       <S.AmountContainer>
         <S.IncreaseAmountButton
+          data-cy={"decrease-amount-button"}
           $disabled={value === 0 || disabled}
           onClick={decreaseHandler}
         >
           <MinusSVG />
         </S.IncreaseAmountButton>
         <S.Amount>{value}</S.Amount>
-        <S.IncreaseAmountButton $disabled={disabled} onClick={increaseHandler}>
+        <S.IncreaseAmountButton
+          data-cy={"increase-amount-button"}
+          $disabled={disabled}
+          onClick={increaseHandler}
+        >
           <PlusSVG />
         </S.IncreaseAmountButton>
       </S.AmountContainer>

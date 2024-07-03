@@ -30,7 +30,9 @@ export const Catalog = ({ catalog, isLoading }: CatalogPropsType) => (
             />
           ))
         ) : (
-          <S.NoData>No products with these filters were found</S.NoData>
+          <S.NoData data-cy={"no-data"}>
+            No products with these filters were found
+          </S.NoData>
         )}
       </>
     )}

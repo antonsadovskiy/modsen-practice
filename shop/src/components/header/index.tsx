@@ -72,6 +72,7 @@ export const Header = () => {
       <S.MaxWidthContainer>
         <S.HeaderContent>
           <S.Logo
+            data-cy={"header-link"}
             className={"logo"}
             onClick={goHomePageHandler}
             width={290}
@@ -88,7 +89,7 @@ export const Header = () => {
             </CustomIconButton>
           </S.BurgerNav>
           <S.Actions>
-            <Link to={routes.shop}>
+            <Link to={routes.shop} data-cy={"shop-link"}>
               <S.ShopLink>Shop</S.ShopLink>
             </Link>
             <CustomSwitch

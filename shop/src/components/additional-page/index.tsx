@@ -8,9 +8,14 @@ import S from "./styled";
 type AdditionalPagePropsType = {
   title: string;
   caption: string;
+  type: "error" | "success";
 };
 
-export const AdditionalPage = ({ caption, title }: AdditionalPagePropsType) => {
+export const AdditionalPage = ({
+  caption,
+  title,
+  type,
+}: AdditionalPagePropsType) => {
   const navigate = useNavigate();
 
   const onClickHandler = () => {
@@ -18,7 +23,7 @@ export const AdditionalPage = ({ caption, title }: AdditionalPagePropsType) => {
   };
 
   return (
-    <S.Wrapper>
+    <S.Wrapper data-cy={type === "error" ? "error-page" : "success-page"}>
       <S.Content>
         <S.Title>{title}</S.Title>
         <S.Caption>{caption}</S.Caption>

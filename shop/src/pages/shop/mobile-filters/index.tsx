@@ -135,6 +135,7 @@ export const MobileFilters = ({
       >
         <S.Selects>
           <CustomSelect
+            type={"category"}
             placeholder={"Shop by"}
             selected={localCategoryValue}
             options={categories}
@@ -142,6 +143,7 @@ export const MobileFilters = ({
             onChange={(value) => changeSelectValue(value, "category")}
           />
           <CustomSelect
+            type={"sort"}
             placeholder={"Sort by"}
             selected={localSortValue}
             options={sortOptions}

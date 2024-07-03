@@ -58,6 +58,7 @@ export const AuthForm = ({
             rules={{ required: true }}
             render={({ field }) => (
               <S.FormInput
+                data-cy={"email-input"}
                 placeholder={"Email"}
                 {...field}
                 error={errors.email ? errors.email.message : ""}
@@ -70,6 +71,7 @@ export const AuthForm = ({
             rules={{ required: true }}
             render={({ field }) => (
               <S.FormInput
+                data-cy={"password-input"}
                 endIcon={
                   showPassword ? (
                     <S.OpenedEye height={20} width={20} />
@@ -114,11 +116,18 @@ export const AuthForm = ({
           )}
         </S.Inputs>
         <S.Link>
-          <Link to={link}>{linkText}</Link>
+          <Link data-cy={"auth-link"} to={link}>
+            {linkText}
+          </Link>
         </S.Link>
       </S.InputsWithLink>
       <S.ButtonContainer>
-        <CustomButton isLoading={isSubmitting} fullWidth type={"submit"}>
+        <CustomButton
+          data-cy={"submit-button"}
+          isLoading={isSubmitting}
+          fullWidth
+          type={"submit"}
+        >
           {submitButtonText}
         </CustomButton>
       </S.ButtonContainer>

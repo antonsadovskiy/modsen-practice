@@ -12,6 +12,7 @@ export const SuccessfulPurchasePage = () => {
 
   return (
     <AdditionalPage
+      type={"success"}
       title={"Thank you for purchasing"}
       caption={"You will have your goods soon."}
     />
