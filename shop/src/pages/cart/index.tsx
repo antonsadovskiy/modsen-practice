@@ -7,6 +7,7 @@ import { Modal } from "@/components/modal";
 import { Skeleton } from "@/components/skeleton";
 import { routes } from "@/constants/routes";
 import { useAppDispatch, useAppSelector, usePreventScroll } from "@/hooks";
+import { useToast } from "@/hooks/useToast";
 import { CartCard } from "@/pages/cart/cart-card";
 import { CartModalItem } from "@/pages/cart/cart-modal-item";
 import { cartThunks, selectorCartProducts } from "@/store/slices/cart";
@@ -18,6 +19,8 @@ export const CartPage = () => {
 
   const cart = useAppSelector(selectorCartProducts);
   const dispatch = useAppDispatch();
+
+  const toast = useToast();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -59,11 +62,6 @@ export const CartPage = () => {
     [productsWithMeta],
   );
 
-  const isCartHasEmptyProducts = useMemo(
-    () => parseInt(totalPrice) === 0,
-    [totalPrice],
-  );
-
   const onShopNowHandler = () => {
     setIsOpenModal(true);
   };
@@ -75,7 +73,7 @@ export const CartPage = () => {
       setIsOpenModal(false);
       navigate(routes.successfulPurchase, { state: { isSucceeded: true } });
     } catch (e) {
-      console.log(e);
+      toast.error("Something went wrong. Please try again later.");
     } finally {
       setIsDeleting(false);
     }
@@ -136,13 +134,8 @@ export const CartPage = () => {
         onConfirmHandler={onConfirmHandler}
         onCloseHandler={onCloseModalHandler}
         isLoading={isDeleting}
-        isConfirmButtonDisabled={isCartHasEmptyProducts}
         isShowCloseIcon
-        bottomText={
-          isCartHasEmptyProducts
-            ? "You need to choose at least one product"
-            : "Total price: $" + totalPrice
-        }
+        bottomText={"Total price: $" + totalPrice}
       >
         {productsWithMeta.map((item) => (
           <CartModalItem

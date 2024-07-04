@@ -50,6 +50,21 @@ export default (env: EnvVariable) => {
     module: {
       rules: [
         {
+          test: /\.(?:ts|tsx|js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              plugins: [
+                !isDev && [
+                  "jsx-remove-data-test-id",
+                  { attributes: "data-cy" },
+                ],
+              ].filter(Boolean),
+            },
+          },
+        },
+        {
           test: /\.(png|jpg|jpeg|gif)$/i,
           type: "asset/resource",
         },

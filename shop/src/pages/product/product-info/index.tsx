@@ -74,6 +74,7 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
       <S.ProductDescription>{product?.description ?? ""}</S.ProductDescription>
       <S.AddToCartContainer>
         <IncreaseAmount
+          min={1}
           startAmount={amount}
           pricePerItem={product?.price}
           disabled={isThisProductAlreadyInCart}

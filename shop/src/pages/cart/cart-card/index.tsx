@@ -7,6 +7,7 @@ import { CustomIconButton } from "@/components/custom-icon-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
 import { useAppDispatch } from "@/hooks";
+import { useToast } from "@/hooks/useToast";
 import { cartThunks } from "@/store/slices/cart";
 
 import S from "./styled";
@@ -37,6 +38,8 @@ const CartCard = memo(
   }: CartCardPropsType) => {
     const dispatch = useAppDispatch();
 
+    const toast = useToast();
+
     const [isDeleting, setIsDeleting] = useState(false);
 
     const updateCartProduct = useCallback(
@@ -50,10 +53,12 @@ const CartCard = memo(
             }),
           );
         } catch (e) {
-          console.error(e);
+          toast.error(
+            "Failed to update product quantity, please try again later",
+          );
         }
       },
-      [docId, id, dispatch],
+      [dispatch, id, docId, toast],
     );
 
     const navigate = useNavigate();
@@ -65,9 +70,17 @@ const CartCard = memo(
     const onDeleteProductHandler = async () => {
       setIsDeleting(true);
 
-      await dispatch(cartThunks.deleteCartProduct({ productId: id, docId }));
-
-      setIsDeleting(false);
+      try {
+        await dispatch(
+          cartThunks.deleteCartProduct({ productId: id, docId }),
+        ).unwrap();
+      } catch (e) {
+        toast.error(
+          "Failed to delete product from cart, please try again later",
+        );
+      } finally {
+        setIsDeleting(false);
+      }
     };
 
     return (
@@ -95,6 +108,7 @@ const CartCard = memo(
             </S.TitleAndDelete>
             <S.Description>{description}</S.Description>
             <IncreaseAmount
+              min={1}
               startAmount={amountItemsInCart}
               onChangeDebouncedValue={updateCartProduct}
               pricePerItem={price}

@@ -1,4 +1,4 @@
-import { memo, SyntheticEvent, useMemo, useState } from "react";
+import { memo, SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import HeartSVG from "@/assets/svg/heart.svg";
@@ -6,6 +6,7 @@ import CartSVG from "@/assets/svg/shopping-cart.svg";
 import { CircleLoader } from "@/components/circle-loader";
 import { routes } from "@/constants/routes";
 import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useToast } from "@/hooks/useToast";
 import { cartThunks, selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";
@@ -31,14 +32,14 @@ const CatalogCard = memo(
   }: CatalogCardPropsType) => {
     const navigate = useNavigate();
 
+    const toast = useToast();
     const dispatch = useAppDispatch();
     const cart = useAppSelector(selectorCartProducts);
 
     const [isAdding, setIsAdding] = useState(false);
 
-    const isThisProductAlreadyInCart = useMemo(
-      () => !!cart.find((item) => item.productId === id),
-      [cart, id],
+    const isThisProductAlreadyInCart = !!cart.find(
+      (item) => item.productId === id,
     );
 
     const onClickHandler = () => navigate(`${routes.product}/${id}`);
@@ -51,8 +52,16 @@ const CatalogCard = memo(
       }
 
       setIsAdding(true);
-      await dispatch(cartThunks.addCartProduct({ productId: id, amount: 1 }));
-      setIsAdding(false);
+
+      try {
+        await dispatch(
+          cartThunks.addCartProduct({ productId: id, amount: 1 }),
+        ).unwrap();
+      } catch (e) {
+        toast.error("Something went wrong. Please try again later.");
+      } finally {
+        setIsAdding(false);
+      }
     };
 
     return (
@@ -73,7 +82,7 @@ const CatalogCard = memo(
               <>
                 <span>Add to cart</span>
                 {isAdding ? (
-                  <CircleLoader size={16} />
+                  <CircleLoader size={18} />
                 ) : (
                   <HeartSVG width={20} height={20} />
                 )}

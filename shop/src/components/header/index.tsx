@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import BurgerNavSVG from "@/assets/svg/burger-nav.svg";
+import LogoutSVG from "@/assets/svg/logout.svg";
 import { CustomIconButton } from "@/components/custom-icon-button";
 import { CustomSwitch } from "@/components/custom-switch";
 import { CartIcon } from "@/components/header/cart-icon";
 import { Sidebar } from "@/components/header/sidebar";
 import { routes } from "@/constants/routes";
 import { useAppSelector, useChangeTheme } from "@/hooks";
+import { useLogout } from "@/hooks/useLogout";
 import { selectorAppTheme } from "@/store/slices/app";
 
 import S from "./styled";
@@ -16,6 +18,7 @@ export const Header = () => {
   const theme = useAppSelector(selectorAppTheme);
 
   const { changeTheme } = useChangeTheme();
+  const { logout } = useLogout();
 
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isShowDivider, setIsShowDivider] = useState(false);
@@ -93,6 +96,9 @@ export const Header = () => {
               checked={theme !== "light"}
               onCheckedChange={onCheckedChangeHandler}
             />
+            <CustomIconButton onClick={logout}>
+              <LogoutSVG />
+            </CustomIconButton>
             <CartIcon onClick={() => navigateHandler(routes.cart)} />
           </S.Actions>
         </S.HeaderContent>

@@ -26,6 +26,13 @@ declare module "styled-components" {
     desktopContentMarginBottom: string;
     mobileContentMarginTop: string;
     mobileContentMarginBottom: string;
+
+    toastColors: {
+      success: string;
+      info: string;
+      warning: string;
+      error: string;
+    };
   }
 
   export interface DefaultTheme extends CommonThemeInterface {

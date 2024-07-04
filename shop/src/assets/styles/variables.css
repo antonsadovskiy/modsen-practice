@@ -1,9 +1,12 @@
 @import './fonts.css';
 
 :root {
-    --modal-background-z-index: 10;
-    --modal-z-index: 11;
     --header-z-index: 10;
+    --select-options-z-index: 10;
+    --modal-background-z-index: 11;
+    --modal-z-index: 11;
+    --side-bar-z-index: 11;
+    --header-container-z-index: 12;
 
     /*Font family*/
     --font-family-dm-sans: 'DM Sans';

@@ -65,7 +65,7 @@ const MaxWidthContainer = styled.div`
 
   background-color: ${({ theme }) => theme.backgroundColor};
 
-  z-index: 12;
+  z-index: var(--header-container-z-index);
 
   @media screen and (max-width: ${breakpoints.maxPossibleWidth}) {
     max-width: 1100px;
