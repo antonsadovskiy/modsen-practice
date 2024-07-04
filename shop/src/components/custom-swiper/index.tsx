@@ -33,14 +33,14 @@ export const CustomSwiper = ({ items, autoplayTime }: SwiperPropsType) => {
     };
   }, [startTimer]);
 
-  const setCurrentSlideIndexHandler = (index: number) => {
+  const setCurrentSlideIndexHandler = (index: number) => () => {
     setCurrentSlideIndex(index);
     startTimer();
   };
 
   return (
     <S.Wrapper>
-      <S.Container activeIndex={currentSlideIndex}>
+      <S.Container $activeIndex={currentSlideIndex}>
         {items.map((item, index) => (
           <S.Slide key={index}>{item}</S.Slide>
         ))}
@@ -50,7 +50,7 @@ export const CustomSwiper = ({ items, autoplayTime }: SwiperPropsType) => {
           <S.Dot
             $isActive={index === currentSlideIndex}
             key={index}
-            onClick={() => setCurrentSlideIndexHandler(index)}
+            onClick={setCurrentSlideIndexHandler(index)}
           />
         ))}
       </S.Controls>

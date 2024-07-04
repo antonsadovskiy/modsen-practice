@@ -6,8 +6,8 @@ import { CustomButton } from "@/components/custom-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
 import { socialMedias } from "@/constants/socials";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { StarRating } from "@/pages/product/star-rating";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { cartThunks, selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";
@@ -23,7 +23,7 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
   const dispatch = useAppDispatch();
   const cart = useAppSelector(selectorCartProducts);
 
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
 
   const addToCartHandler = useCallback(async () => {
@@ -36,9 +36,9 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
     }
   }, [amount, dispatch, product?.id]);
 
-  const goToCartHandler = useCallback(() => {
+  const goToCartHandler = () => {
     navigate(routes.cart);
-  }, [navigate]);
+  };
 
   const changeAmountHandler = useCallback(
     (newValue: number) => {
@@ -59,7 +59,7 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
       if (elem) {
         return setAmount(elem.amount);
       }
-      setAmount(0);
+      setAmount(1);
     }
   }, [cart, params.id]);
 
@@ -74,18 +74,24 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
       <S.ProductDescription>{product?.description ?? ""}</S.ProductDescription>
       <S.AddToCartContainer>
         <IncreaseAmount
+          min={1}
           startAmount={amount}
           pricePerItem={product?.price}
           disabled={isThisProductAlreadyInCart}
           onChangeValue={changeAmountHandler}
         />
-        <S.ButtonContainer>
+        <S.ButtonContainer data-cy={"product-info-button-container"}>
           {isThisProductAlreadyInCart ? (
-            <CustomButton onClick={goToCartHandler} variant={"secondary"}>
+            <CustomButton
+              data-cy={"go-to-cart-button"}
+              onClick={goToCartHandler}
+              variant={"secondary"}
+            >
               Go to cart
             </CustomButton>
           ) : (
             <CustomButton
+              data-cy={"add-to-cart-button"}
               onClick={addToCartHandler}
               disabled={amount === 0}
               isLoading={isAdding}
@@ -103,7 +109,7 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
             href={item.link}
             key={index}
           >
-            {item.icon}
+            {<item.icon />}
           </S.SocialMediaIconButton>
         ))}
       </S.IconsContainer>

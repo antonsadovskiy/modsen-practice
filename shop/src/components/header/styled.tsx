@@ -34,7 +34,7 @@ const Logo = styled(LogoSVG)`
 const Actions = styled.div`
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: ${({ theme }) => theme.m};
 
   @media screen and (max-width: ${breakpoints.medium}) {
     display: none;
@@ -45,10 +45,12 @@ const ShopLink = styled.div`
   color: ${({ theme }) => theme.mainTextColor};
 `;
 
-const BorderBottomLine = styled.div`
+const BorderBottomLine = styled.div<{ $isShow: boolean }>`
   height: 1px;
   width: 100%;
-  background-color: ${({ theme }) => theme.color.gray};
+  transition: all 0.3s ease;
+  background-color: ${({ theme, $isShow }) =>
+    $isShow ? theme.color.gray : "transparent"};
 `;
 
 const MaxWidthContainer = styled.div`
@@ -63,7 +65,7 @@ const MaxWidthContainer = styled.div`
 
   background-color: ${({ theme }) => theme.backgroundColor};
 
-  z-index: 12;
+  z-index: var(--header-container-z-index);
 
   @media screen and (max-width: ${breakpoints.maxPossibleWidth}) {
     max-width: 1100px;

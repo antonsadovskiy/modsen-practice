@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
 import { CustomIconButton } from "@/components/custom-icon-button";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector } from "@/hooks";
 import { selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";
@@ -24,7 +24,7 @@ export const CartIcon = ({ onClick }: CartIconPropsType) => {
   };
 
   return (
-    <CustomIconButton onClick={goCartPageHandler}>
+    <CustomIconButton data-cy={"cart-link"} onClick={goCartPageHandler}>
       <S.CartIconContainer>
         <ShoppingCardSVG />
         {cartAmount > 0 && <S.CartCount>{cartAmount}</S.CartCount>}

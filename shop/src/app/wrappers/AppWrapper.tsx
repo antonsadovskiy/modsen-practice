@@ -1,7 +1,8 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ReactNode, useCallback, useEffect } from "react";
 
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { appActions } from "@/store/slices/app";
 import { ThemeType } from "@/store/slices/app/types";
 import { cartThunks } from "@/store/slices/cart";

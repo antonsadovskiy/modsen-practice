@@ -1,10 +1,7 @@
-import { useCallback } from "react";
-
 import { CustomSwitch } from "@/components/custom-switch";
 import { navigationOptions } from "@/components/header/config";
-import { useChangeTheme } from "@/hooks/useChangeTheme";
-import { usePreventScroll } from "@/hooks/usePreventScroll";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector, useChangeTheme, usePreventScroll } from "@/hooks";
+import { useLogout } from "@/hooks/useLogout";
 import { selectorAppTheme } from "@/store/slices/app";
 
 import S from "./styled";
@@ -21,24 +18,24 @@ export const Sidebar = ({
 }: SidebarPropsType) => {
   usePreventScroll(isOpenMenu);
   const { changeTheme } = useChangeTheme();
+  const { logout } = useLogout();
 
   const theme = useAppSelector(selectorAppTheme);
 
-  const onCheckedChangeHandler = useCallback(
-    (checked: boolean) => {
-      changeTheme(checked ? "dark" : "light");
-    },
-    [changeTheme],
-  );
+  const onCheckedChangeHandler = (checked: boolean) => {
+    changeTheme(checked ? "dark" : "light");
+  };
+
   return (
     <>
       {isOpenMenu && <S.Background onClick={onClose} />}
       <S.SideBar $isOpen={isOpenMenu}>
-        {navigationOptions.map((option, index) => (
-          <S.NavOption onClick={() => onNavigate(option.link)} key={index}>
-            {option.label}
+        {navigationOptions.map(({ link, label }, index) => (
+          <S.NavOption onClick={() => onNavigate(link)} key={index}>
+            {label}
           </S.NavOption>
         ))}
+        <S.NavOption onClick={logout}>Log out</S.NavOption>
         <CustomSwitch
           checked={theme !== "light"}
           onCheckedChange={onCheckedChangeHandler}

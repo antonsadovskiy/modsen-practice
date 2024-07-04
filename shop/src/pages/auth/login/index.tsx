@@ -1,17 +1,21 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useCallback, useState } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
+import { Navigate, useNavigate } from "react-router-dom";
 
-import { Form } from "@/components/form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { AuthForm } from "@/components/auth-form";
 import { routes } from "@/constants/routes";
-import { useAppDispatch } from "@/store/hooks";
-import { userThunks } from "@/store/slices/user";
-import { loginSchema, LoginType } from "@/types/schemas";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useToast } from "@/hooks/useToast";
+import { selectorIsLoggedIn, userThunks } from "@/store/slices/user";
 
 import S from "../styled";
 
+import { loginSchema, LoginType } from "./schema";
+
 export const LoginPage = () => {
+  const isLoggedIn = useAppSelector(selectorIsLoggedIn);
+
   const methods = useForm<LoginType>({
     resolver: yupResolver(loginSchema),
     defaultValues: {
@@ -19,47 +23,39 @@ export const LoginPage = () => {
       password: "",
     },
   });
+  const toast = useToast();
 
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const submitCallback = async (data: LoginType) => {
+    await dispatch(
+      userThunks.loginUser({
+        email: data.email,
+        password: data.password,
+      }),
+    ).unwrap();
 
-  const onSubmit: SubmitHandler<LoginType> = useCallback(
-    async (data) => {
-      setIsLoading(true);
+    toast.success("Login successful");
+    navigate(routes.home);
+    methods.reset();
+  };
 
-      try {
-        await dispatch(
-          userThunks.loginUser({
-            email: data.email,
-            password: data.password,
-          }),
-        ).unwrap();
-
-        navigate(routes.home);
-        methods.reset();
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [dispatch, navigate, methods],
-  );
+  if (isLoggedIn) {
+    return <Navigate to={routes.home} />;
+  }
 
   return (
     <S.Wrapper>
       <S.Title>Login</S.Title>
       <FormProvider {...methods}>
-        <Form
+        <AuthForm
           formType={"login"}
           submitButtonText={"Login"}
-          isLoading={isLoading}
           link={routes.registration}
           linkText={"You don't have an account yet?"}
-          onSubmit={onSubmit}
+          submitCallback={submitCallback}
         />
       </FormProvider>
     </S.Wrapper>

@@ -137,11 +137,11 @@
 [React router dom](https://reacttraining.com/react-router/web/guides/quick-start)
 
 [Redux Toolkit](https://redux-toolkit.js.org/introduction/getting-started)
-​
+
 [Eslint](https://eslint.org/docs/user-guide/configuring)
-​
+
 [Prettier](https://prettier.io/docs/en/install.html)
-​
+
 [Babel](https://babeljs.io/docs/en/configuration)
 
 [Webpack](https://webpack.js.org/guides/getting-started/)

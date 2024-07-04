@@ -1,12 +1,14 @@
+import { useState } from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+
 import emailjs from "@emailjs/browser";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useCallback, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import { CustomButton } from "@/components/custom-button";
 import { CustomTextarea } from "@/components/custom-textarea";
-import { contactUsSchema, ContactUsType } from "@/types/schemas";
+import { useToast } from "@/hooks/useToast";
 
+import { contactUsSchema, ContactUsType } from "./schema";
 import S from "./styled";
 
 export const ContactUsPage = () => {
@@ -26,29 +28,28 @@ export const ContactUsPage = () => {
     },
   });
 
+  const toast = useToast();
+
   const [isSending, setIsSending] = useState(false);
 
-  const onSubmit: SubmitHandler<ContactUsType> = useCallback(
-    async (data) => {
-      setIsSending(true);
-      try {
-        await emailjs.send(
-          process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
-          process.env.REACT_APP_CONTACT_US_TEMPLATE_ID,
-          {
-            recipient: data.email,
-            ...data,
-          },
-        );
-        reset();
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsSending(false);
-      }
-    },
-    [reset],
-  );
+  const onSubmit: SubmitHandler<ContactUsType> = async (data) => {
+    setIsSending(true);
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
+        process.env.REACT_APP_CONTACT_US_TEMPLATE_ID,
+        {
+          recipient: data.email,
+          ...data,
+        },
+      );
+      reset();
+    } catch (e) {
+      toast.error("Something went wrong. Please try again later.");
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <S.Wrapper>
@@ -59,7 +60,7 @@ export const ContactUsPage = () => {
           your ideas with our Team!
         </S.Subtitle>
       </S.TitleContainer>
-      <S.FormFields onSubmit={handleSubmit(onSubmit)}>
+      <S.FormFields data-cy={"contact-form"} onSubmit={handleSubmit(onSubmit)}>
         <S.Inputs>
           <Controller
             name="firstName"
@@ -67,6 +68,7 @@ export const ContactUsPage = () => {
             rules={{ required: true }}
             render={({ field }) => (
               <S.FormInput
+                data-cy={"first-name-input"}
                 placeholder={"First name"}
                 {...field}
                 error={errors.firstName ? errors.firstName.message : ""}
@@ -79,6 +81,7 @@ export const ContactUsPage = () => {
             rules={{ required: true }}
             render={({ field }) => (
               <S.FormInput
+                data-cy={"last-name-input"}
                 placeholder={"Last name"}
                 {...field}
                 error={errors.lastName ? errors.lastName.message : ""}
@@ -93,6 +96,7 @@ export const ContactUsPage = () => {
             rules={{ required: true }}
             render={({ field }) => (
               <S.FormInput
+                data-cy={"email-input"}
                 placeholder={"Email"}
                 {...field}
                 error={errors.email ? errors.email.message : ""}
@@ -105,6 +109,7 @@ export const ContactUsPage = () => {
             rules={{ required: true }}
             render={({ field }) => (
               <S.FormInput
+                data-cy={"subject-input"}
                 placeholder={"Subject"}
                 {...field}
                 error={errors.subject ? errors.subject.message : ""}
@@ -118,6 +123,7 @@ export const ContactUsPage = () => {
           rules={{ required: true }}
           render={({ field }) => (
             <CustomTextarea
+              data-cy={"message-input"}
               placeholder={"Message"}
               {...field}
               error={errors.message ? errors.message.message : ""}

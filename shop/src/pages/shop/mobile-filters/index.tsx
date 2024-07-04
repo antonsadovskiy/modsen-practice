@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import FiltersSVG from "@/assets/svg/filters.svg";
 import SearchSVG from "@/assets/svg/search.svg";
@@ -8,9 +8,9 @@ import { CustomSelect, OptionType } from "@/components/custom-select";
 import { CustomSlider } from "@/components/custom-slider";
 import { Modal } from "@/components/modal";
 import { sortOptions } from "@/constants/sort";
+import { useAppSelector } from "@/hooks";
 import { usePreventScroll } from "@/hooks/usePreventScroll";
 import { useFilters } from "@/pages/shop/hooks/useFilters";
-import { useAppSelector } from "@/store/hooks";
 import {
   selectorCategoryValue,
   selectorFilterType,
@@ -50,10 +50,6 @@ export const MobileFilters = ({
 
   const [localPrice, setLocalPrice] = useState<number[]>([0, 100]);
 
-  useEffect(() => {
-    setLocalPrice(minAndMaxPrice);
-  }, [minAndMaxPrice]);
-
   const [localCategoryValue, setLocalCategoryValue] = useState<
     OptionType | undefined
   >(categoryValue);
@@ -73,37 +69,28 @@ export const MobileFilters = ({
     setIsOpenModal(false);
   };
 
-  const changeSelectValue = useCallback(
-    (value: OptionType, type: "category" | "sort") => {
-      setLocalFilterType(type);
+  const changeSelectValue = (value: OptionType, type: "category" | "sort") => {
+    setLocalFilterType(type);
 
-      if (type === "category") {
-        setLocalCategoryValue(value);
-        setLocalSortValue(undefined);
-        return;
-      }
+    if (type === "category") {
+      setLocalCategoryValue(value);
+      setLocalSortValue(undefined);
+      return;
+    }
 
-      setLocalCategoryValue(undefined);
-      setLocalSortValue(value);
-    },
-    [],
-  );
+    setLocalCategoryValue(undefined);
+    setLocalSortValue(value);
+  };
 
-  const changePrice = useCallback(
-    (value: number[]) => {
-      setLocalPrice(value);
-    },
-    [setLocalPrice],
-  );
+  const changePrice = (value: number[]) => {
+    setLocalPrice(value);
+  };
 
-  const commitChangePrice = useCallback(
-    (value: number[]) => {
-      setLocalCommittedPrice(value);
-    },
-    [setLocalCommittedPrice],
-  );
+  const commitChangePrice = (value: number[]) => {
+    setLocalCommittedPrice(value);
+  };
 
-  const applyFiltersHandler = useCallback(() => {
+  const applyFiltersHandler = () => {
     applyFilters({
       filterType: localFilterType,
       categoryValue: localCategoryValue,
@@ -111,21 +98,19 @@ export const MobileFilters = ({
       committedPrice: localCommittedPrice,
     });
     setIsOpenModal(false);
-  }, [
-    applyFilters,
-    localCategoryValue,
-    localCommittedPrice,
-    localFilterType,
-    localSortValue,
-  ]);
+  };
 
-  const resetFilters = useCallback(() => {
+  const resetFilters = () => {
     setLocalFilterType(undefined);
     setLocalCommittedPrice(undefined);
     setLocalPrice(price);
     setLocalCategoryValue(undefined);
     setLocalSortValue(undefined);
-  }, [price]);
+  };
+
+  useEffect(() => {
+    setLocalPrice(minAndMaxPrice);
+  }, [minAndMaxPrice]);
 
   return (
     <S.Container>
@@ -150,6 +135,7 @@ export const MobileFilters = ({
       >
         <S.Selects>
           <CustomSelect
+            type={"category"}
             placeholder={"Shop by"}
             selected={localCategoryValue}
             options={categories}
@@ -157,6 +143,7 @@ export const MobileFilters = ({
             onChange={(value) => changeSelectValue(value, "category")}
           />
           <CustomSelect
+            type={"sort"}
             placeholder={"Sort by"}
             selected={localSortValue}
             options={sortOptions}

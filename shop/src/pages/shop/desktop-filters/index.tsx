@@ -4,8 +4,8 @@ import { CustomInput } from "@/components/custom-input";
 import { CustomSelect } from "@/components/custom-select";
 import { CustomSlider } from "@/components/custom-slider";
 import { sortOptions } from "@/constants/sort";
+import { useAppSelector } from "@/hooks";
 import { useFilters } from "@/pages/shop/hooks/useFilters";
-import { useAppSelector } from "@/store/hooks";
 import {
   selectorCategoryValue,
   selectorMinAndMaxPrice,
@@ -42,6 +42,7 @@ export const DesktopFilters = ({
   return (
     <S.Container>
       <CustomInput
+        data-cy={"search-input"}
         type={"text"}
         placeholder={"Search..."}
         value={searchValue}
@@ -50,6 +51,7 @@ export const DesktopFilters = ({
       />
       <S.Selects>
         <CustomSelect
+          type={"category"}
           placeholder={"Shop by"}
           selected={categoryValue}
           options={categories}
@@ -57,6 +59,7 @@ export const DesktopFilters = ({
           onChange={(value) => changeSelectValue(value, "category")}
         />
         <CustomSelect
+          type={"sort"}
           placeholder={"Sort by"}
           selected={sortValue}
           options={sortOptions}

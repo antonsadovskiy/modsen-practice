@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import MinusSVG from "@/assets/svg/minus.svg";
 import PlusSVG from "@/assets/svg/plus.svg";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useDebounce } from "@/hooks";
 
 import S from "./styled";
 
@@ -12,6 +12,7 @@ type IncreaseAmountPropsType = {
   onChangeDebouncedValue?: (debouncedValue: number) => void;
   onChangeValue?: (value: number) => void;
   disabled?: boolean;
+  min?: number;
 };
 
 export const IncreaseAmount = ({
@@ -20,6 +21,7 @@ export const IncreaseAmount = ({
   pricePerItem,
   onChangeDebouncedValue,
   onChangeValue,
+  min = 0,
 }: IncreaseAmountPropsType) => {
   const [value, setValue] = useState(startAmount);
 
@@ -54,13 +56,18 @@ export const IncreaseAmount = ({
     <S.PriceContainer $disabled={disabled}>
       <S.AmountContainer>
         <S.IncreaseAmountButton
-          $disabled={value === 0 || disabled}
+          data-cy={"decrease-amount-button"}
+          $disabled={value === min || disabled}
           onClick={decreaseHandler}
         >
           <MinusSVG />
         </S.IncreaseAmountButton>
         <S.Amount>{value}</S.Amount>
-        <S.IncreaseAmountButton $disabled={disabled} onClick={increaseHandler}>
+        <S.IncreaseAmountButton
+          data-cy={"increase-amount-button"}
+          $disabled={disabled}
+          onClick={increaseHandler}
+        >
           <PlusSVG />
         </S.IncreaseAmountButton>
       </S.AmountContainer>

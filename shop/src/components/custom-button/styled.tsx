@@ -16,7 +16,7 @@ const Button = styled.button<{
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.xxs};
   box-shadow: ${({ theme, $variant }) => {
     if ($variant === "primary") {
       return "transparent";
@@ -40,7 +40,21 @@ const Button = styled.button<{
 
   transition: all 0.3s ease;
 
+  --loader-color: ${({ theme, $variant }) => {
+    if ($variant === "primary") {
+      return theme.color.white;
+    }
+    return theme.color.black;
+  }};
+
   &:hover {
+    --loader-color: ${({ theme, $variant }) => {
+      if ($variant === "primary") {
+        return theme.color.black;
+      }
+      return theme.color.white;
+    }};
+
     background-color: ${({ theme, $variant }) => {
       if ($variant === "primary") {
         return theme.color.white;

@@ -36,7 +36,7 @@ export const Modal = ({
 
   return (
     isOpen && (
-      <>
+      <div data-cy={"modal"}>
         <S.Background onClick={onCloseHandler} />
         <S.ModalWrapper>
           <S.Modal>
@@ -52,6 +52,7 @@ export const Modal = ({
             {bottomText && <S.AdditionalText>{bottomText}</S.AdditionalText>}
             <S.ButtonContainer>
               <CustomButton
+                data-cy={"modal-confirm-button"}
                 isLoading={isLoading}
                 disabled={isConfirmButtonDisabled}
                 fullWidth
@@ -62,7 +63,7 @@ export const Modal = ({
             </S.ButtonContainer>
           </S.Modal>
         </S.ModalWrapper>
-      </>
+      </div>
     )
   );
 };

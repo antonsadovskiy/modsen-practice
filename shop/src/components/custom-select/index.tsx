@@ -1,8 +1,8 @@
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import Arrow from "@/assets/svg/arrow.svg";
 import { CustomOption } from "@/components/custom-select/custom-option";
-import { useOutsideClick } from "@/hooks/useClickOutside";
+import { useOutsideClick } from "@/hooks";
 
 import S from "./styled";
 
@@ -17,6 +17,7 @@ type CustomSelectPropsType = {
   placeholder?: string;
   onChange?: (selected: OptionType) => void;
   disabled?: boolean;
+  type: "category" | "sort";
 };
 
 export const CustomSelect = ({
@@ -25,6 +26,7 @@ export const CustomSelect = ({
   onChange,
   placeholder,
   disabled = false,
+  type,
 }: CustomSelectPropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -34,25 +36,25 @@ export const CustomSelect = ({
     setIsOpen(false);
   }, isOpen);
 
-  const handleOptionClick = useCallback(
-    (value: OptionType) => {
-      setIsOpen(false);
-      onChange?.(value);
-    },
-    [onChange],
-  );
+  const handleOptionClick = (value: OptionType) => {
+    setIsOpen(false);
+    onChange?.(value);
+  };
 
-  const handlePlaceHolderClick = useCallback(() => {
+  const handlePlaceHolderClick = () => {
     setIsOpen((prev) => !prev);
-  }, []);
+  };
 
   return (
-    <S.Wrapper ref={ref} $disabled={disabled}>
-      <S.Placeholder onClick={handlePlaceHolderClick}>
+    <S.Wrapper ref={ref} $disabled={disabled} data-cy={`${type}-select`}>
+      <S.Placeholder
+        onClick={handlePlaceHolderClick}
+        data-cy={`${type}-select-placeholder`}
+      >
         {selected?.title ?? placeholder}
-        <div className={`${isOpen ? "arrow rotate" : "arrow"}`}>
+        <S.ArrowContainer $isRotated={isOpen}>
           <Arrow />
-        </div>
+        </S.ArrowContainer>
       </S.Placeholder>
       {isOpen && (
         <S.Select ref={selectOptionsRef}>
@@ -61,6 +63,7 @@ export const CustomSelect = ({
               key={option.value}
               option={option}
               onClick={handleOptionClick}
+              type={type}
             />
           ))}
         </S.Select>

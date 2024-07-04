@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-
 import { OptionType } from "@/components/custom-select";
 
 import S from "./styled";
@@ -7,15 +5,24 @@ import S from "./styled";
 type CustomOptionPropsType = {
   option: OptionType;
   onClick: (value: OptionType) => void;
+  type: "category" | "sort";
 };
 
-export const CustomOption = ({ option, onClick }: CustomOptionPropsType) => {
-  const onChangeValueHandler = useCallback(() => {
+export const CustomOption = ({
+  option,
+  onClick,
+  type,
+}: CustomOptionPropsType) => {
+  const onChangeValueHandler = () => {
     onClick(option);
-  }, [onClick, option]);
+  };
 
   return (
-    <S.Wrapper value={option.value} onClick={onChangeValueHandler}>
+    <S.Wrapper
+      value={option.value}
+      onClick={onChangeValueHandler}
+      data-cy={`${type}-option`}
+    >
       {option.title}
     </S.Wrapper>
   );
