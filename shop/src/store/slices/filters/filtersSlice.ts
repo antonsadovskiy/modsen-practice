@@ -1,9 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { OptionType } from "@/components/custom-select";
-import { FilterType, InitialStateType } from "@/store/slices/filters/types";
+import {
+  ApplyFiltersPayloadType,
+  FiltersSliceInitialStateType,
+  FilterType,
+} from "@/store/slices/filters/types";
 
-const initialState: InitialStateType = {
+const initialState: FiltersSliceInitialStateType = {
   searchValue: "",
   sortValue: undefined,
   categoryValue: undefined,
@@ -17,15 +21,7 @@ const slice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    applyFilters: (
-      state,
-      action: PayloadAction<{
-        sortValue?: OptionType;
-        categoryValue?: OptionType;
-        filterType?: FilterType;
-        committedPrice?: number[];
-      }>,
-    ) => {
+    applyFilters: (state, action: PayloadAction<ApplyFiltersPayloadType>) => {
       state.sortValue = action.payload.sortValue;
       state.categoryValue = action.payload.categoryValue;
       state.filterType = action.payload.filterType;

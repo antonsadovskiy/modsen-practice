@@ -39,3 +39,7 @@ export type GetCartResponseType = {
 export type GetCartRequestType = {
   userId: string;
 };
+
+export type CartSliceInitialStateType = {
+  cartProducts: CartProductType[];
+};

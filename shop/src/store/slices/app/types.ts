@@ -7,3 +7,9 @@ export type ToastType = {
   type: ToastStatusType;
   message: string;
 };
+
+export type AppSliceInitialStateType = {
+  theme: ThemeType;
+  isAppInitialized: boolean;
+  toasts: ToastType[];
+};
