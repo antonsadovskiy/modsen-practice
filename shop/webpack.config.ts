@@ -1,9 +1,10 @@
+import ReactRefreshTypeScript from "react-refresh-typescript";
+
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import Dotenv from "dotenv-webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
-import ReactRefreshTypeScript from "react-refresh-typescript";
 import webpack from "webpack";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";

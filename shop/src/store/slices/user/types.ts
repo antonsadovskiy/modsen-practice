@@ -12,3 +12,8 @@ export type UserType = {
   email: string;
   id: string;
 };
+
+export type UserSliceInitialStateType = {
+  isLoggedIn: boolean;
+  user: Partial<UserType>;
+};

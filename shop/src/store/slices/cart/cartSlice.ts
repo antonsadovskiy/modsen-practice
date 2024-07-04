@@ -16,7 +16,7 @@ import { createAppAsyncThunk } from "@/utils/createAppAsyncThunk";
 import {
   AddCartProductRequestType,
   AddCartProductResponseType,
-  CartProductType,
+  CartSliceInitialStateType,
   DeleteCartProductRequestType,
   DeleteCartProductResponseType,
   GetCartRequestType,
@@ -25,11 +25,7 @@ import {
   UpdateCartProductResponseType,
 } from "./types";
 
-type InitialStateType = {
-  cartProducts: CartProductType[];
-};
-
-const initialState: InitialStateType = {
+const initialState: CartSliceInitialStateType = {
   cartProducts: [],
 };
 

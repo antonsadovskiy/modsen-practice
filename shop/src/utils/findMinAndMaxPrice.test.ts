@@ -3,7 +3,7 @@ import { describe, expect } from "@jest/globals";
 import { ProductType } from "@/api/types";
 import { findMinAndMaxPrice } from "@/utils/findMinAndMaxPrice";
 
-describe("test func", () => {
+describe("utils", () => {
   test("should find min and max values in array", () => {
     const data: ProductType[] = [
       {
