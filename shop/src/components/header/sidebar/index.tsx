@@ -30,9 +30,9 @@ export const Sidebar = ({
     <>
       {isOpenMenu && <S.Background onClick={onClose} />}
       <S.SideBar $isOpen={isOpenMenu}>
-        {navigationOptions.map((option, index) => (
-          <S.NavOption onClick={() => onNavigate(option.link)} key={index}>
-            {option.label}
+        {navigationOptions.map(({ link, label }, index) => (
+          <S.NavOption onClick={() => onNavigate(link)} key={index}>
+            {label}
           </S.NavOption>
         ))}
         <S.NavOption onClick={logout}>Log out</S.NavOption>

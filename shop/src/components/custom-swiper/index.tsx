@@ -33,7 +33,7 @@ export const CustomSwiper = ({ items, autoplayTime }: SwiperPropsType) => {
     };
   }, [startTimer]);
 
-  const setCurrentSlideIndexHandler = (index: number) => {
+  const setCurrentSlideIndexHandler = (index: number) => () => {
     setCurrentSlideIndex(index);
     startTimer();
   };
@@ -50,7 +50,7 @@ export const CustomSwiper = ({ items, autoplayTime }: SwiperPropsType) => {
           <S.Dot
             $isActive={index === currentSlideIndex}
             key={index}
-            onClick={() => setCurrentSlideIndexHandler(index)}
+            onClick={setCurrentSlideIndexHandler(index)}
           />
         ))}
       </S.Controls>
