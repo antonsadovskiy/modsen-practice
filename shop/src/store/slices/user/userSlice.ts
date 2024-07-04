@@ -8,14 +8,14 @@ import {
 
 import { createAppAsyncThunk } from "@/utils/createAppAsyncThunk";
 
-import { AuthUserRequestType, LoginUserResponseType, UserType } from "./types";
+import {
+  AuthUserRequestType,
+  LoginUserResponseType,
+  UserSliceInitialStateType,
+  UserType,
+} from "./types";
 
-type InitialStateType = {
-  isLoggedIn: boolean;
-  user: Partial<UserType>;
-};
-
-const initialState: InitialStateType = {
+const initialState: UserSliceInitialStateType = {
   isLoggedIn: false,
   user: {
     id: undefined,
