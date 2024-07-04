@@ -6,7 +6,8 @@ import {
   selectorAppTheme,
   selectorIsAppInitialized,
 } from "@/store/slices/app";
-import { AppSliceInitialStateType } from "@/store/slices/app/types";
+import { selectorAppToasts } from "@/store/slices/app/appSlice";
+import { AppSliceInitialStateType, ToastType } from "@/store/slices/app/types";
 
 let state: AppSliceInitialStateType;
 
@@ -15,6 +16,7 @@ describe("app slice", () => {
     state = {
       theme: "light",
       isAppInitialized: false,
+      toasts: [{ id: "1", type: "warning", message: "test message" }],
     };
   });
 
@@ -25,6 +27,35 @@ describe("app slice", () => {
       ...state,
       isAppInitialized: true,
     });
+  });
+
+  test("should add toast", () => {
+    const newToast: ToastType = {
+      id: "test id",
+      type: "success",
+      message: "test message",
+    };
+    const updatedState = appReducer(state, appActions.addToast(newToast));
+
+    expect(updatedState).toEqual({
+      ...state,
+      toasts: [newToast, ...state.toasts],
+    });
+  });
+
+  test("should delete toast", () => {
+    const toastId = "2";
+
+    const updatedState = appReducer(
+      state,
+      appActions.deleteToast({ id: toastId }),
+    );
+
+    const toasts = updatedState.toasts;
+
+    const toastExists = toasts.some((toast) => toast.id === toastId);
+
+    expect(toastExists).toBe(false);
   });
 
   test("should change theme", () => {
@@ -49,5 +80,12 @@ describe("app slice", () => {
     const selectedTheme = selectorAppTheme({ app: state });
 
     expect(selectedTheme).toEqual(state.theme);
+  });
+
+  test("should select toast", () => {
+    const selectedToasts = selectorAppToasts({ app: state });
+
+    expect(selectedToasts).toEqual(expect.any(Array));
+    expect(selectedToasts).toHaveLength(1);
   });
 });

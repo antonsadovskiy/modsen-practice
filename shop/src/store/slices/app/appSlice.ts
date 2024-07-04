@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { AppSliceInitialStateType, ThemeType } from "./types";
+import { AppSliceInitialStateType, ThemeType, ToastType } from "./types";
 
 const initialState: AppSliceInitialStateType = {
   theme: "light",

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, test } from "@jest/globals";
 
 import { OptionType } from "@/components/custom-select";
 import {
@@ -33,7 +33,7 @@ describe("filters slice", () => {
     };
   });
 
-  it("should apply filters", () => {
+  test("should apply filters", () => {
     const newValues: ApplyFiltersPayloadType = {
       categoryValue: { value: "test", title: "test" },
       committedPrice: [54, 65],
@@ -55,7 +55,7 @@ describe("filters slice", () => {
     });
   });
 
-  it("should clear filters", () => {
+  test("should clear filters", () => {
     const updatedState = filtersReducer(state, filtersActions.clearFilters());
 
     expect(updatedState).toEqual({
@@ -69,7 +69,7 @@ describe("filters slice", () => {
     });
   });
 
-  it("should set search value", () => {
+  test("should set search value", () => {
     const newSearchValue = "test";
 
     const updatedState = filtersReducer(
@@ -83,7 +83,7 @@ describe("filters slice", () => {
     });
   });
 
-  it("should set sort value", () => {
+  test("should set sort value", () => {
     const newSortValue: OptionType | undefined = {
       value: "test",
       title: "test",
@@ -100,7 +100,7 @@ describe("filters slice", () => {
     });
   });
 
-  it("should set category value", () => {
+  test("should set category value", () => {
     const newCategoryValue: OptionType | undefined = {
       value: "test",
       title: "test",
@@ -117,7 +117,7 @@ describe("filters slice", () => {
     });
   });
 
-  it("should set filter type", () => {
+  test("should set filter type", () => {
     const newFilterType: FilterType | undefined = "sort";
 
     const updatedState = filtersReducer(
@@ -131,7 +131,7 @@ describe("filters slice", () => {
     });
   });
 
-  it("should set price", () => {
+  test("should set price", () => {
     const newPrice: number[] = [35, 75];
 
     const updatedState = filtersReducer(
@@ -145,7 +145,7 @@ describe("filters slice", () => {
     });
   });
 
-  it("should set committed price", () => {
+  test("should set committed price", () => {
     const newCommittedPrice: number[] = [70, 75];
 
     const updatedState = filtersReducer(
@@ -159,7 +159,7 @@ describe("filters slice", () => {
     });
   });
 
-  it("should set min and max price", () => {
+  test("should set min and max price", () => {
     const newMinAndMaxPrice: number[] = [23, 75];
 
     const updatedState = filtersReducer(
@@ -173,43 +173,43 @@ describe("filters slice", () => {
     });
   });
 
-  it("should select search value", () => {
+  test("should select search value", () => {
     const searchValue = selectorSearchValue({ filters: state });
 
     expect(searchValue).toBe(state.searchValue);
   });
 
-  it("should select search value", () => {
+  test("should select search value", () => {
     const sortValue = selectorSortValue({ filters: state });
 
     expect(sortValue).toBe(state.sortValue);
   });
 
-  it("should select category value", () => {
+  test("should select category value", () => {
     const categoryValue = selectorCategoryValue({ filters: state });
 
     expect(categoryValue).toBe(state.categoryValue);
   });
 
-  it("should select filter type", () => {
+  test("should select filter type", () => {
     const filterType = selectorFilterType({ filters: state });
 
     expect(filterType).toBe(state.filterType);
   });
 
-  it("should select price", () => {
+  test("should select price", () => {
     const price = selectorPrice({ filters: state });
 
     expect(price).toBe(state.price);
   });
 
-  it("should select committed price", () => {
+  test("should select committed price", () => {
     const committedPrice = selectorCommittedPrice({ filters: state });
 
     expect(committedPrice).toBe(state.committedPrice);
   });
 
-  it("should select min and max price", () => {
+  test("should select min and max price", () => {
     const minAndMaxPrice = selectorMinAndMaxPrice({ filters: state });
 
     expect(minAndMaxPrice).toBe(state.minAndMaxPrice);

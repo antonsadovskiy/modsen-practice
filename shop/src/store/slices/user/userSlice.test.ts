@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, test } from "@jest/globals";
 
 import { UserSliceInitialStateType, UserType } from "@/store/slices/user/types";
 import {
@@ -21,7 +21,7 @@ describe("user slice", () => {
     };
   });
 
-  it("should set user", () => {
+  test("should set user", () => {
     const user: UserType = {
       email: "test email",
       id: "test id",
@@ -32,13 +32,13 @@ describe("user slice", () => {
     expect(updatedState.user).toEqual(user);
   });
 
-  it("should select user id", () => {
+  test("should select user id", () => {
     const userId = selectorUserId({ user: state });
 
     expect(userId).toEqual(state.user.id);
   });
 
-  it("should select is logged in", () => {
+  test("should select is logged in", () => {
     const isLoggedIn = selectorIsLoggedIn({ user: state });
 
     expect(isLoggedIn).toBeFalsy();
