@@ -2,8 +2,7 @@ import { useMemo } from "react";
 
 import ShoppingCardSVG from "@/assets/svg/shopping-cart.svg";
 import { CustomIconButton } from "@/components/custom-icon-button";
-import { useAppSelector } from "@/hooks";
-import { selectorCartProducts } from "@/store/slices/cart";
+import { useCart } from "@/hooks/useCart";
 
 import S from "./styled";
 
@@ -12,11 +11,11 @@ type CartIconPropsType = {
 };
 
 export const CartIcon = ({ onClick }: CartIconPropsType) => {
-  const cart = useAppSelector(selectorCartProducts);
+  const { cartData } = useCart();
 
   const cartAmount = useMemo(
-    () => cart.reduce((acc, item) => acc + item.amount, 0),
-    [cart],
+    () => cartData.data.reduce((acc, item) => acc + item.amount, 0),
+    [cartData],
   );
 
   const goCartPageHandler = () => {

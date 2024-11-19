@@ -1,16 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
 
+import { Auth } from "@/entities/api/auth";
 import { createAppAsyncThunk } from "@/utils/createAppAsyncThunk";
+import { defineIsAdmin } from "@/utils/defineIsAdmin";
 
 import {
   AuthUserRequestType,
-  LoginUserResponseType,
   UserSliceInitialStateType,
   UserType,
 } from "./types";
@@ -21,6 +16,7 @@ const initialState: UserSliceInitialStateType = {
     id: undefined,
     email: undefined,
   },
+  isAdmin: false,
 };
 
 const slice = createSlice({
@@ -35,16 +31,15 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
+        state.user.email = action.payload.login;
+        state.isAdmin = action.payload.isAdmin;
+      })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoggedIn = true;
-        state.user = action.payload;
-      })
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.isLoggedIn = false;
-        state.user = {
-          id: undefined,
-          email: undefined,
-        };
+        state.user.email = action.payload.login;
+        state.isAdmin = action.payload.isAdmin;
       });
   },
   selectors: {
@@ -53,56 +48,47 @@ const slice = createSlice({
   },
 });
 
-const registerUser = createAppAsyncThunk<void, AuthUserRequestType>(
-  "user/register",
-  async (arg, thunkAPI) => {
-    const { password, email } = arg;
-    const { rejectWithValue } = thunkAPI;
-
-    const auth = getAuth();
-
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (e) {
-      return rejectWithValue(null);
-    }
-  },
-);
-
-const loginUser = createAppAsyncThunk<
-  LoginUserResponseType,
+const registerUser = createAppAsyncThunk<
+  { login: string; isAdmin: boolean },
   AuthUserRequestType
->("user/login", async (arg, thunkAPI) => {
+>("user/register", async (arg, thunkAPI) => {
   const { password, email } = arg;
   const { rejectWithValue } = thunkAPI;
 
-  const auth = getAuth();
-
   try {
-    const userData = await signInWithEmailAndPassword(auth, email, password);
+    const registerData = await Auth.register({ login: email, password });
 
-    return { id: userData.user.uid, email: userData.user.email };
+    const isAdmin = defineIsAdmin(registerData.data.accessToken);
+
+    const data = await Auth.me();
+
+    return { login: data.data.login, isAdmin };
   } catch (e) {
     return rejectWithValue(null);
   }
 });
 
-const logoutUser = createAppAsyncThunk<void, void>(
-  "user/logout",
-  async (arg, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+const loginUser = createAppAsyncThunk<
+  { login: string; isAdmin: boolean },
+  AuthUserRequestType
+>("user/login", async (arg, thunkAPI) => {
+  const { password, email } = arg;
+  const { rejectWithValue } = thunkAPI;
 
-    const auth = getAuth();
+  try {
+    const loginData = await Auth.login({ login: email, password });
 
-    try {
-      await signOut(auth);
-    } catch (e) {
-      return rejectWithValue(null);
-    }
-  },
-);
+    const isAdmin = defineIsAdmin(loginData.data.accessToken);
+
+    const data = await Auth.me();
+
+    return { login: data.data.login, isAdmin };
+  } catch (e) {
+    return rejectWithValue(null);
+  }
+});
 
 export const userReducer = slice.reducer;
 export const userActions = slice.actions;
-export const userThunks = { registerUser, loginUser, logoutUser };
+export const userThunks = { registerUser, loginUser };
 export const { selectorUserId, selectorIsLoggedIn } = slice.selectors;

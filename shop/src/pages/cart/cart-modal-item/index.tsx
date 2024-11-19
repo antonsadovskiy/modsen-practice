@@ -16,7 +16,7 @@ export const CartModalItem = ({
   totalAmount,
 }: CartModalItemPropsType) => (
   <S.Wrapper>
-    <S.Image src={image} alt={title} />
+    <S.Image src={`http://localhost:9000/products/${image}`} alt={title} />
     <S.Info>
       <S.Title>{title}</S.Title>
       <S.Description>{description}</S.Description>

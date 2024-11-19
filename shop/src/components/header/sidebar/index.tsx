@@ -1,7 +1,6 @@
 import { CustomSwitch } from "@/components/custom-switch";
 import { navigationOptions } from "@/components/header/config";
 import { useAppSelector, useChangeTheme, usePreventScroll } from "@/hooks";
-import { useLogout } from "@/hooks/useLogout";
 import { selectorAppTheme } from "@/store/slices/app";
 
 import S from "./styled";
@@ -18,7 +17,6 @@ export const Sidebar = ({
 }: SidebarPropsType) => {
   usePreventScroll(isOpenMenu);
   const { changeTheme } = useChangeTheme();
-  const { logout } = useLogout();
 
   const theme = useAppSelector(selectorAppTheme);
 
@@ -35,7 +33,6 @@ export const Sidebar = ({
             {label}
           </S.NavOption>
         ))}
-        <S.NavOption onClick={logout}>Log out</S.NavOption>
         <CustomSwitch
           checked={theme !== "light"}
           onCheckedChange={onCheckedChangeHandler}

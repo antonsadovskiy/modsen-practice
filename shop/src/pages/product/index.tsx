@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 
-import { useGetProductByIdQuery, useGetProductsByCategoryQuery } from "@/api";
+import { useGetProductsQuery } from "@/api";
+import { ProductType } from "@/api/types";
 import { Skeleton } from "@/components/skeleton";
 import { DesktopDescription } from "@/pages/product/desktop-description";
 import { Images } from "@/pages/product/images";
@@ -14,23 +15,36 @@ import S from "./styled";
 export const ProductPage = () => {
   const params = useParams<{ id: string }>();
 
-  const { data: product, isFetching: isLoadingProduct } =
-    useGetProductByIdQuery(params.id);
-
-  const { data: similarItems, isFetching: isLoadingSimilarItems } =
-    useGetProductsByCategoryQuery(product?.category, {
-      selectFromResult: ({ data, ...rest }) => ({
-        data: data ?? [],
+  const { data: products, isFetching: isLoadingProduct } = useGetProductsQuery(
+    undefined,
+    {
+      selectFromResult: ({
+        data,
+        ...rest
+      }: {
+        data?: { data: ProductType[]; meta: string | null };
+        isFetching: boolean;
+      }) => ({
+        data: data ?? { data: [], meta: null },
         ...rest,
       }),
-    });
+    },
+  );
+
+  const product = products.data?.find(
+    (item) => item.id === parseInt(params.id),
+  );
 
   const filteredSimilarItems = useMemo(
     () =>
-      similarItems
-        .filter((item) => item.id !== parseInt(params.id))
-        .splice(0, 3),
-    [params, similarItems],
+      products.data
+        ?.filter(
+          (item) =>
+            item?.category?.id === product?.category?.id &&
+            item?.id !== product?.id,
+        )
+        .slice(0, 3),
+    [products.data, product?.category?.id, product?.id],
   );
 
   return (
@@ -53,10 +67,7 @@ export const ProductPage = () => {
         description={product?.description}
         isLoading={isLoadingProduct}
       />
-      <SimilarItems
-        items={filteredSimilarItems}
-        isLoading={isLoadingSimilarItems}
-      />
+      <SimilarItems items={filteredSimilarItems} />
     </S.Wrapper>
   );
 };

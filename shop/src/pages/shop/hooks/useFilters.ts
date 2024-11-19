@@ -21,10 +21,8 @@ export const useFilters = () => {
 
       if (type === "category") {
         dispatch(filtersActions.setCategoryValue(value));
-        dispatch(filtersActions.setSortValue(undefined));
         return;
       }
-      dispatch(filtersActions.setCategoryValue(undefined));
       dispatch(filtersActions.setSortValue(value));
     },
     [dispatch],

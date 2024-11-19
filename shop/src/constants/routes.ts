@@ -8,4 +8,9 @@ export const routes = {
   product: "/product",
   cart: "/cart",
   contact: "/contact",
+  admin: "/admin",
+  productsActions: "/admin/products-actions",
+  addNewProduct: "/admin/products-actions/add-new-product",
+  categoriesActions: "/admin/categories-actions",
+  addNewCategory: "/admin/categories-actions/add-new-category",
 };

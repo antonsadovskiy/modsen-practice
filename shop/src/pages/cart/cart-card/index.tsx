@@ -1,19 +1,21 @@
 import { memo, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import {
+  useDeleteProductFromCartMutation,
+  useUpdateProductInCartMutation,
+} from "@/api";
 import DeleteSVG from "@/assets/svg/bucket.svg";
 import { CircleLoader } from "@/components/circle-loader";
 import { CustomIconButton } from "@/components/custom-icon-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
-import { useAppDispatch } from "@/hooks";
 import { useToast } from "@/hooks/useToast";
-import { cartThunks } from "@/store/slices/cart";
 
 import S from "./styled";
 
 export type CartCardPropsType = {
-  docId: string;
+  productInCartId: number;
   id: number;
   imageSrc?: string;
   title: string;
@@ -26,7 +28,7 @@ export type CartCardPropsType = {
 
 const CartCard = memo(
   ({
-    docId,
+    productInCartId,
     id,
     imageSrc,
     height = "380",
@@ -36,29 +38,24 @@ const CartCard = memo(
     title,
     amountItemsInCart,
   }: CartCardPropsType) => {
-    const dispatch = useAppDispatch();
-
     const toast = useToast();
 
     const [isDeleting, setIsDeleting] = useState(false);
 
+    const [updateProduct] = useUpdateProductInCartMutation();
+    const [deleteProduct] = useDeleteProductFromCartMutation();
+
     const updateCartProduct = useCallback(
-      (newValue: number) => {
+      async (newValue: number) => {
         try {
-          dispatch(
-            cartThunks.updateCartProduct({
-              productId: id,
-              docId,
-              amount: newValue,
-            }),
-          );
+          await updateProduct({ productInCartId, amount: newValue });
         } catch (e) {
           toast.error(
             "Failed to update product quantity, please try again later",
           );
         }
       },
-      [dispatch, id, docId, toast],
+      [productInCartId, updateProduct],
     );
 
     const navigate = useNavigate();
@@ -71,9 +68,7 @@ const CartCard = memo(
       setIsDeleting(true);
 
       try {
-        await dispatch(
-          cartThunks.deleteCartProduct({ productId: id, docId }),
-        ).unwrap();
+        await deleteProduct(productInCartId).unwrap();
       } catch (e) {
         toast.error(
           "Failed to delete product from cart, please try again later",
@@ -90,7 +85,12 @@ const CartCard = memo(
             data-cy={"cart-card-image"}
             onClick={onClickHandler}
           >
-            <img src={imageSrc} alt={title} height={height} width={width} />
+            <img
+              src={`http://localhost:9000/products/${imageSrc}`}
+              alt={title}
+              height={height}
+              width={width}
+            />
           </S.ImagesContainer>
           <S.TitleAndDescription>
             <S.TitleAndDelete>

@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client";
 import { router } from "@/app/router";
 import { AppWrapper } from "@/app/wrappers/AppWrapper";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { Api } from "@/entities/api";
 import { store } from "@/store";
 
 import "./index.css";
@@ -21,6 +22,8 @@ declare global {
     Cypress?: CypressWithStore;
   }
 }
+
+Api.setupInterceptors();
 
 root.render(
   <ErrorBoundary>

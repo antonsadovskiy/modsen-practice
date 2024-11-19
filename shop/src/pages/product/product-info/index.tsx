@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { useAddProductInCartMutation } from "@/api";
 import { ProductType } from "@/api/types";
 import { CustomButton } from "@/components/custom-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
 import { socialMedias } from "@/constants/socials";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { StarRating } from "@/pages/product/star-rating";
-import { cartThunks, selectorCartProducts } from "@/store/slices/cart";
+import { useCart } from "@/hooks/useCart";
 
 import S from "./styled";
 
@@ -20,21 +19,20 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const dispatch = useAppDispatch();
-  const cart = useAppSelector(selectorCartProducts);
-
   const [amount, setAmount] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
+
+  const [addToCart] = useAddProductInCartMutation();
+
+  const { cartData } = useCart();
 
   const addToCartHandler = useCallback(async () => {
     if (product.id) {
       setIsAdding(true);
-      await dispatch(
-        cartThunks.addCartProduct({ productId: product.id, amount }),
-      );
+      await addToCart({ productId: product.id, amount }).unwrap();
       setIsAdding(false);
     }
-  }, [amount, dispatch, product?.id]);
+  }, [addToCart, amount, product?.id]);
 
   const goToCartHandler = () => {
     navigate(routes.cart);
@@ -48,29 +46,28 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
   );
 
   const isThisProductAlreadyInCart = useMemo(
-    () => !!cart.find((item) => item.productId === parseInt(params.id)),
-    [cart, params],
+    () =>
+      !!cartData.data.find((item) => item.product.id === parseInt(params.id)),
+    [cartData, params],
   );
 
   useEffect(() => {
     if (params.id) {
-      const elem = cart.find((item) => item.productId === parseInt(params.id));
+      const elem = cartData.data.find(
+        (item) => item.product.id === parseInt(params.id),
+      );
 
       if (elem) {
         return setAmount(elem.amount);
       }
       setAmount(1);
     }
-  }, [cart, params.id]);
+  }, [cartData, params.id]);
 
   return (
     <S.Information>
       <S.ProductTitle>{product?.title ?? ""}</S.ProductTitle>
       <S.ProductPrice>$ {product?.price ?? ""}</S.ProductPrice>
-      <S.RatingContainer>
-        <StarRating value={product?.rating?.rate ?? 0} />
-        {product?.rating?.count ?? 0} customer review
-      </S.RatingContainer>
       <S.ProductDescription>{product?.description ?? ""}</S.ProductDescription>
       <S.AddToCartContainer>
         <IncreaseAmount
@@ -115,7 +112,7 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
       </S.IconsContainer>
       <S.CategoryContainer>
         <S.CategoryTitle>Categories:</S.CategoryTitle>
-        <S.Category>{product?.category}</S.Category>
+        <S.Category>{product?.category.name}</S.Category>
       </S.CategoryContainer>
     </S.Information>
   );

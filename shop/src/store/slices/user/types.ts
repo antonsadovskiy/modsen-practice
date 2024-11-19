@@ -16,4 +16,5 @@ export type UserType = {
 export type UserSliceInitialStateType = {
   isLoggedIn: boolean;
   user: Partial<UserType>;
+  isAdmin: boolean;
 };

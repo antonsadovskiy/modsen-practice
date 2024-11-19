@@ -1,24 +1,21 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useGetProductsQuery } from "@/api";
+import { useBuyMutation } from "@/api";
 import { CustomButton } from "@/components/custom-button";
 import { Modal } from "@/components/modal";
 import { Skeleton } from "@/components/skeleton";
 import { routes } from "@/constants/routes";
-import { useAppDispatch, useAppSelector, usePreventScroll } from "@/hooks";
+import { usePreventScroll } from "@/hooks";
+import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/useToast";
 import { CartCard } from "@/pages/cart/cart-card";
 import { CartModalItem } from "@/pages/cart/cart-modal-item";
-import { cartThunks, selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";
 
 export const CartPage = () => {
   const navigate = useNavigate();
-
-  const cart = useAppSelector(selectorCartProducts);
-  const dispatch = useAppDispatch();
 
   const toast = useToast();
 
@@ -27,39 +24,16 @@ export const CartPage = () => {
 
   usePreventScroll(isOpenModal);
 
-  const { data: products, isLoading } = useGetProductsQuery(
-    {},
-    {
-      selectFromResult: ({ data, ...rest }) => ({
-        data: data ?? [],
-        ...rest,
-      }),
-    },
-  );
-  const productsWithMeta = useMemo(
-    () =>
-      products.length === 0
-        ? []
-        : cart.map((cartItem) => {
-            const product = products.find(
-              (product) => product.id === cartItem.productId,
-            );
-            return {
-              ...product,
-              docId: cartItem.docId,
-              amountItems: cartItem.amount,
-            };
-          }),
-    [cart, products],
-  );
+  const [buy] = useBuyMutation();
+  const { cartData, isLoading } = useCart();
 
   const totalPrice = useMemo(
     () =>
-      productsWithMeta
-        .map((item) => item.price * item.amountItems)
+      cartData.data
+        .map((item) => item.product.price * item.amount)
         .reduce((acc, curr) => acc + curr, 0)
         .toFixed(2),
-    [productsWithMeta],
+    [cartData],
   );
 
   const onShopNowHandler = () => {
@@ -69,7 +43,7 @@ export const CartPage = () => {
   const onConfirmHandler = async () => {
     setIsDeleting(true);
     try {
-      await dispatch(cartThunks.clearCart()).unwrap();
+      await buy().unwrap();
       setIsOpenModal(false);
       navigate(routes.successfulPurchase, { state: { isSucceeded: true } });
     } catch (e) {
@@ -90,7 +64,7 @@ export const CartPage = () => {
           Cart
           <CustomButton
             data-cy={"show-now-button"}
-            disabled={productsWithMeta.length === 0}
+            disabled={cartData.data.length === 0}
             onClick={onShopNowHandler}
             fullWidth={false}
           >
@@ -99,7 +73,7 @@ export const CartPage = () => {
         </S.TitleContainer>
         <S.CartContainer>
           <S.ProductsContainer>
-            {productsWithMeta.length === 0 &&
+            {cartData.data.length === 0 &&
               (isLoading ? (
                 Array.from({ length: 3 }).map((_, index) => (
                   <Skeleton key={index} height={200} />
@@ -109,19 +83,19 @@ export const CartPage = () => {
                   No products in cart yet
                 </S.NoData>
               ))}
-            {productsWithMeta.length > 0 &&
-              productsWithMeta.map((item) => (
+            {cartData.data.length > 0 &&
+              cartData.data.map((item) => (
                 <CartCard
-                  docId={item.docId}
+                  productInCartId={item.productInCartId}
                   width={"200"}
-                  imageSrc={item.image}
+                  imageSrc={item.product.image}
                   height={"200"}
-                  key={item.id}
-                  description={item.description}
-                  id={item.id}
-                  title={item.title}
-                  price={item.price}
-                  amountItemsInCart={item.amountItems}
+                  key={item.productInCartId}
+                  description={item.product.description}
+                  id={item.product.id}
+                  title={item.product.title}
+                  price={item.product.price}
+                  amountItemsInCart={item.amount}
                 />
               ))}
           </S.ProductsContainer>
@@ -137,14 +111,14 @@ export const CartPage = () => {
         isShowCloseIcon
         bottomText={"Total price: $" + totalPrice}
       >
-        {productsWithMeta.map((item) => (
+        {cartData.data.map((item) => (
           <CartModalItem
-            key={item.id}
-            title={item.title}
-            image={item.image}
-            totalAmount={item.amountItems}
-            description={item.description}
-            pricePerOne={item.price}
+            key={item.productInCartId}
+            title={item.product.title}
+            image={item.product.image}
+            totalAmount={item.amount}
+            description={item.product.description}
+            pricePerOne={item.product.price}
           />
         ))}
       </Modal>

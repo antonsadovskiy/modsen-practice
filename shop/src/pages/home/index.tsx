@@ -26,12 +26,7 @@ export const HomePage = () => {
     navigate(routes.shop);
   };
 
-  const { data: latestProducts, isLoading } = useGetProductsQuery(
-    { limit: 6 },
-    {
-      selectFromResult: ({ data, ...rest }) => ({ data: data ?? [], ...rest }),
-    },
-  );
+  const { data, isLoading } = useGetProductsQuery(undefined);
 
   return (
     <S.Wrapper>
@@ -50,15 +45,17 @@ export const HomePage = () => {
             ? Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton key={index} width={380} height={472} />
               ))
-            : latestProducts.map((item) => (
-                <CatalogCard
-                  imageSrc={item.image}
-                  key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  price={item.price}
-                />
-              ))}
+            : data.data
+                .slice(0, 6)
+                .map((item) => (
+                  <CatalogCard
+                    imageSrc={item.image}
+                    key={item.id}
+                    id={item.id}
+                    title={item.title}
+                    price={item.price}
+                  />
+                ))}
         </S.List>
       </div>
     </S.Wrapper>

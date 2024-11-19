@@ -1,13 +1,13 @@
 import { memo, SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useAddProductInCartMutation } from "@/api";
 import HeartSVG from "@/assets/svg/heart.svg";
 import CartSVG from "@/assets/svg/shopping-cart.svg";
 import { CircleLoader } from "@/components/circle-loader";
 import { routes } from "@/constants/routes";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/useToast";
-import { cartThunks, selectorCartProducts } from "@/store/slices/cart";
 
 import S from "./styled";
 
@@ -33,13 +33,15 @@ const CatalogCard = memo(
     const navigate = useNavigate();
 
     const toast = useToast();
-    const dispatch = useAppDispatch();
-    const cart = useAppSelector(selectorCartProducts);
+
+    const { cartData } = useCart();
 
     const [isAdding, setIsAdding] = useState(false);
 
-    const isThisProductAlreadyInCart = !!cart.find(
-      (item) => item.productId === id,
+    const [addProduct] = useAddProductInCartMutation();
+
+    const isThisProductAlreadyInCart = !!cartData.data.find(
+      (item) => item.product.id === id,
     );
 
     const onClickHandler = () => navigate(`${routes.product}/${id}`);
@@ -54,9 +56,10 @@ const CatalogCard = memo(
       setIsAdding(true);
 
       try {
-        await dispatch(
-          cartThunks.addCartProduct({ productId: id, amount: 1 }),
-        ).unwrap();
+        await addProduct({
+          productId: id,
+          amount: 1,
+        }).unwrap();
       } catch (e) {
         toast.error("Something went wrong. Please try again later.");
       } finally {
@@ -71,7 +74,12 @@ const CatalogCard = memo(
         onClick={onClickHandler}
       >
         <S.ImagesContainer $height={height} $width={width}>
-          <img src={imageSrc} alt={title} height={"100%"} width={"100%"} />
+          <img
+            src={`http://localhost:9000/products/${imageSrc}`}
+            alt={title}
+            height={"100%"}
+            width={"100%"}
+          />
           <S.AddToCartButton onClick={addToCartHandler}>
             {isThisProductAlreadyInCart ? (
               <>

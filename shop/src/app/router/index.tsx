@@ -8,12 +8,17 @@ import {
 import { App } from "@/app/App";
 import { ErrorFallback } from "@/components/error-boundary/error-fallback";
 import { routes } from "@/constants/routes";
+import { AdminPage } from "@/pages/admin";
 import { LoginPage, RegistrationPage } from "@/pages/auth";
 import { CartPage } from "@/pages/cart";
+import { CategoriesActionsPage } from "@/pages/categories-actions";
+import { AddNewCategoryPage } from "@/pages/categories-actions/add-new-category";
 import { ContactUsPage } from "@/pages/contact";
 import { HomePage } from "@/pages/home";
 import { NotFoundPage } from "@/pages/not-found";
 import { ProductPage } from "@/pages/product";
+import { ProductsActionsPage } from "@/pages/products-actions";
+import { AddNewProductPage } from "@/pages/products-actions/add-new-product";
 import { ShopPage } from "@/pages/shop";
 import { SuccessfulPurchasePage } from "@/pages/successful-purchase";
 
@@ -29,6 +34,17 @@ export const router = createBrowserRouter(
       <Route path={routes.registration} element={<RegistrationPage />} />
 
       <Route element={<PrivateRoutes />}>
+        <Route path={routes.admin} element={<AdminPage />} />
+        <Route
+          path={routes.productsActions}
+          element={<ProductsActionsPage />}
+        />
+        <Route
+          path={routes.categoriesActions}
+          element={<CategoriesActionsPage />}
+        />
+        <Route path={routes.addNewCategory} element={<AddNewCategoryPage />} />
+        <Route path={routes.addNewProduct} element={<AddNewProductPage />} />
         <Route path={routes.home} element={<HomePage />} />
         <Route
           path={routes.successfulPurchase}

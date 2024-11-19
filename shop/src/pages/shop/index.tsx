@@ -1,12 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { skipToken } from "@reduxjs/toolkit/query";
-
-import {
-  useGetCategoriesQuery,
-  useGetProductsByCategoryQuery,
-  useGetProductsQuery,
-} from "@/api";
+import { useGetCategoriesQuery, useGetProductsQuery } from "@/api";
 import { ProductType } from "@/api/types";
 import { useAppDispatch, useAppSelector, useDebounce } from "@/hooks";
 import { Catalog } from "@/pages/shop/catalog";
@@ -16,7 +10,6 @@ import {
   filtersActions,
   selectorCategoryValue,
   selectorCommittedPrice,
-  selectorFilterType,
   selectorSearchValue,
   selectorSortValue,
 } from "@/store/slices/filters";
@@ -24,13 +17,12 @@ import { findMinAndMaxPrice } from "@/utils/findMinAndMaxPrice";
 
 import S from "./styled";
 
-type SortType = "asc" | "desc";
+type SortType = "ASC" | "DESC";
 
 export const ShopPage = () => {
   const searchValue = useAppSelector(selectorSearchValue);
   const sortValue = useAppSelector(selectorSortValue);
   const categoryValue = useAppSelector(selectorCategoryValue);
-  const filterType = useAppSelector(selectorFilterType);
   const committedPrice = useAppSelector(selectorCommittedPrice);
 
   const [catalog, setCatalog] = useState<ProductType[]>([]);
@@ -40,25 +32,34 @@ export const ShopPage = () => {
 
   const dispatch = useAppDispatch();
 
-  const { data: categories } = useGetCategoriesQuery(undefined, {
+  const { data: categoriesData } = useGetCategoriesQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      data: data ?? [],
+      data: data ?? { data: [] },
     }),
   });
 
-  const { data: productsData, isFetching: isLoadingProducts } =
-    useGetProductsQuery(
-      filterType === "sort" ? { sort: sortValue.value as SortType } : undefined,
-    );
-
-  const { data: categoryData, isFetching: isLoadingCategory } =
-    useGetProductsByCategoryQuery(
-      filterType === "category" ? categoryValue.value : skipToken,
-    );
+  const { data: productsData, isLoading } = useGetProductsQuery(
+    {
+      sort: sortValue
+        ? (sortValue?.value.toUpperCase() as SortType)
+        : undefined,
+      categoryId: categoryValue ? Number(categoryValue?.value) : undefined,
+    },
+    {
+      selectFromResult: ({ data, ...rest }) => ({
+        data: data ?? { data: [] },
+        ...rest,
+      }),
+    },
+  );
 
   const mappedCategories = useMemo(
-    () => categories.map((category) => ({ value: category, title: category })),
-    [categories],
+    () =>
+      categoriesData.data.map((category) => ({
+        value: category.id.toString(),
+        title: category.name,
+      })),
+    [categoriesData],
   );
 
   const filteredCatalog = useMemo(
@@ -89,24 +90,9 @@ export const ShopPage = () => {
   );
 
   useEffect(() => {
-    setIsLoadingCatalog(isLoadingProducts || isLoadingCategory);
-    if (filterType === "sort" && productsData) {
-      return setData(productsData);
-    }
-    if (filterType === "category" && categoryData) {
-      return setData(categoryData);
-    }
-    if (!filterType && productsData) {
-      setData(productsData);
-    }
-  }, [
-    productsData,
-    categoryData,
-    isLoadingProducts,
-    isLoadingCategory,
-    filterType,
-    setData,
-  ]);
+    setIsLoadingCatalog(isLoading);
+    setData(productsData.data);
+  }, [isLoading, productsData, setData]);
 
   return (
     <S.Wrapper>
