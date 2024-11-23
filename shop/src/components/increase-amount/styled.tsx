@@ -6,6 +6,7 @@ const PriceContainer = styled.div<{ $disabled: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 15px;
 `;
 const AmountContainer = styled.div`
   font-family: var(--font-family-dm-sans);

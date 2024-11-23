@@ -9,7 +9,6 @@ import { Api } from "@/entities/api";
 import { store } from "@/store";
 
 import "./index.css";
-import "@/app/firebase";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

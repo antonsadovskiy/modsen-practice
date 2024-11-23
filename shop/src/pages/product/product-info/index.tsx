@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { Button, Typography } from "antd";
+
 import { useAddProductInCartMutation } from "@/api";
 import { ProductType } from "@/api/types";
-import { CustomButton } from "@/components/custom-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
-import { socialMedias } from "@/constants/socials";
 import { useCart } from "@/hooks/useCart";
 
 import S from "./styled";
@@ -66,9 +66,13 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
 
   return (
     <S.Information>
-      <S.ProductTitle>{product?.title ?? ""}</S.ProductTitle>
-      <S.ProductPrice>$ {product?.price ?? ""}</S.ProductPrice>
-      <S.ProductDescription>{product?.description ?? ""}</S.ProductDescription>
+      <Typography.Title level={2}>
+        Название: {product?.title ?? ""}
+      </Typography.Title>
+      <Typography.Title level={2}>
+        Цена: {product?.price ?? ""}$
+      </Typography.Title>
+      <Typography.Text>Описание: {product?.description ?? ""}</Typography.Text>
       <S.AddToCartContainer>
         <IncreaseAmount
           min={1}
@@ -79,40 +83,22 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
         />
         <S.ButtonContainer data-cy={"product-info-button-container"}>
           {isThisProductAlreadyInCart ? (
-            <CustomButton
-              data-cy={"go-to-cart-button"}
-              onClick={goToCartHandler}
-              variant={"secondary"}
-            >
-              Go to cart
-            </CustomButton>
+            <Button onClick={goToCartHandler}>Перейти в корзину</Button>
           ) : (
-            <CustomButton
-              data-cy={"add-to-cart-button"}
+            <Button
               onClick={addToCartHandler}
               disabled={amount === 0}
-              isLoading={isAdding}
-              variant={"secondary"}
+              loading={isAdding}
             >
-              Add to cart
-            </CustomButton>
+              Добавить в корзину
+            </Button>
           )}
         </S.ButtonContainer>
       </S.AddToCartContainer>
-      <S.IconsContainer>
-        {socialMedias.map((item, index) => (
-          <S.SocialMediaIconButton
-            target={"_blank"}
-            href={item.link}
-            key={index}
-          >
-            {<item.icon />}
-          </S.SocialMediaIconButton>
-        ))}
-      </S.IconsContainer>
       <S.CategoryContainer>
-        <S.CategoryTitle>Categories:</S.CategoryTitle>
-        <S.Category>{product?.category.name}</S.Category>
+        <Typography.Title level={5}>
+          Категория: <Typography.Text>{product?.category.name}</Typography.Text>
+        </Typography.Title>
       </S.CategoryContainer>
     </S.Information>
   );

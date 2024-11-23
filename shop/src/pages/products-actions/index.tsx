@@ -15,32 +15,32 @@ export const ProductsActionsPage = () => {
 
   const columns: ColumnsType<ProductType> = [
     {
-      title: "Id",
+      title: "Идентификатор",
       dataIndex: "id",
       key: "id",
     },
     {
-      title: "Title",
+      title: "Название",
       dataIndex: "title",
       key: "title",
     },
     {
-      title: "Description",
+      title: "Описание",
       dataIndex: "description",
       key: "description",
     },
     {
-      title: "Price",
+      title: "Цена",
       dataIndex: "price",
       key: "price",
     },
     {
-      title: "Category",
+      title: "Категория",
       dataIndex: "categoryName",
       key: "price",
     },
     {
-      title: "Image",
+      title: "Изображение",
       dataIndex: "image",
       key: "image",
       render: (image: string) => (
@@ -52,18 +52,17 @@ export const ProductsActionsPage = () => {
       ),
     },
     {
-      title: "Actions",
+      title: "Действия",
       key: "actions",
       width: "10%",
       render: (_, record) => (
         <div style={{ display: "flex", gap: "10px" }}>
-          <Button type={"primary"}>Edit</Button>
           <Button
             onClick={() => deleteProduct(record.id)}
             type={"primary"}
             danger
           >
-            Delete
+            Удалить
           </Button>
         </div>
       ),
@@ -91,7 +90,7 @@ export const ProductsActionsPage = () => {
         style={{ width: "100%" }}
         onClick={() => navigate(routes.addNewProduct)}
       >
-        Add product
+        Добавить новый продукт
       </Button>
       <Table
         pagination={{ pageSize: 10 }}

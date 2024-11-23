@@ -1,35 +1,24 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { Typography } from "antd";
 
 import BurgerNavSVG from "@/assets/svg/burger-nav.svg";
 import { CustomIconButton } from "@/components/custom-icon-button";
-import { CustomSwitch } from "@/components/custom-switch";
 import { CartIcon } from "@/components/header/cart-icon";
 import { Sidebar } from "@/components/header/sidebar";
 import { routes } from "@/constants/routes";
-import { useAppSelector, useChangeTheme } from "@/hooks";
-import { selectorAppTheme } from "@/store/slices/app";
 
 import S from "./styled";
 
 export const Header = () => {
-  const theme = useAppSelector(selectorAppTheme);
-
-  const { changeTheme } = useChangeTheme();
-
   const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const [isShowDivider, setIsShowDivider] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
 
   const goHomePageHandler = () => {
     navigate(routes.home);
     setIsOpenMenu(false);
-  };
-
-  const onCheckedChangeHandler = (checked: boolean) => {
-    changeTheme(checked ? "dark" : "light");
   };
 
   const onShowMenu = () => {
@@ -45,36 +34,17 @@ export const Header = () => {
     setIsOpenMenu(false);
   };
 
-  useEffect(() => {
-    if (location.pathname === routes.home) {
-      const swiper = document.getElementById("swiper");
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => setIsShowDivider(!entry.isIntersecting));
-        },
-        {
-          rootMargin: "-114px",
-        },
-      );
-
-      observer.observe(swiper);
-      return;
-    }
-    setIsShowDivider(true);
-  }, [location]);
-
   return (
     <S.Wrapper>
       <S.MaxWidthContainer>
         <S.HeaderContent>
-          <S.Logo
-            data-cy={"header-link"}
-            className={"logo"}
+          <Typography.Title
+            style={{ cursor: "pointer" }}
+            level={2}
             onClick={goHomePageHandler}
-            width={290}
-            height={32}
-          />
+          >
+            Онлайн магазин
+          </Typography.Title>
           <S.BurgerNav>
             <CartIcon onClick={() => navigateHandler(routes.cart)} />
             <CustomIconButton onClick={isOpenMenu ? onHideMenu : onShowMenu}>
@@ -87,19 +57,20 @@ export const Header = () => {
           </S.BurgerNav>
           <S.Actions>
             <Link to={routes.admin}>
-              <S.ShopLink>Administration</S.ShopLink>
+              <Typography.Text style={{ cursor: "pointer" }}>
+                Администрация
+              </Typography.Text>
             </Link>
             <Link to={routes.shop} data-cy={"shop-link"}>
-              <S.ShopLink>Shop</S.ShopLink>
+              <Typography.Text style={{ cursor: "pointer" }}>
+                Каталог
+              </Typography.Text>
             </Link>
-            <CustomSwitch
-              checked={theme !== "light"}
-              onCheckedChange={onCheckedChangeHandler}
-            />
+
             <CartIcon onClick={() => navigateHandler(routes.cart)} />
           </S.Actions>
         </S.HeaderContent>
-        <S.BorderBottomLine $isShow={isShowDivider} />
+        <S.BorderBottomLine $isShow />
       </S.MaxWidthContainer>
       <Sidebar
         isOpenMenu={isOpenMenu}

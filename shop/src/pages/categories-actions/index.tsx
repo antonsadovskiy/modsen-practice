@@ -34,13 +34,13 @@ export const CategoriesActionsPage = () => {
 
   const columns: ColumnsType<CategoryType> = [
     {
-      title: "Id",
+      title: "Идентификатор",
       dataIndex: "id",
       key: "id",
       width: "20%",
     },
     {
-      title: "Name",
+      title: "Название",
       dataIndex: "name",
       key: "name",
       width: "50%",
@@ -59,7 +59,7 @@ export const CategoriesActionsPage = () => {
       },
     },
     {
-      title: "Actions",
+      title: "Действия",
       dataIndex: "actions",
       key: "actions",
       width: "30%",
@@ -67,8 +67,8 @@ export const CategoriesActionsPage = () => {
         if (inEditMode === Number(record.id)) {
           return (
             <div style={{ display: "flex", gap: "10px" }}>
-              <Button onClick={onEditCategory}>Save</Button>
-              <Button onClick={() => setInEditMode(undefined)}>Cancel</Button>
+              <Button onClick={onEditCategory}>Сохранить</Button>
+              <Button onClick={() => setInEditMode(undefined)}>Отмена</Button>
             </div>
           );
         } else {
@@ -79,7 +79,7 @@ export const CategoriesActionsPage = () => {
                 setInEditMode(Number(record.id));
               }}
             >
-              Edit
+              Редактировать
             </Button>
           );
         }
@@ -97,7 +97,7 @@ export const CategoriesActionsPage = () => {
       }}
     >
       <Button onClick={() => navigate(routes.addNewCategory)}>
-        Add new category
+        Добавить новую категорию
       </Button>
       <Table
         columns={columns}

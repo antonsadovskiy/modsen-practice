@@ -3,9 +3,6 @@ import styled from "styled-components";
 import { breakpoints } from "@/constants/styles";
 
 const Wrapper = styled.div`
-  margin-top: ${({ theme }) => theme.desktopContentMarginTop};
-  margin-bottom: ${({ theme }) => theme.desktopContentMarginBottom};
-
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.m};

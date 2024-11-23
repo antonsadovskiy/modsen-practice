@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { CustomButton } from "@/components/custom-button";
+import { Button, Typography } from "antd";
+
 import { routes } from "@/constants/routes";
 
 import S from "./styled";
@@ -25,12 +26,10 @@ export const AdditionalPage = ({
   return (
     <S.Wrapper data-cy={type === "error" ? "error-page" : "success-page"}>
       <S.Content>
-        <S.Title>{title}</S.Title>
-        <S.Caption>{caption}</S.Caption>
+        <Typography.Title level={3}>{title}</Typography.Title>
+        <Typography.Title level={4}>{caption}</Typography.Title>
         <S.ButtonContainer>
-          <CustomButton onClick={onClickHandler} variant={"secondary"}>
-            Homepage
-          </CustomButton>
+          <Button onClick={onClickHandler}>Главная страница</Button>
         </S.ButtonContainer>
       </S.Content>
     </S.Wrapper>

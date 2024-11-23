@@ -2,6 +2,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Typography } from "antd";
 
 import { AuthForm } from "@/components/auth-form";
 import { routes } from "@/constants/routes";
@@ -50,12 +51,12 @@ export const RegistrationPage = () => {
 
   return (
     <S.Wrapper>
-      <S.Title>Registration</S.Title>
+      <Typography.Title level={4}>Регистрация</Typography.Title>
       <FormProvider {...methods}>
         <AuthForm
           formType={"registration"}
-          submitButtonText={"Register"}
-          linkText={"You have an account already?"}
+          submitButtonText={"Зарегистрироваться"}
+          linkText={"Уже есть аккаунт?"}
           link={routes.login}
           submitCallback={submitCallback}
         />

@@ -2,6 +2,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Typography } from "antd";
 
 import { AuthForm } from "@/components/auth-form";
 import { routes } from "@/constants/routes";
@@ -48,13 +49,13 @@ export const LoginPage = () => {
 
   return (
     <S.Wrapper>
-      <S.Title>Login</S.Title>
+      <Typography.Title level={4}>Авторизация</Typography.Title>
       <FormProvider {...methods}>
         <AuthForm
           formType={"login"}
-          submitButtonText={"Login"}
+          submitButtonText={"Войти"}
           link={routes.registration}
-          linkText={"You don't have an account yet?"}
+          linkText={"Еще не зарегистрированы?"}
           submitCallback={submitCallback}
         />
       </FormProvider>

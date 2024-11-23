@@ -2,7 +2,8 @@ import { memo, useState } from "react";
 import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-import { CustomButton } from "@/components/custom-button";
+import { Button, Typography } from "antd";
+
 import { useToast } from "@/hooks/useToast";
 import { LoginType } from "@/pages/auth/login/schema";
 import { RegistrationType } from "@/pages/auth/registration/schema";
@@ -60,7 +61,7 @@ const AuthForm = memo(
               render={({ field }) => (
                 <S.FormInput
                   data-cy={"email-input"}
-                  placeholder={"Email"}
+                  placeholder={"Почта"}
                   {...field}
                   error={errors.email ? errors.email.message : ""}
                 />
@@ -82,7 +83,7 @@ const AuthForm = memo(
                   }
                   onIconClick={() => setShowPassword(!showPassword)}
                   type={showPassword ? "text" : "password"}
-                  placeholder={"Password"}
+                  placeholder={"Пароль"}
                   {...field}
                   error={errors.password ? errors.password.message : ""}
                 />
@@ -106,7 +107,7 @@ const AuthForm = memo(
                       setShowConfirmPassword(!showConfirmPassword)
                     }
                     type={showConfirmPassword ? "text" : "password"}
-                    placeholder={"Confirm password"}
+                    placeholder={"Повторите пароль"}
                     {...field}
                     error={
                       errors.confirmPassword
@@ -120,19 +121,18 @@ const AuthForm = memo(
           </S.Inputs>
           <S.Link>
             <Link data-cy={"auth-link"} to={link}>
-              {linkText}
+              <Typography.Text>{linkText}</Typography.Text>
             </Link>
           </S.Link>
         </S.InputsWithLink>
         <S.ButtonContainer>
-          <CustomButton
-            data-cy={"submit-button"}
-            isLoading={isSubmitting}
-            fullWidth
-            type={"submit"}
+          <Button
+            style={{ width: "100%" }}
+            loading={isSubmitting}
+            htmlType={"submit"}
           >
             {submitButtonText}
-          </CustomButton>
+          </Button>
         </S.ButtonContainer>
       </S.Form>
     );

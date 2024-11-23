@@ -59,23 +59,23 @@ export const AddNewProductPage = () => {
       }}
     >
       <Input
-        placeholder={"Product title"}
+        placeholder={"Название продукта"}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <Input.TextArea
-        placeholder={"Product Description"}
+        placeholder={"Описание продукта"}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
       <Input
         type={"number"}
-        placeholder={"Product Price"}
+        placeholder={"Цена продукта"}
         value={price}
         onChange={(e) => setPrice(Number(e.target.value))}
       />
       <Select
-        placeholder={"Product Category"}
+        placeholder={"Выберите категорию"}
         value={categoryId}
         onChange={(value) => setCategoryId(value)}
         options={categoriesData.data.map((item) => ({
@@ -87,12 +87,12 @@ export const AddNewProductPage = () => {
         onFileSelected={fileSelect}
         trigger={
           <Button style={{ width: "100%" }} icon={<UploadOutlined />}>
-            Upload
+            Загрузить
           </Button>
         }
       />
       <Button onClick={onAddNewProduct} type={"primary"} disabled={isDisabled}>
-        Add product
+        Добавить
       </Button>
     </div>
   );

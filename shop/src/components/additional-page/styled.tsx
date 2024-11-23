@@ -16,6 +16,7 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  gap: 10px;
 `;
 
 const Title = styled.div`

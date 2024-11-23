@@ -1,15 +1,10 @@
-import { memo, SyntheticEvent, useState } from "react";
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAddProductInCartMutation } from "@/api";
-import HeartSVG from "@/assets/svg/heart.svg";
-import CartSVG from "@/assets/svg/shopping-cart.svg";
-import { CircleLoader } from "@/components/circle-loader";
-import { routes } from "@/constants/routes";
-import { useCart } from "@/hooks/useCart";
-import { useToast } from "@/hooks/useToast";
+import { Card } from "antd";
+import Meta from "antd/es/card/Meta";
 
-import S from "./styled";
+import { routes } from "@/constants/routes";
 
 export type CatalogCardPropsType = {
   id: number;
@@ -32,75 +27,27 @@ const CatalogCard = memo(
   }: CatalogCardPropsType) => {
     const navigate = useNavigate();
 
-    const toast = useToast();
-
-    const { cartData } = useCart();
-
-    const [isAdding, setIsAdding] = useState(false);
-
-    const [addProduct] = useAddProductInCartMutation();
-
-    const isThisProductAlreadyInCart = !!cartData.data.find(
-      (item) => item.product.id === id,
-    );
-
     const onClickHandler = () => navigate(`${routes.product}/${id}`);
 
-    const addToCartHandler = async (e: SyntheticEvent) => {
-      e.stopPropagation();
-
-      if (isThisProductAlreadyInCart) {
-        return navigate(routes.cart);
-      }
-
-      setIsAdding(true);
-
-      try {
-        await addProduct({
-          productId: id,
-          amount: 1,
-        }).unwrap();
-      } catch (e) {
-        toast.error("Something went wrong. Please try again later.");
-      } finally {
-        setIsAdding(false);
-      }
-    };
-
     return (
-      <S.CatalogCardWrapper
-        data-cy={`catalog-card`}
-        $width={width}
+      <Card
         onClick={onClickHandler}
-      >
-        <S.ImagesContainer $height={height} $width={width}>
+        hoverable
+        style={{
+          width: `${width}px`,
+        }}
+        cover={
           <img
+            height={height}
+            width={width}
+            style={{ backgroundPosition: "center", objectFit: "cover" }}
+            alt="image"
             src={`http://localhost:9000/products/${imageSrc}`}
-            alt={title}
-            height={"100%"}
-            width={"100%"}
           />
-          <S.AddToCartButton onClick={addToCartHandler}>
-            {isThisProductAlreadyInCart ? (
-              <>
-                <span>Already in cart</span>
-                <CartSVG width={20} height={20} />
-              </>
-            ) : (
-              <>
-                <span>Add to cart</span>
-                {isAdding ? (
-                  <CircleLoader size={18} />
-                ) : (
-                  <HeartSVG width={20} height={20} />
-                )}
-              </>
-            )}
-          </S.AddToCartButton>
-        </S.ImagesContainer>
-        <S.Title data-cy={"catalog-card-title"}>{title}</S.Title>
-        <S.Price>$ {price}</S.Price>
-      </S.CatalogCardWrapper>
+        }
+      >
+        <Meta title={title} description={`$ ${price}`} />
+      </Card>
     );
   },
 );

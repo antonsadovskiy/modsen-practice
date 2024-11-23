@@ -34,12 +34,12 @@ export const AddNewCategoryPage = () => {
       }}
     >
       <Input
-        placeholder={"Category name"}
+        placeholder={"Название категории"}
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
       <Button style={{ width: "100%" }} onClick={onAddNew}>
-        Add new
+        Добавить новую
       </Button>
     </div>
   );

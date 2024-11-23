@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { CustomButton } from "@/components/custom-button";
+import { Button } from "antd";
+
 import { routes } from "@/constants/routes";
 
 import S from "./styled";
@@ -9,18 +10,10 @@ export const AdminPage = () => {
   const navigate = useNavigate();
   return (
     <S.Wrapper>
-      <CustomButton
-        onClick={() => navigate(routes.productsActions)}
-        fullWidth={false}
-      >
-        Products
-      </CustomButton>
-      <CustomButton
-        onClick={() => navigate(routes.categoriesActions)}
-        fullWidth={false}
-      >
-        Categories
-      </CustomButton>
+      <Button onClick={() => navigate(routes.productsActions)}>Продукты</Button>
+      <Button onClick={() => navigate(routes.categoriesActions)}>
+        Категории
+      </Button>
     </S.Wrapper>
   );
 };

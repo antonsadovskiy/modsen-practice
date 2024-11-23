@@ -4,7 +4,7 @@ import { AppSliceInitialStateType, ThemeType, ToastType } from "./types";
 
 const initialState: AppSliceInitialStateType = {
   theme: "light",
-  isAppInitialized: false,
+  isAppInitialized: true,
   toasts: [],
 };
 

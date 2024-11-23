@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 50px;
-  height: 100vh;
+  margin-top: 200px;
   background-color: ${({ theme }) => theme.backgroundColor};
 `;
 

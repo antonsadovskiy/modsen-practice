@@ -45,7 +45,7 @@ export const darkTheme: DefaultTheme = {
   ...commonThemeConfig,
   mainTextColor: "#FBFBFB",
   loaderColor: "#FFFFFF",
-  backgroundColor: "#32012F",
+  backgroundColor: "lightgray",
   color: {
     accent: "#B4A186",
     white: "#FBFBFB",

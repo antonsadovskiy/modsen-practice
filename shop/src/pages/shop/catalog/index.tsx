@@ -1,3 +1,5 @@
+import { Typography } from "antd";
+
 import { ProductType } from "@/api/types";
 import { CatalogCard } from "@/components/catalog-card";
 import { Skeleton } from "@/components/skeleton";
@@ -30,9 +32,9 @@ export const Catalog = ({ catalog, isLoading }: CatalogPropsType) => (
             />
           ))
         ) : (
-          <S.NoData data-cy={"no-data"}>
-            No products with these filters were found
-          </S.NoData>
+          <Typography.Title level={4}>
+            Товары с такими параметрами не найдены
+          </Typography.Title>
         )}
       </>
     )}

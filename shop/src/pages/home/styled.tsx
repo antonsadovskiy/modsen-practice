@@ -23,7 +23,7 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 64px 0 40px;
+  margin: 0 0 40px;
 
   @media screen and (max-width: ${breakpoints.medium}) {
     margin: 21px 0 13px;

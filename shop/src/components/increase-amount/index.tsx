@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
+import { Button } from "antd";
+
 import MinusSVG from "@/assets/svg/minus.svg";
 import PlusSVG from "@/assets/svg/plus.svg";
 import { useDebounce } from "@/hooks";
@@ -55,21 +57,13 @@ export const IncreaseAmount = ({
   return (
     <S.PriceContainer $disabled={disabled}>
       <S.AmountContainer>
-        <S.IncreaseAmountButton
-          data-cy={"decrease-amount-button"}
-          $disabled={value === min || disabled}
-          onClick={decreaseHandler}
-        >
+        <Button disabled={value === min || disabled} onClick={decreaseHandler}>
           <MinusSVG />
-        </S.IncreaseAmountButton>
+        </Button>
         <S.Amount>{value}</S.Amount>
-        <S.IncreaseAmountButton
-          data-cy={"increase-amount-button"}
-          $disabled={disabled}
-          onClick={increaseHandler}
-        >
+        <Button disabled={disabled} onClick={increaseHandler}>
           <PlusSVG />
-        </S.IncreaseAmountButton>
+        </Button>
       </S.AmountContainer>
       <S.TotalPrice>${totalPrice}</S.TotalPrice>
     </S.PriceContainer>

@@ -13,8 +13,8 @@ export const SuccessfulPurchasePage = () => {
   return (
     <AdditionalPage
       type={"success"}
-      title={"Thank you for purchasing"}
-      caption={"You will have your goods soon."}
+      title={"Спасибо за покупку"}
+      caption={"Ваши товары скоро приедут к вам"}
     />
   );
 };

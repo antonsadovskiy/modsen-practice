@@ -1,6 +1,6 @@
 import { OptionType } from "@/components/custom-select";
 
 export const sortOptions: OptionType[] = [
-  { title: "Ascending", value: "asc" },
-  { title: "Descending", value: "desc" },
+  { title: "По возрастанию", value: "asc" },
+  { title: "По убыванию", value: "desc" },
 ];

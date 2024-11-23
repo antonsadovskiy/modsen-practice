@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+import { Typography } from "antd";
+
 import { useGetCategoriesQuery, useGetProductsQuery } from "@/api";
 import { ProductType } from "@/api/types";
 import { useAppDispatch, useAppSelector, useDebounce } from "@/hooks";
@@ -96,7 +98,7 @@ export const ShopPage = () => {
 
   return (
     <S.Wrapper>
-      <S.PageTitle>Shop the latest</S.PageTitle>
+      <Typography.Title level={3}>Каталог</Typography.Title>
       <S.Content>
         <MobileFilters
           categories={mappedCategories}
