@@ -19,8 +19,8 @@ export const LoginPage = () => {
   const methods = useForm<LoginType>({
     resolver: yupResolver(loginSchema),
     defaultValues: {
-      email: "test",
-      password: "123",
+      email: "",
+      password: "",
     },
   });
   const toast = useToast();

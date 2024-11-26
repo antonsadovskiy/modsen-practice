@@ -3,7 +3,11 @@ import { ContactUsType } from "@/pages/contact/schema";
 
 describe("contact", () => {
   beforeEach(() => {
-    cy.visit(routes.contact);
+    cy.visit(routes.login);
+
+    cy.login();
+
+    cy.get("[data-cy=contact-link]").click();
   });
 
   it("should submit form", () => {
@@ -25,8 +29,6 @@ describe("contact", () => {
   });
 
   it("should have errors after submit", () => {
-    cy.visit(routes.contact);
-
     cy.get("[data-cy=contact-form]").submit();
 
     cy.get("[data-cy=input-error]").should("exist");

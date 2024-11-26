@@ -16,7 +16,9 @@ export const useCart = () => {
   });
 
   return {
-    cartData,
+    cartData: [...cartData.data].sort(
+      (a, b) => a.productInCartId - b.productInCartId,
+    ),
     isLoading,
   };
 };

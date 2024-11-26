@@ -57,7 +57,6 @@ export const ProductsActionsPage = () => {
       width: "10%",
       render: (_, record) => (
         <div style={{ display: "flex", gap: "10px" }}>
-          <Button type={"primary"}>Edit</Button>
           <Button
             onClick={() => deleteProduct(record.id)}
             type={"primary"}

@@ -29,7 +29,7 @@ export const CartPage = () => {
 
   const totalPrice = useMemo(
     () =>
-      cartData.data
+      cartData
         .map((item) => item.product.price * item.amount)
         .reduce((acc, curr) => acc + curr, 0)
         .toFixed(2),
@@ -64,7 +64,7 @@ export const CartPage = () => {
           Cart
           <CustomButton
             data-cy={"show-now-button"}
-            disabled={cartData.data.length === 0}
+            disabled={cartData.length === 0}
             onClick={onShopNowHandler}
             fullWidth={false}
           >
@@ -73,7 +73,7 @@ export const CartPage = () => {
         </S.TitleContainer>
         <S.CartContainer>
           <S.ProductsContainer>
-            {cartData.data.length === 0 &&
+            {cartData.length === 0 &&
               (isLoading ? (
                 Array.from({ length: 3 }).map((_, index) => (
                   <Skeleton key={index} height={200} />
@@ -83,8 +83,8 @@ export const CartPage = () => {
                   No products in cart yet
                 </S.NoData>
               ))}
-            {cartData.data.length > 0 &&
-              cartData.data.map((item) => (
+            {cartData.length > 0 &&
+              cartData.map((item) => (
                 <CartCard
                   productInCartId={item.productInCartId}
                   width={"200"}
@@ -111,7 +111,7 @@ export const CartPage = () => {
         isShowCloseIcon
         bottomText={"Total price: $" + totalPrice}
       >
-        {cartData.data.map((item) => (
+        {cartData.map((item) => (
           <CartModalItem
             key={item.productInCartId}
             title={item.product.title}

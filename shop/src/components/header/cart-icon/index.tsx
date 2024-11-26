@@ -8,13 +8,14 @@ import S from "./styled";
 
 type CartIconPropsType = {
   onClick: () => void;
+  isMobile?: boolean;
 };
 
-export const CartIcon = ({ onClick }: CartIconPropsType) => {
+export const CartIcon = ({ onClick, isMobile = false }: CartIconPropsType) => {
   const { cartData } = useCart();
 
   const cartAmount = useMemo(
-    () => cartData.data.reduce((acc, item) => acc + item.amount, 0),
+    () => cartData.reduce((acc, item) => acc + item.amount, 0),
     [cartData],
   );
 
@@ -23,7 +24,10 @@ export const CartIcon = ({ onClick }: CartIconPropsType) => {
   };
 
   return (
-    <CustomIconButton data-cy={"cart-link"} onClick={goCartPageHandler}>
+    <CustomIconButton
+      data-cy={`cart-link-${isMobile ? "mobile" : "desktop"}`}
+      onClick={goCartPageHandler}
+    >
       <S.CartIconContainer>
         <ShoppingCardSVG />
         {cartAmount > 0 && <S.CartCount>{cartAmount}</S.CartCount>}

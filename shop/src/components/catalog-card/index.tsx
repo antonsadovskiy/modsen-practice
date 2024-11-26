@@ -40,7 +40,7 @@ const CatalogCard = memo(
 
     const [addProduct] = useAddProductInCartMutation();
 
-    const isThisProductAlreadyInCart = !!cartData.data.find(
+    const isThisProductAlreadyInCart = !!cartData.find(
       (item) => item.product.id === id,
     );
 

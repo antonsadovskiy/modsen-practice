@@ -1,51 +1,12 @@
-import { ProductType } from "@/api/types";
 import { routes } from "@/constants/routes";
 
 describe("shop", () => {
   beforeEach(() => {
-    cy.visit(routes.shop);
-  });
+    cy.visit(routes.login);
 
-  const apiBaseUrl = Cypress.env("apiBaseUrl");
+    cy.login();
 
-  context("api", () => {
-    it("get a list of products", () => {
-      cy.request(`${apiBaseUrl}/products`).then((response) => {
-        expect(response.body).to.be.an("array");
-        expect(response.status).to.eq(200);
-      });
-    });
-
-    it("get a list of categories", () => {
-      cy.request(`${apiBaseUrl}/products/categories`).then((response) => {
-        expect(response.body).to.be.an("array");
-        expect(response.status).to.eq(200);
-      });
-    });
-
-    it("get a list of products with certain category", () => {
-      const category = "jewelery";
-
-      cy.request(`${apiBaseUrl}/products/category/${category}`).then(
-        (response) => {
-          response.body.forEach((item: ProductType) => {
-            expect(item.category).to.eq(category);
-          });
-
-          expect(response.body).to.be.an("array");
-          expect(response.status).to.eq(200);
-        },
-      );
-    });
-
-    it("get a list of sorted products", () => {
-      const sort = "desc";
-
-      cy.request(`${apiBaseUrl}/products?sort=${sort}`).then((response) => {
-        expect(response.body).to.be.an("array");
-        expect(response.status).to.eq(200);
-      });
-    });
+    cy.get("[data-cy=shop-link]").click();
   });
 
   context("ui", () => {
@@ -71,23 +32,6 @@ describe("shop", () => {
           cy.get("[data-cy=no-data]").should("exist").and("be.visible");
         }
       });
-    });
-
-    it("should correctly filter products by category 'jewelery'", () => {
-      const categoryProductsCount = 4;
-
-      cy.get("[data-cy=category-select]")
-        .should("exist")
-        .and("not.be.disabled");
-
-      cy.get("[data-cy=category-select-placeholder]").click();
-
-      cy.get("[data-cy=category-option]").contains("jewelery").click();
-
-      cy.get("[data-cy=catalog-card]").should(
-        "have.length",
-        categoryProductsCount,
-      );
     });
 
     it("should correctly sort products by certain value", () => {

@@ -46,14 +46,13 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
   );
 
   const isThisProductAlreadyInCart = useMemo(
-    () =>
-      !!cartData.data.find((item) => item.product.id === parseInt(params.id)),
+    () => !!cartData.find((item) => item.product.id === parseInt(params.id)),
     [cartData, params],
   );
 
   useEffect(() => {
     if (params.id) {
-      const elem = cartData.data.find(
+      const elem = cartData.find(
         (item) => item.product.id === parseInt(params.id),
       );
 

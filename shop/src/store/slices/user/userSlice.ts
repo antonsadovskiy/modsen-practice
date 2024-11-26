@@ -45,6 +45,7 @@ const slice = createSlice({
   selectors: {
     selectorUserId: (sliceState) => sliceState.user.id,
     selectorIsLoggedIn: (sliceState) => sliceState.isLoggedIn,
+    selectorIsAdmin: (sliceState) => sliceState.isAdmin,
   },
 });
 
@@ -91,4 +92,5 @@ const loginUser = createAppAsyncThunk<
 export const userReducer = slice.reducer;
 export const userActions = slice.actions;
 export const userThunks = { registerUser, loginUser };
-export const { selectorUserId, selectorIsLoggedIn } = slice.selectors;
+export const { selectorUserId, selectorIsLoggedIn, selectorIsAdmin } =
+  slice.selectors;

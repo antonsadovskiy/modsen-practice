@@ -9,11 +9,13 @@ import { Sidebar } from "@/components/header/sidebar";
 import { routes } from "@/constants/routes";
 import { useAppSelector, useChangeTheme } from "@/hooks";
 import { selectorAppTheme } from "@/store/slices/app";
+import { selectorIsAdmin } from "@/store/slices/user/userSlice";
 
 import S from "./styled";
 
 export const Header = () => {
   const theme = useAppSelector(selectorAppTheme);
+  const isAdmin = useAppSelector(selectorIsAdmin);
 
   const { changeTheme } = useChangeTheme();
 
@@ -76,7 +78,7 @@ export const Header = () => {
             height={32}
           />
           <S.BurgerNav>
-            <CartIcon onClick={() => navigateHandler(routes.cart)} />
+            <CartIcon isMobile onClick={() => navigateHandler(routes.cart)} />
             <CustomIconButton onClick={isOpenMenu ? onHideMenu : onShowMenu}>
               {isOpenMenu ? (
                 <S.Cross width={20} height={15} />
@@ -86,9 +88,11 @@ export const Header = () => {
             </CustomIconButton>
           </S.BurgerNav>
           <S.Actions>
-            <Link to={routes.admin}>
-              <S.ShopLink>Administration</S.ShopLink>
-            </Link>
+            {isAdmin && (
+              <Link to={routes.admin}>
+                <S.ShopLink>Administration</S.ShopLink>
+              </Link>
+            )}
             <Link to={routes.shop} data-cy={"shop-link"}>
               <S.ShopLink>Shop</S.ShopLink>
             </Link>
@@ -96,7 +100,10 @@ export const Header = () => {
               checked={theme !== "light"}
               onCheckedChange={onCheckedChangeHandler}
             />
-            <CartIcon onClick={() => navigateHandler(routes.cart)} />
+            <CartIcon
+              isMobile={false}
+              onClick={() => navigateHandler(routes.cart)}
+            />
           </S.Actions>
         </S.HeaderContent>
         <S.BorderBottomLine $isShow={isShowDivider} />

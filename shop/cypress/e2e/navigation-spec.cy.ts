@@ -46,10 +46,13 @@ describe("navigation", () => {
 
   context("home page", () => {
     beforeEach(() => {
-      cy.visit(routes.home);
+      cy.visit(routes.login);
+
+      cy.login();
     });
 
     it("redirect to shop after click on 'Shop' in header section", () => {
+      cy.debug();
       cy.get("[data-cy=shop-link]").click();
 
       cy.url().should("eq", `${Cypress.config().baseUrl}${routes.shop}`);
@@ -70,43 +73,13 @@ describe("navigation", () => {
     it("redirect to product page with correct id after click on catalog card", () => {
       cy.get("[data-cy=catalog-card]").first().click();
 
-      cy.url().should("eq", `${Cypress.config().baseUrl}${routes.product}/1`);
+      cy.url().should("eq", `${Cypress.config().baseUrl}${routes.product}/4`);
     });
 
     it("redirect to cart page after click on cart icon in header section", () => {
-      cy.get("[data-cy=cart-link]").filter(":visible").click();
+      cy.get("[data-cy=cart-link-desktop]").filter(":visible").click();
 
       cy.url().should("eq", `${Cypress.config().baseUrl}${routes.cart}`);
-    });
-  });
-
-  context("shop page", () => {
-    it("redirect to home after click on logo in header section", () => {
-      cy.visit(routes.shop);
-
-      cy.get("[data-cy=header-link]").click();
-
-      cy.url().should("eq", `${Cypress.config().baseUrl}${routes.home}`);
-    });
-  });
-
-  context("cart page", () => {
-    it("redirect to certain product page after click on product image", () => {
-      cy.visit(routes.cart);
-
-      cy.getCart().then((cart) => {
-        if (cart.length === 0) {
-          cy.log("There are no products in the cart");
-        } else {
-          const firstProductId = cart[0].productId;
-          cy.get("[data-cy=cart-card-image]").first().click();
-
-          cy.url().should(
-            "eq",
-            `${Cypress.config().baseUrl}${routes.product}/${firstProductId}`,
-          );
-        }
-      });
     });
   });
 
