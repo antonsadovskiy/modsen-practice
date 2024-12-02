@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { Button, Table } from "antd";
+import { Button } from "@mui/material";
+import { Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 
 import { useDeleteProductMutation, useGetProductsQuery } from "@/api";
@@ -57,13 +58,7 @@ export const ProductsActionsPage = () => {
       width: "10%",
       render: (_, record) => (
         <div style={{ display: "flex", gap: "10px" }}>
-          <Button
-            onClick={() => deleteProduct(record.id)}
-            type={"primary"}
-            danger
-          >
-            Delete
-          </Button>
+          <Button onClick={() => deleteProduct(record.id)}>Delete</Button>
         </div>
       ),
     },
@@ -87,7 +82,8 @@ export const ProductsActionsPage = () => {
       }}
     >
       <Button
-        style={{ width: "100%" }}
+        fullWidth
+        variant={"contained"}
         onClick={() => navigate(routes.addNewProduct)}
       >
         Add product

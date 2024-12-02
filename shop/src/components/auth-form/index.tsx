@@ -1,8 +1,9 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-import { CustomButton } from "@/components/custom-button";
+import { Button, TextField } from "@mui/material";
+
 import { useToast } from "@/hooks/useToast";
 import { LoginType } from "@/pages/auth/login/schema";
 import { RegistrationType } from "@/pages/auth/registration/schema";
@@ -29,13 +30,10 @@ const AuthForm = memo(
       reset,
       handleSubmit,
       control,
-      formState: { errors, isSubmitting },
+      formState: { errors },
     } = useFormContext<LoginType & RegistrationType>();
 
     const toast = useToast();
-
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const onSubmit: SubmitHandler<LoginType | RegistrationType> = async (
       data,
@@ -58,11 +56,11 @@ const AuthForm = memo(
               control={control}
               rules={{ required: true }}
               render={({ field }) => (
-                <S.FormInput
-                  data-cy={"email-input"}
-                  placeholder={"Email"}
+                <TextField
                   {...field}
-                  error={errors.email ? errors.email.message : ""}
+                  error={!!errors.email}
+                  label={"Email"}
+                  helperText={errors?.email?.message}
                 />
               )}
             />
@@ -71,20 +69,13 @@ const AuthForm = memo(
               control={control}
               rules={{ required: true }}
               render={({ field }) => (
-                <S.FormInput
+                <TextField
                   data-cy={"password-input"}
-                  endIcon={
-                    showPassword ? (
-                      <S.OpenedEye height={20} width={20} />
-                    ) : (
-                      <S.ClosedEye height={20} width={20} />
-                    )
-                  }
-                  onIconClick={() => setShowPassword(!showPassword)}
-                  type={showPassword ? "text" : "password"}
-                  placeholder={"Password"}
                   {...field}
-                  error={errors.password ? errors.password.message : ""}
+                  type={"password"}
+                  error={!!errors.password}
+                  label={"Password"}
+                  helperText={errors?.password?.message}
                 />
               )}
             />
@@ -94,25 +85,12 @@ const AuthForm = memo(
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
-                  <S.FormInput
-                    endIcon={
-                      showConfirmPassword ? (
-                        <S.OpenedEye height={20} width={20} />
-                      ) : (
-                        <S.ClosedEye height={20} width={20} />
-                      )
-                    }
-                    onIconClick={() =>
-                      setShowConfirmPassword(!showConfirmPassword)
-                    }
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder={"Confirm password"}
+                  <TextField
                     {...field}
-                    error={
-                      errors.confirmPassword
-                        ? errors.confirmPassword.message
-                        : ""
-                    }
+                    type={"password"}
+                    error={!!errors.confirmPassword}
+                    label={"Confirm password"}
+                    helperText={errors?.confirmPassword?.message}
                   />
                 )}
               />
@@ -125,14 +103,9 @@ const AuthForm = memo(
           </S.Link>
         </S.InputsWithLink>
         <S.ButtonContainer>
-          <CustomButton
-            data-cy={"submit-button"}
-            isLoading={isSubmitting}
-            fullWidth
-            type={"submit"}
-          >
+          <Button variant={"contained"} fullWidth type={"submit"}>
             {submitButtonText}
-          </CustomButton>
+          </Button>
         </S.ButtonContainer>
       </S.Form>
     );

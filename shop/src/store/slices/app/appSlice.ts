@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppSliceInitialStateType, ThemeType, ToastType } from "./types";
 
 const initialState: AppSliceInitialStateType = {
-  theme: "light",
+  theme: "dark",
   isAppInitialized: false,
   toasts: [],
 };

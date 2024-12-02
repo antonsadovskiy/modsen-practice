@@ -11,8 +11,7 @@ describe("utils", () => {
         price: 54,
         description: "",
         image: "",
-        category: "",
-        rating: { rate: 0, count: 0 },
+        category: { id: 1, name: "first" },
         title: "",
       },
       {
@@ -20,8 +19,7 @@ describe("utils", () => {
         price: 2,
         description: "",
         image: "",
-        category: "",
-        rating: { rate: 0, count: 0 },
+        category: { id: 1, name: "first" },
         title: "",
       },
       {
@@ -29,8 +27,7 @@ describe("utils", () => {
         price: 43,
         description: "",
         image: "",
-        category: "",
-        rating: { rate: 0, count: 0 },
+        category: { id: 1, name: "first" },
         title: "",
       },
       {
@@ -38,8 +35,7 @@ describe("utils", () => {
         price: 10,
         description: "",
         image: "",
-        category: "",
-        rating: { rate: 0, count: 0 },
+        category: { id: 1, name: "first" },
         title: "",
       },
     ];

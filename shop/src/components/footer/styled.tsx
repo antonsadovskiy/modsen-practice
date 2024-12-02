@@ -6,8 +6,8 @@ import { breakpoints } from "@/constants/styles";
 const Wrapper = styled.div`
   border-top: ${({ theme }) => `1px solid ${theme.color.gray}`};
 
-  min-height: 160px;
-  margin-bottom: 90px;
+  min-height: 100px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

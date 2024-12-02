@@ -1,13 +1,14 @@
 import { memo, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { IconButton } from "@mui/material";
+
 import {
   useDeleteProductFromCartMutation,
   useUpdateProductInCartMutation,
 } from "@/api";
 import DeleteSVG from "@/assets/svg/bucket.svg";
 import { CircleLoader } from "@/components/circle-loader";
-import { CustomIconButton } from "@/components/custom-icon-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
 import { useToast } from "@/hooks/useToast";
@@ -98,12 +99,12 @@ const CartCard = memo(
               {isDeleting ? (
                 <CircleLoader />
               ) : (
-                <CustomIconButton
+                <IconButton
                   data-cy={"delete-from-cart-button"}
                   onClick={onDeleteProductHandler}
                 >
                   <DeleteSVG />
-                </CustomIconButton>
+                </IconButton>
               )}
             </S.TitleAndDelete>
             <S.Description>{description}</S.Description>

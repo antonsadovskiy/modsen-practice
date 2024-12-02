@@ -1,15 +1,17 @@
-import SearchSVG from "@/assets/svg/search.svg";
-import { CustomButton } from "@/components/custom-button";
-import { CustomInput } from "@/components/custom-input";
-import { CustomSelect } from "@/components/custom-select";
-import { CustomSlider } from "@/components/custom-slider";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
+
 import { sortOptions } from "@/constants/sort";
 import { useAppSelector } from "@/hooks";
 import { useFilters } from "@/pages/shop/hooks/useFilters";
 import {
   selectorCategoryValue,
-  selectorMinAndMaxPrice,
-  selectorPrice,
   selectorSearchValue,
   selectorSortValue,
 } from "@/store/slices/filters";
@@ -21,68 +23,71 @@ type DesktopFiltersPropsType = {
   categories: { value: string; title: string }[];
 };
 
-export const DesktopFilters = ({
-  categories,
-  isLoading,
-}: DesktopFiltersPropsType) => {
-  const {
-    changeSelectValue,
-    changeSearchValue,
-    priceChangeCommitHandler,
-    priceChangeHandler,
-    clearFiltersHandler,
-  } = useFilters();
+export const DesktopFilters = ({ categories }: DesktopFiltersPropsType) => {
+  const { changeSelectValue, changeSearchValue, clearFiltersHandler } =
+    useFilters();
 
   const searchValue = useAppSelector(selectorSearchValue);
   const sortValue = useAppSelector(selectorSortValue);
   const categoryValue = useAppSelector(selectorCategoryValue);
-  const minAndMaxPrice = useAppSelector(selectorMinAndMaxPrice);
-  const price = useAppSelector(selectorPrice);
 
   return (
     <S.Container>
-      <CustomInput
+      <TextField
         data-cy={"search-input"}
         type={"text"}
-        placeholder={"Search..."}
+        label={"Search..."}
         value={searchValue}
         onChange={changeSearchValue}
-        endIcon={<SearchSVG />}
+        fullWidth
       />
       <S.Selects>
-        <CustomSelect
-          type={"category"}
-          placeholder={"Shop by"}
-          selected={categoryValue}
-          options={categories}
-          disabled={categories.length === 0}
-          onChange={(value) => changeSelectValue(value, "category")}
-        />
-        <CustomSelect
-          type={"sort"}
-          placeholder={"Sort by"}
-          selected={sortValue}
-          options={sortOptions}
-          onChange={(value) => changeSelectValue(value, "sort")}
-        />
+        <FormControl fullWidth>
+          <InputLabel>Category</InputLabel>
+          <Select
+            variant={"outlined"}
+            value={categoryValue?.value ?? ""}
+            label="Category"
+            disabled={categories.length === 0}
+            onChange={(e) => {
+              const option = categories.find(
+                (item) => item.value === e.target.value,
+              );
+              changeSelectValue(option, "category");
+            }}
+          >
+            {categories.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <InputLabel>Sort</InputLabel>
+          <Select
+            variant={"outlined"}
+            value={sortValue?.value ?? ""}
+            label="Sort"
+            onChange={(e) => {
+              const option = sortOptions.find(
+                (item) => item.value === e.target.value,
+              );
+              changeSelectValue(option, "sort");
+            }}
+          >
+            {sortOptions.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </S.Selects>
-      <div>
-        <CustomSlider
-          min={minAndMaxPrice[0]}
-          max={minAndMaxPrice[1]}
-          defaultValue={price}
-          value={price}
-          onValueChange={priceChangeHandler}
-          onValueCommit={priceChangeCommitHandler}
-        />
-        <S.Price>
-          Price: {isLoading ? "Loading..." : `$${price[0]} - $${price[1]}`}
-        </S.Price>
-      </div>
       <S.ButtonContainer>
-        <CustomButton onClick={clearFiltersHandler} variant={"secondary"}>
+        <Button fullWidth onClick={clearFiltersHandler} variant={"contained"}>
           Clear filters
-        </CustomButton>
+        </Button>
       </S.ButtonContainer>
     </S.Container>
   );

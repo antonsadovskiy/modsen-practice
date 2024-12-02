@@ -9,9 +9,6 @@ export const Images = ({ image }: ImagesPropsType) => {
 
   return (
     <S.ImagesContainer>
-      <S.AdditionalImageContainer>
-        <S.AdditionalImage src={imageSrc} alt={"product image"} />
-      </S.AdditionalImageContainer>
       <div>
         <S.MainImage src={imageSrc} alt={"product image"} />
       </div>

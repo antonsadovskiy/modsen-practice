@@ -96,7 +96,6 @@ export const ShopPage = () => {
 
   return (
     <S.Wrapper>
-      <S.PageTitle>Shop the latest</S.PageTitle>
       <S.Content>
         <MobileFilters
           categories={mappedCategories}

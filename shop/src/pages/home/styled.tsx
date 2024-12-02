@@ -4,7 +4,7 @@ import { breakpoints } from "@/constants/styles";
 
 const Wrapper = styled.div`
   width: 100%;
-  margin-bottom: ${({ theme }) => theme.desktopContentMarginBottom};
+  margin-bottom: 64px;
 
   @media screen and (max-width: ${breakpoints.medium}) {
     margin-bottom: ${({ theme }) => theme.mobileContentMarginBottom};
@@ -38,6 +38,7 @@ const Title = styled.div`
   }
 `;
 const List = styled.div`
+  margin: 64px 0 0 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

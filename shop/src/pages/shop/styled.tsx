@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { breakpoints } from "@/constants/styles";
 
 const Wrapper = styled.div`
-  margin-top: ${({ theme }) => theme.desktopContentMarginTop};
-  margin-bottom: ${({ theme }) => theme.desktopContentMarginBottom};
+  margin-top: 64px;
+  margin-bottom: 64px;
 
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@ const PageTitle = styled.div`
 
 const Content = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 35px;
   align-items: flex-start;
   position: relative;

@@ -6,8 +6,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.m};
-  margin-top: ${({ theme }) => theme.desktopContentMarginTop};
-  margin-bottom: ${({ theme }) => theme.desktopContentMarginBottom};
+  margin: 64px 0;
 
   @media screen and (max-width: ${breakpoints.medium}) {
     margin-top: ${({ theme }) => theme.mobileContentMarginTop};

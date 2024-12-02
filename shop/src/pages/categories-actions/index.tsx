@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Button, Input, Table } from "antd";
+import { Button } from "@mui/material";
+import { Input, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 
 import { useEditCategoryMutation, useGetCategoriesQuery } from "@/api";
@@ -96,7 +97,10 @@ export const CategoriesActionsPage = () => {
         marginTop: "10px",
       }}
     >
-      <Button onClick={() => navigate(routes.addNewCategory)}>
+      <Button
+        variant={"contained"}
+        onClick={() => navigate(routes.addNewCategory)}
+      >
         Add new category
       </Button>
       <Table

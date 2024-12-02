@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { breakpoints } from "@/constants/styles";
 
 const Container = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   column-gap: 24px;
   row-gap: 70px;

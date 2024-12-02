@@ -2,6 +2,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Typography } from "@mui/material";
 
 import { AuthForm } from "@/components/auth-form";
 import { routes } from "@/constants/routes";
@@ -50,7 +51,7 @@ export const RegistrationPage = () => {
 
   return (
     <S.Wrapper>
-      <S.Title>Registration</S.Title>
+      <Typography variant={"h5"}>Registration</Typography>
       <FormProvider {...methods}>
         <AuthForm
           formType={"registration"}

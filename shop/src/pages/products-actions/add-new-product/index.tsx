@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Input, Select } from "antd";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 
 import { useAddProductMutation, useGetCategoriesQuery } from "@/api";
 import { FileInput } from "@/components/file-input";
@@ -58,40 +64,52 @@ export const AddNewProductPage = () => {
         width: "400px",
       }}
     >
-      <Input
-        placeholder={"Product title"}
+      <TextField
+        label={"Product title"}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <Input.TextArea
-        placeholder={"Product Description"}
+      <TextField
+        label={"Product Description"}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <Input
+      <TextField
         type={"number"}
-        placeholder={"Product Price"}
+        label={"Product Price"}
         value={price}
         onChange={(e) => setPrice(Number(e.target.value))}
       />
-      <Select
-        placeholder={"Product Category"}
-        value={categoryId}
-        onChange={(value) => setCategoryId(value)}
-        options={categoriesData.data.map((item) => ({
-          value: item.id,
-          label: item.name,
-        }))}
-      />
+      <FormControl fullWidth>
+        <InputLabel>Category</InputLabel>
+        <Select
+          variant={"outlined"}
+          value={categoryId}
+          label="Category"
+          onChange={(e) => {
+            setCategoryId(Number(e.target.value));
+          }}
+        >
+          {categoriesData.data.map((item, index) => (
+            <MenuItem key={index} value={item.id}>
+              {item.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <FileInput
         onFileSelected={fileSelect}
         trigger={
-          <Button style={{ width: "100%" }} icon={<UploadOutlined />}>
+          <Button variant={"outlined"} fullWidth>
             Upload
           </Button>
         }
       />
-      <Button onClick={onAddNewProduct} type={"primary"} disabled={isDisabled}>
+      <Button
+        variant={"contained"}
+        onClick={onAddNewProduct}
+        disabled={isDisabled}
+      >
         Add product
       </Button>
     </div>

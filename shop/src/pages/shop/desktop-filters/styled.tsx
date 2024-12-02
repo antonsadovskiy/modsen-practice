@@ -3,13 +3,12 @@ import styled from "styled-components";
 import { breakpoints } from "@/constants/styles";
 
 const Container = styled.div`
-  position: sticky;
-  width: 20%;
   display: flex;
-  flex-direction: column;
   gap: 30px;
-  top: 144px;
+  align-items: center;
+  justify-content: space-around;
   background-color: ${({ theme }) => theme.backgroundColor};
+  width: 100%;
 
   @media screen and (max-width: ${breakpoints.large}) {
     display: none;
@@ -17,8 +16,9 @@ const Container = styled.div`
 `;
 const Selects = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 16px;
+  width: 100%;
 `;
 
 const Price = styled.div`
@@ -28,7 +28,7 @@ const Price = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  width: 100%;
+  width: 400px;
   display: flex;
   justify-content: center;
 `;

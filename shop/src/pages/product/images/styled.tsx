@@ -14,8 +14,8 @@ const AdditionalImageContainer = styled.div`
   }
 `;
 const MainImage = styled.img`
-  width: 540px;
-  height: 600px;
+  width: 300px;
+  height: 400px;
   object-position: center;
   object-fit: scale-down;
   border-radius: ${({ theme }) => theme.xs};

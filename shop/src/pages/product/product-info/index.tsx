@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { Button, Typography } from "@mui/material";
+
 import { useAddProductInCartMutation } from "@/api";
 import { ProductType } from "@/api/types";
-import { CustomButton } from "@/components/custom-button";
 import { IncreaseAmount } from "@/components/increase-amount";
 import { routes } from "@/constants/routes";
-import { socialMedias } from "@/constants/socials";
 import { useCart } from "@/hooks/useCart";
 
 import S from "./styled";
@@ -20,7 +20,6 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
   const navigate = useNavigate();
 
   const [amount, setAmount] = useState(1);
-  const [isAdding, setIsAdding] = useState(false);
 
   const [addToCart] = useAddProductInCartMutation();
 
@@ -28,9 +27,7 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
 
   const addToCartHandler = useCallback(async () => {
     if (product.id) {
-      setIsAdding(true);
       await addToCart({ productId: product.id, amount }).unwrap();
-      setIsAdding(false);
     }
   }, [addToCart, amount, product?.id]);
 
@@ -61,13 +58,18 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
       }
       setAmount(1);
     }
-  }, [cartData, params.id]);
+  }, [params.id]);
 
   return (
     <S.Information>
-      <S.ProductTitle>{product?.title ?? ""}</S.ProductTitle>
-      <S.ProductPrice>$ {product?.price ?? ""}</S.ProductPrice>
-      <S.ProductDescription>{product?.description ?? ""}</S.ProductDescription>
+      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <Typography variant={"h5"}>Title: {product?.title ?? ""}</Typography>
+        <Typography variant={"h6"}>Price: $ {product?.price ?? ""}</Typography>
+        <Typography variant={"body1"}>
+          Description: {product?.description ?? ""}
+        </Typography>
+        <Typography>Category: {product?.category.name}</Typography>
+      </div>
       <S.AddToCartContainer>
         <IncreaseAmount
           min={1}
@@ -78,41 +80,25 @@ export const ProductInfo = ({ product }: ProductInfoPropsType) => {
         />
         <S.ButtonContainer data-cy={"product-info-button-container"}>
           {isThisProductAlreadyInCart ? (
-            <CustomButton
+            <Button
               data-cy={"go-to-cart-button"}
               onClick={goToCartHandler}
-              variant={"secondary"}
+              variant={"contained"}
             >
               Go to cart
-            </CustomButton>
+            </Button>
           ) : (
-            <CustomButton
+            <Button
               data-cy={"add-to-cart-button"}
               onClick={addToCartHandler}
               disabled={amount === 0}
-              isLoading={isAdding}
-              variant={"secondary"}
+              variant={"contained"}
             >
               Add to cart
-            </CustomButton>
+            </Button>
           )}
         </S.ButtonContainer>
       </S.AddToCartContainer>
-      <S.IconsContainer>
-        {socialMedias.map((item, index) => (
-          <S.SocialMediaIconButton
-            target={"_blank"}
-            href={item.link}
-            key={index}
-          >
-            {<item.icon />}
-          </S.SocialMediaIconButton>
-        ))}
-      </S.IconsContainer>
-      <S.CategoryContainer>
-        <S.CategoryTitle>Categories:</S.CategoryTitle>
-        <S.Category>{product?.category.name}</S.Category>
-      </S.CategoryContainer>
     </S.Information>
   );
 };

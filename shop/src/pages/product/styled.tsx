@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { breakpoints } from "@/constants/styles";
 
 const Wrapper = styled.div`
-  margin-top: ${({ theme }) => theme.desktopContentMarginTop};
-  margin-bottom: ${({ theme }) => theme.desktopContentMarginBottom};
+  margin-top: 64px;
+  margin-bottom: 64px;
 
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@ const MainInfoContainer = styled.div`
   display: flex;
   align-items: flex-start;
   gap: ${({ theme }) => theme.l};
-  justify-content: space-between;
+  justify-content: center;
 
   @media (max-width: ${breakpoints.medium}) {
     flex-direction: column;

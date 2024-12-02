@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { CustomButton } from "@/components/custom-button";
+import { Button } from "@mui/material";
+
 import { routes } from "@/constants/routes";
 
 import S from "./styled";
@@ -9,18 +10,18 @@ export const AdminPage = () => {
   const navigate = useNavigate();
   return (
     <S.Wrapper>
-      <CustomButton
+      <Button
+        variant={"outlined"}
         onClick={() => navigate(routes.productsActions)}
-        fullWidth={false}
       >
         Products
-      </CustomButton>
-      <CustomButton
+      </Button>
+      <Button
+        variant={"outlined"}
         onClick={() => navigate(routes.categoriesActions)}
-        fullWidth={false}
       >
         Categories
-      </CustomButton>
+      </Button>
     </S.Wrapper>
   );
 };

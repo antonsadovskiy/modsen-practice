@@ -1,15 +1,15 @@
-import { memo, SyntheticEvent, useState } from "react";
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAddProductInCartMutation } from "@/api";
-import HeartSVG from "@/assets/svg/heart.svg";
-import CartSVG from "@/assets/svg/shopping-cart.svg";
-import { CircleLoader } from "@/components/circle-loader";
-import { routes } from "@/constants/routes";
-import { useCart } from "@/hooks/useCart";
-import { useToast } from "@/hooks/useToast";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
 
-import S from "./styled";
+import { routes } from "@/constants/routes";
 
 export type CatalogCardPropsType = {
   id: number;
@@ -19,88 +19,36 @@ export type CatalogCardPropsType = {
   width?: string;
   height?: string;
   isWithPrice?: boolean;
+  description?: string;
 };
 
 const CatalogCard = memo(
-  ({
-    id,
-    imageSrc,
-    height = "380",
-    width = "380",
-    price,
-    title,
-  }: CatalogCardPropsType) => {
+  ({ id, imageSrc, description, title }: CatalogCardPropsType) => {
     const navigate = useNavigate();
-
-    const toast = useToast();
-
-    const { cartData } = useCart();
-
-    const [isAdding, setIsAdding] = useState(false);
-
-    const [addProduct] = useAddProductInCartMutation();
-
-    const isThisProductAlreadyInCart = !!cartData.find(
-      (item) => item.product.id === id,
-    );
 
     const onClickHandler = () => navigate(`${routes.product}/${id}`);
 
-    const addToCartHandler = async (e: SyntheticEvent) => {
-      e.stopPropagation();
-
-      if (isThisProductAlreadyInCart) {
-        return navigate(routes.cart);
-      }
-
-      setIsAdding(true);
-
-      try {
-        await addProduct({
-          productId: id,
-          amount: 1,
-        }).unwrap();
-      } catch (e) {
-        toast.error("Something went wrong. Please try again later.");
-      } finally {
-        setIsAdding(false);
-      }
-    };
-
     return (
-      <S.CatalogCardWrapper
-        data-cy={`catalog-card`}
-        $width={width}
-        onClick={onClickHandler}
-      >
-        <S.ImagesContainer $height={height} $width={width}>
-          <img
-            src={`http://localhost:9000/products/${imageSrc}`}
-            alt={title}
-            height={"100%"}
-            width={"100%"}
+      <Card onClick={onClickHandler} sx={{ maxWidth: 345, minWidth: 345 }}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="240"
+            image={`http://localhost:9000/products/${imageSrc}`}
+            alt="green iguana"
           />
-          <S.AddToCartButton onClick={addToCartHandler}>
-            {isThisProductAlreadyInCart ? (
-              <>
-                <span>Already in cart</span>
-                <CartSVG width={20} height={20} />
-              </>
-            ) : (
-              <>
-                <span>Add to cart</span>
-                {isAdding ? (
-                  <CircleLoader size={18} />
-                ) : (
-                  <HeartSVG width={20} height={20} />
-                )}
-              </>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {title}
+            </Typography>
+            {description && (
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                {description}
+              </Typography>
             )}
-          </S.AddToCartButton>
-        </S.ImagesContainer>
-        <S.Title data-cy={"catalog-card-title"}>{title}</S.Title>
-        <S.Price>$ {price}</S.Price>
-      </S.CatalogCardWrapper>
+          </CardContent>
+        </CardActionArea>
+      </Card>
     );
   },
 );

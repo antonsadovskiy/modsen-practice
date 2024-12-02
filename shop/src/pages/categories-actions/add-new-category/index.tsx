@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Button, Input } from "antd";
+import { Button, TextField } from "@mui/material";
 
 import { useAddNewCategoryMutation } from "@/api";
 
@@ -33,12 +33,18 @@ export const AddNewCategoryPage = () => {
         margin: "200px auto",
       }}
     >
-      <Input
-        placeholder={"Category name"}
+      <TextField
+        fullWidth
+        label={"Category name"}
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <Button style={{ width: "100%" }} onClick={onAddNew}>
+      <Button
+        variant={"contained"}
+        disabled={!name}
+        fullWidth
+        onClick={onAddNew}
+      >
         Add new
       </Button>
     </div>

@@ -18,6 +18,7 @@ describe("user slice", () => {
         id: undefined,
         email: undefined,
       },
+      isAdmin: false,
     };
   });
 
